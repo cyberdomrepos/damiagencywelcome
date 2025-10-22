@@ -1,5 +1,68 @@
 @import "tailwindcss";
 
-/* Optional: minimal text rhythm */
-:root { --space: 1.2rem; }
-body { line-height: 1.6; }
+/* ----- tokens & base ----- */
+:root{
+  --bg: 10 10 12;
+  --fg: 240 241 245;
+  --muted: 150 154 165;
+  --accent: 0 255 194;   /* neon mint */
+  --accent-2: 82 97 255; /* indigo ring */
+}
+
+html, body { height: 100%; }
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+}
+
+/* ----- minimal background aurora ----- */
+.bg-aurora{
+  position: fixed; inset: 0; z-index: -10;
+  background:
+    radial-gradient(1200px 600px at 20% 10%, rgba(var(--accent) / .12), transparent),
+    radial-gradient(900px 700px at 80% 25%, rgba(var(--accent-2) / .18), transparent),
+    radial-gradient(1200px 800px at 50% 100%, rgba(255 80 180 / .12), transparent),
+    linear-gradient(#0a0a0c, #0a0a0c);
+  animation: aurora 16s ease-in-out infinite alternate;
+}
+@keyframes aurora{
+  50% { filter: hue-rotate(18deg) saturate(1.08); transform: translateY(-0.75%); }
+}
+
+/* ----- tiny entrance & micro-accents ----- */
+.fade-in { animation: fade .45s ease-out both; }
+@keyframes fade { from { opacity:0; transform: translateY(4px);} to { opacity:1; transform:none; } }
+
+.headline::after{
+  content: "▍";
+  margin-left: .4ch;
+  opacity: .85;
+  animation: blink 1.05s steps(2,start) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.underline-shimmer{ position: relative; display: inline-block; }
+.underline-shimmer::after{
+  content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent)/.9), transparent);
+  transform: translateX(-30%);
+  animation: shimmer 2.2s ease-in-out infinite;
+}
+@keyframes shimmer{ 50% { transform: translateX(30%); } }
+
+/* status dot */
+.dotping{
+  width:8px; height:8px; border-radius:50%;
+  background: rgb(var(--accent));
+  box-shadow: 0 0 0 0 rgba(var(--accent)/.45);
+  animation: ping 1.6s infinite;
+}
+@keyframes ping { 50% { box-shadow: 0 0 0 10px rgba(var(--accent)/0); } }
+
+/* reduced motion: keep it respectful */
+@media (prefers-reduced-motion: reduce){
+  .bg-aurora, .fade-in, .headline::after, .underline-shimmer::after, .dotping { animation: none !important; }
+}
