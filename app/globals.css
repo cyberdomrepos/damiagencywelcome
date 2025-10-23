@@ -2,9 +2,17 @@
 
 :root {
   --safe-top: env(safe-area-inset-top);
+  --header-h: 64px;
 }
 header {
   padding-top: max(0px, var(--safe-top));
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+html {
+  scroll-padding-top: var(--header-h);
 }
 
 /* Base dark theme */

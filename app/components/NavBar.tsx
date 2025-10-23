@@ -54,21 +54,23 @@ export default function NavBar() {
         {/* Desktop links */}
         <ul className="text-md hidden gap-8 md:flex">
           <li>
+            <a href="#quote" className="text-white/80 hover:text-white">
+              Get a Quote
+            </a>
+          </li>
+          <li>
             <a href="#services" className="text-white/80 hover:text-white">
               Services
             </a>
           </li>
           <li>
-            <a href="#work" className="text-white/80 hover:text-white">
-              Work
+            <a href="#portfolio" className="text-white/80 hover:text-white">
+              Portfolio
             </a>
           </li>
           <li>
-            <a
-              href="mailto:rhymedominic.costa@damiagency.com"
-              className="text-white/80 hover:text-white"
-            >
-              Contact
+            <a href="#about" className="text-white/80 hover:text-white">
+              About Us
             </a>
           </li>
         </ul>
@@ -123,43 +125,24 @@ export default function NavBar() {
 +                   bg-black/60 border-b border-white/10 shadow-lg"
         >
           <ul className="px-6 py-4 text-center space-y-1">
-            <li>
-              <Link
-                href="/"
-                aria-current={pathname === "/" ? "page" : undefined}
-                onClick={() => setOpen(false)}
-                className={linkClass(pathname === "/")}
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <a
-                onClick={() => setOpen(false)}
-                href="#services"
-                className={linkClass(false)}
-              >
-                Services
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => setOpen(false)}
-                href="#work"
-                className={linkClass(false)}
-              >
-                Work
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => setOpen(false)}
-                href="mailto:rhymedominic.costa@damiagency.com"
-                className={linkClass(false)}
-              >
-                Contact
-              </a>
-            </li>
+            <Link href="#quote" className={linkClass(pathname === "/#quote")}>
+              Get a Quote
+            </Link>
+            <Link
+              href="#services"
+              className={linkClass(pathname === "/#services")}
+            >
+              Services
+            </Link>
+            <Link
+              href="#portfolio"
+              className={linkClass(pathname === "/#portfolio")}
+            >
+              Portfolio
+            </Link>
+            <Link href="#about" className={linkClass(pathname === "/#about")}>
+              About us
+            </Link>
           </ul>
         </div>
       </div>
