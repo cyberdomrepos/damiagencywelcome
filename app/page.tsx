@@ -1,5 +1,6 @@
 // import DeployInfo from "./DeployInfo";
 import ThreeAurora from "./ThreeAurora";
+import TypeMaskGSAP from "./components/TyperMaskGSAP";
 
 export const metadata = {
   title: "DamiAgency - Welcome",
@@ -12,8 +13,13 @@ export default function Page() {
       <ThreeAurora />
       <article className="relative z-10 max-w-7xl mx-auto text-center">
         <h1 className="text-5xl md:text-8xl font-bold tracking-tight text-neutral-100 leading-tight text-balance drop-shadow-[0_12px_36px_rgba(0,0,0,0.55)]">
-          Welcome to DamiAgency!
+          {/* Welcome to <span className="text-cyan-500/90">Dami</span>Agency!
+           */}
+          <TypeMaskGSAP delay={0.2}>
+            Welcome to <span className="text-cyan-400">Dami</span>Agency!
+          </TypeMaskGSAP>
         </h1>
+
         <div
           className="mt-4 h-px w-40 md:w-56 mx-auto 
                 bg-linear-to-r from-cyan-400/60 via-cyan-300/30 to-transparent"
@@ -93,7 +99,7 @@ export default function Page() {
 
         <p className="mt-6">
           <a
-            href="mailto:rhymedominic.costa@damiagency.com"
+            href="mailto:damiagency2@gmail.com"
             aria-label="Contact DamiAgency via email"
             className="inline-block rounded- px-5 py-2.5
                border border-cyan-400/60 text-cyan-200

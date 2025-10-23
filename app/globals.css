@@ -1,11 +1,26 @@
 @import "tailwindcss";
 
+:root {
+  --safe-top: env(safe-area-inset-top);
+}
+header {
+  padding-top: max(0px, var(--safe-top));
+}
+
 /* Base dark theme */
 @layer base {
   html {
     color-scheme: dark;
     background-color: #0a0a0a;
+    scroll-padding-top: 4rem;
   }
+
+  @medi (max-width: 767px) {
+    html {
+      scroll-padding-top: 3.5rem;
+    }
+  }
+
   body {
     @apply min-h-screen bg-neutral-950 text-neutral-100 antialiased;
     font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system,
@@ -92,5 +107,100 @@
 @media (prefers-reduced-motion: reduce) {
   .bg-ambient::before {
     animation: none !important;
+  }
+}
+/* Type reveal that preserves layout */
+.type-reveal {
+  --reveal: 0%;
+  position: relative;
+  display: inline-block;
+  /* Reveal left→right without changing element size */
+  clip-path: inset(0 calc(100% - var(--reveal)) 0 0);
+  will-change: clip-path;
+}
+
+/* Caret */
+.type-reveal::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: var(--reveal);
+  width: 0.08em;
+  background: currentColor;
+  animation: caret-blink 1s steps(1, end) infinite;
+}
+
+@keyframes caret-blink { 50% { opacity: 0 } }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .type-reveal { clip-path: none; }
+  .type-reveal::after { display: none; }
+}
+
+/* --- Brand underline shimmer (motion-safe) --- */
+.brandmark {
+  position: relative;
+  display: inline-block;
+  line-height: 1.1;           /* keeps underline tucked close */
+}
+
+/* Solid base line (always visible, very subtle) */
+.brandmark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.22em;            /* tweak to sit under your font */
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #0ea5b7 0%, #0891b2 100%); /* cyan tint */
+  opacity: 0.28;              /* keep it quiet */
+}
+
+/* Glow layer that shimmers across */
+.brandmark::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -0.24em;
+  height: 2px;
+  border-radius: 2px;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(34,211,238,0.0) 15%,
+      rgba(34,211,238,0.75) 45%,
+      rgba(34,211,238,0.0) 85%,
+      transparent 100%);
+  filter: blur(3px);          /* soft glow */
+  opacity: 0.55;
+  background-size: 200% 100%;
+  animation: brand-shimmer 4.5s linear infinite;
+  pointer-events: none;
+}
+
+/* Hover/focus: a touch brighter and slightly thicker line */
+.brandmark:hover::after,
+.brandmark:focus-visible::after {
+  opacity: 0.45;
+  height: 2.5px;
+}
+.brandmark:hover::before,
+.brandmark:focus-visible::before {
+  opacity: 0.8;
+  animation-duration: 3.2s;
+}
+
+@keyframes brand-shimmer {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .brandmark::before {
+    animation: none;
+    opacity: 0.6;             /* keep a static soft glow */
   }
 }

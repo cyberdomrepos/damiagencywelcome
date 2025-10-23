@@ -8,7 +8,7 @@ export default function DeployInfo() {
 
   useEffect(() => {
     // Defer updates to the next frame to avoid "synchronous setState in effect" warning.
-    let raf = requestAnimationFrame(() => {
+    const raf = requestAnimationFrame(() => {
       setNow(
         new Date().toLocaleString(undefined, {
           year: "numeric",
