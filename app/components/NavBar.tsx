@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import BrandMarkGSAP from "./BrandMarkGSAP";
+import BrandMark from "./BrandMark";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
@@ -49,7 +49,7 @@ export default function NavBar() {
         className="mx-auto flex max-w-screen-2xl items-center justify-between
                    h-full px-4 py-4 md:px-10 relative z-50 md:h-20 backdrop-blur-sm backdrop-saturate-150 supports-backdrop-filter:bg-transparent"
       >
-        <BrandMarkGSAP />
+        <BrandMark className="text-[20px]" />
 
         {/* Desktop links */}
         <ul className="text-md hidden gap-8 md:flex">

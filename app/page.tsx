@@ -1,6 +1,5 @@
 // import DeployInfo from "./DeployInfo";
 import ThreeAurora from "./ThreeAurora";
-import TypeMaskGSAP from "./components/TyperMaskGSAP";
 
 export const metadata = {
   title: "DamiAgency - Welcome",
@@ -13,11 +12,9 @@ export default function Page() {
       <ThreeAurora />
       <article className="relative z-10 max-w-7xl mx-auto text-center">
         <h1 className="text-5xl md:text-8xl font-bold tracking-tight text-neutral-100 leading-tight text-balance drop-shadow-[0_12px_36px_rgba(0,0,0,0.55)]">
-          {/* Welcome to <span className="text-cyan-500/90">Dami</span>Agency!
-           */}
-          <TypeMaskGSAP delay={0.2}>
-            Welcome to <span className="text-cyan-400">Dami</span>Agency!
-          </TypeMaskGSAP>
+          Welcome to <span className="text-cyan-500/90">Dami</span>Agency!
+          
+          
         </h1>
 
         <div

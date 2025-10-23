@@ -1,14 +1,11 @@
 // next.config.ts
 import type { NextConfig } from "next";
 
-/**
- * Single source of truth for env checks.
- * (Your error came from declaring this twice.)
- */
-const IS_DEV = process.env.NODE_ENV !== "production";
+const isDev = process.env.NODE_ENV === "development";
 
-/** Content Security Policy (prod-friendly) */
-const CSP = [
+const isDev = process.env.NODE_ENV === "development";
+
+const csp = [
   "default-src 'self'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -19,46 +16,48 @@ const CSP = [
   "font-src 'self' data:",
   "media-src 'self' blob:",
 
-  // styles: allow inline so GSAP/Framer can set style attributes
+  // styles (needed for GSAP/Framer inline style writes)
   "style-src 'self' 'unsafe-inline'",
 
-  // scripts: self + inline bootstrap + blob: (workers/chunks)
-  IS_DEV
+  // --- scripts ---
+  // Allow self-hosted scripts + inline bootstrap + blob: (for workers/chunks).
+  // Keep eval only in dev for HMR.
+  isDev
     ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:"
     : "script-src 'self' 'unsafe-inline' blob:",
-  IS_DEV
+
+  // Silence “script-src-elem not explicitly set” and match the same policy.
+  isDev
     ? "script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' blob:"
     : "script-src-elem 'self' 'unsafe-inline' blob:",
+
+  // You can forbid setting inline script attributes if you like:
   "script-src-attr 'none'",
 
-  // XHR/fetch
-  "connect-src 'self'", // Plausible is proxied under /a/..., so 'self' is enough
+  // fetch/XHR
+  "connect-src 'self'",  // Plausible is proxied, so 'self' is enough
 
-  // workers (Next/Three often use blob workers)
+  // workers (Next/Three sometimes use blob workers)
   "worker-src 'self' blob:",
 ].join("; ");
-
-const securityHeaders: { key: string; value: string }[] = [
-  { key: "Content-Security-Policy", value: CSP },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "X-Frame-Options", value: "DENY" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-];
 
 const nextConfig: NextConfig = {
   async headers() {
     return [
       {
         source: "/(.*)",
-        headers: securityHeaders,
+        headers: [
+          { key: "Content-Security-Policy", value: csp },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
       },
     ];
   },
-
   async rewrites() {
     return [
-      // Plausible proxy (replace pa-XXXXX if you use a custom domain snippet)
       { source: "/a/js/script.js", destination: "https://plausible.io/js/pa-XXXXX.js" },
       { source: "/a/api/event", destination: "https://plausible.io/api/event" },
     ];

@@ -191,7 +191,6 @@ header {
   pointer-events: none;
 }
 
-/* Hover/focus: a touch brighter and slightly thicker line */
 .brandmark:hover::after,
 .brandmark:focus-visible::after {
   opacity: 0.45;
