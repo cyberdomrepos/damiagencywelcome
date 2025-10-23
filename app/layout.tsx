@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
 import NavBar from "./components/NavBar";
-import ThreeAurora from "./ThreeAurora";
+import AuroraLayer from "./components/AuroraLayer"; // <-- client wrapper
 
 // import Script from "next/script";
 
@@ -74,7 +74,7 @@ export default function RootLayout({
 
       <body className="relative">
         <div className="fixed inset-0">
-          <ThreeAurora />
+          <AuroraLayer />{" "}
         </div>
 
         <NavBar />

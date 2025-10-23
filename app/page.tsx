@@ -40,7 +40,7 @@ export default function Page() {
             </h2>
 
             <ul className="mt-3 space-y-2">
-              <li className="border border-white/12 bg-white/[0.04] px-4 py-3">
+              <li className="border border-white/12 bg-white/4 px-4 py-3">
                 {" "}
                 <p className="font-medium text-neutral-100">
                   Web development &amp; design
@@ -50,7 +50,7 @@ export default function Page() {
                   maintainable code.
                 </p>
               </li>
-              <li className="border border-white/12 bg-white/[0.04] px-4 py-3">
+              <li className="border border-white/12 bg-white/4 px-4 py-3">
                 {" "}
                 <p className="font-medium text-neutral-100">Graphic design</p>
                 <p className="text-sm text-neutral-300">
@@ -58,7 +58,7 @@ export default function Page() {
                   well across screens.
                 </p>
               </li>
-              <li className="border border-white/12 bg-white/[0.04] px-4 py-3">
+              <li className="border border-white/12 bg-white/4 px-4 py-3">
                 {" "}
                 <p className="font-medium text-neutral-100">
                   Music &amp; sound
@@ -68,7 +68,7 @@ export default function Page() {
                   film, and ads.
                 </p>
               </li>
-              <li className="border border-white/12 bg-white/[0.04] px-4 py-3">
+              <li className="border border-white/12 bg-white/4 px-4 py-3">
                 {" "}
                 <p className="font-medium text-neutral-100">
                   3D Modeling &amp; Animation
@@ -78,7 +78,7 @@ export default function Page() {
                   and ads.
                 </p>
               </li>
-              <li className="border border-white/12 bg-white/[0.04] px-4 py-3">
+              <li className="border border-white/12 bg-white/4 px-4 py-3">
                 {" "}
                 <p className="font-medium text-neutral-100">Ongoing support</p>
                 <p className="text-sm text-neutral-300">
@@ -116,7 +116,7 @@ export default function Page() {
 
             {/* remove the extra divider here — Section already adds one above */}
             {/* <Rule ... />  ← not needed */}
-<Rule className="mt-7" />
+            <Rule className="mt-7" />
 
             <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
               <Link
@@ -132,20 +132,20 @@ export default function Page() {
               <Link
                 href="#services"
                 className="inline-flex items-center px-5 py-2.5 text-sm font-medium
-                   border border-white/12 bg-white/[0.04] text-white/90
+                   border border-white/12 bg-white/4 text-white/90
                    hover:bg-white/10 focus-visible:outline-none
                    focus-visible:ring-2 focus-visible:ring-cyan-400/60"
               >
                 See services
               </Link>
             </div>
-<div className=" mt-6 text-xs ">
-            <p className=" ">
-              Typical turnaround: proposal in 24–48h after we receive your
-              brief.
-            </p>
+            <div className=" mt-6 text-xs ">
+              <p className=" ">
+                Typical turnaround: proposal in 24–48h after we receive your
+                brief.
+              </p>
             </div>
-            </div>
+          </div>
         </Section>
       </div>
     </main>
