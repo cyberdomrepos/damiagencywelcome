@@ -123,26 +123,35 @@ header {
 .type-reveal::after {
   content: "";
   position: absolute;
-  top: 0; bottom: 0;
+  top: 0;
+  bottom: 0;
   left: var(--reveal);
   width: 0.08em;
   background: currentColor;
   animation: caret-blink 1s steps(1, end) infinite;
 }
 
-@keyframes caret-blink { 50% { opacity: 0 } }
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .type-reveal { clip-path: none; }
-  .type-reveal::after { display: none; }
+  .type-reveal {
+    clip-path: none;
+  }
+  .type-reveal::after {
+    display: none;
+  }
 }
 
 /* --- Brand underline shimmer (motion-safe) --- */
 .brandmark {
   position: relative;
   display: inline-block;
-  line-height: 1.1;           /* keeps underline tucked close */
+  line-height: 1.1; /* keeps underline tucked close */
 }
 
 /* Solid base line (always visible, very subtle) */
@@ -151,29 +160,31 @@ header {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -0.22em;            /* tweak to sit under your font */
+  bottom: -0.22em; /* tweak to sit under your font */
   height: 2px;
   border-radius: 2px;
   background: linear-gradient(90deg, #0ea5b7 0%, #0891b2 100%); /* cyan tint */
-  opacity: 0.28;              /* keep it quiet */
+  opacity: 0.28; /* keep it quiet */
 }
 
 /* Glow layer that shimmers across */
 .brandmark::before {
   content: "";
   position: absolute;
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   bottom: -0.24em;
   height: 2px;
   border-radius: 2px;
-  background:
-    linear-gradient(90deg,
-      transparent 0%,
-      rgba(34,211,238,0.0) 15%,
-      rgba(34,211,238,0.75) 45%,
-      rgba(34,211,238,0.0) 85%,
-      transparent 100%);
-  filter: blur(3px);          /* soft glow */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0) 15%,
+    rgba(34, 211, 238, 0.75) 45%,
+    rgba(34, 211, 238, 0) 85%,
+    transparent 100%
+  );
+  filter: blur(3px); /* soft glow */
   opacity: 0.55;
   background-size: 200% 100%;
   animation: brand-shimmer 4.5s linear infinite;
@@ -193,14 +204,18 @@ header {
 }
 
 @keyframes brand-shimmer {
-  0%   { background-position: 0% 0%; }
-  100% { background-position: 200% 0%; }
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
 }
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .brandmark::before {
     animation: none;
-    opacity: 0.6;             /* keep a static soft glow */
+    opacity: 0.6; /* keep a static soft glow */
   }
 }
