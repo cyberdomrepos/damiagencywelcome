@@ -45,6 +45,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${bodyFont.variable} ${headingFont.variable}`}>
+      <meta name="theme-color" content="#0b0f12" />
+
       <body className="bg-black text-white">
         <AuroraLayer /> {/* fixed, behind, client-only */}
         <NavBar />
