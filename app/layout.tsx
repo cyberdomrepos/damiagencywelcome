@@ -18,13 +18,13 @@ const headingFont = Sora({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://damiagency.com"),
-  title: { default: "damiagency — welcome", template: "%s · damiagency" },
+  title: { default: "damiagency — your premium next step", template: "%s · damiagency" },
   description:
     "Creative tech studio in Dhaka. Design, music, and modern web development—fast, minimal, and performant.",
   alternates: { canonical: "/" },
   openGraph: {
     url: "https://damiagency.com/",
-    title: "damiagency — welcome",
+    title: "damiagency — your premium next step",
     description: "Creative tech studio…",
     siteName: "damiagency",
     type: "website",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "damiagency — welcome",
+    title: "damiagency — your premium next step",
     description: "Creative tech studio…",
   },
   robots: { index: true, follow: true },

@@ -6,8 +6,8 @@ import QuoteBuilder from "./components/QuoteBuilder";
 import Footer from "./components/Footer";
 
 export const metadata = {
-  title: "DamiAgency - Welcome",
-  description: "Minimal Welcome Page",
+  title: "DamiAgency - Your Premium Next",
+  description: "Minimal Premium Page",
 };
 
 export default function Page() {
