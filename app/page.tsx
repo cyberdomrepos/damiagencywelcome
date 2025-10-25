@@ -2,6 +2,8 @@
 import Section from "./components/Section";
 import Link from "next/link";
 import Rule from "./components/Rule";
+import QuoteBuilder from "./components/QuoteBuilder";
+import Footer from "./components/Footer";
 
 export const metadata = {
   title: "DamiAgency - Welcome",
@@ -30,123 +32,133 @@ export default function Page() {
             scoped, designed, built, and delivered with care.
           </p>
           <div
-            className="mt-7 h-px w-40 md:w-56 mx-auto 
+            className="mt-6 h-px w-40 md:w-56 mx-auto 
                 bg-linear-to-r from-transparent via-cyan-300/30 to-transparent"
           />
-
-          <section className="mt-8 text-left mx-auto max-w-2xl">
-            <h2 className="text-md font-semibold text-center uppercase tracking-[0.18em] text-neutral-400">
-              What we offer
-            </h2>
-
-            <ul className="mt-3 space-y-2">
-              <li className="border border-white/12 bg-white/4 px-4 py-3">
-                {" "}
-                <p className="font-medium text-neutral-100">
-                  Web development &amp; design
-                </p>
-                <p className="text-sm text-neutral-300">
-                  Modern, accessible sites with clean UX, fast loads, and
-                  maintainable code.
-                </p>
-              </li>
-              <li className="border border-white/12 bg-white/4 px-4 py-3">
-                {" "}
-                <p className="font-medium text-neutral-100">Graphic design</p>
-                <p className="text-sm text-neutral-300">
-                  Brand marks, visual systems, and campaign assets that travel
-                  well across screens.
-                </p>
-              </li>
-              <li className="border border-white/12 bg-white/4 px-4 py-3">
-                {" "}
-                <p className="font-medium text-neutral-100">
-                  Music &amp; sound
-                </p>
-                <p className="text-sm text-neutral-300">
-                  Original cues, sound design, and mixes tailored for games,
-                  film, and ads.
-                </p>
-              </li>
-              <li className="border border-white/12 bg-white/4 px-4 py-3">
-                {" "}
-                <p className="font-medium text-neutral-100">
-                  3D Modeling &amp; Animation
-                </p>
-                <p className="text-sm text-neutral-300">
-                  Original 3D, Modeling, and mixes of Animation for games, film,
-                  and ads.
-                </p>
-              </li>
-              <li className="border border-white/12 bg-white/4 px-4 py-3">
-                {" "}
-                <p className="font-medium text-neutral-100">Ongoing support</p>
-                <p className="text-sm text-neutral-300">
-                  Iteration, performance tuning, and content updates as your
-                  thing grows.
-                </p>
-              </li>
-            </ul>
-          </section>
-
-          <p className="mt-6">
+          <div className="mt-10 mx-auto max-w-5xl grid gap-4 md:gap-6 lg:grid-cols-3">
+            {/* Web Dev */}
             <a
-              href="mailto:damiagency2@gmail.com"
-              aria-label="Contact DamiAgency via email"
-              className="inline-block px-5 py-2.5
-               border border-cyan-400/60 text-cyan-200
-               bg-white/0
-               hover:bg-cyan-400/15 hover:text-cyan-50
-               focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400
-               transition-colors"
+              href="#quote"
+              className="tile group block transition-[transform,box-shadow,background-color] duration-200
+               hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-md
+               focus-visible:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-cyan-400/60
+               motion-reduce:transition-none motion-reduce:transform-none"
+              aria-label="Get a quote for web development"
             >
-              Contact us
+              <h3 className="tile-title">Web development</h3>
+              <p className="tile-body">
+                Fast, accessible sites with clean UX, solid SEO, and
+                production-ready code. Next.js + TypeScript + Tailwind. Deployed
+                to Vercel.
+              </p>
+              <span className="mt-3 inline-flex items-center text-cyan-300">
+                Start a project
+                <svg
+                  className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1
+                      motion-reduce:transform-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
             </a>
-          </p>
+
+            {/* Graphic Design */}
+            <a
+              href="#quote"
+              className="tile group block transition-[transform,box-shadow,background-color] duration-200
+               hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-md
+               focus-visible:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-cyan-400/60
+               motion-reduce:transition-none motion-reduce:transform-none"
+              aria-label="Get a quote for graphic design tees & merch"
+            >
+              <h3 className="tile-title">Graphic design (tees & merch)</h3>
+              <p className="tile-body">
+                Bold, print-ready artwork for T-shirts, hoodies, stickers, and
+                posters. Source files provided on request.
+              </p>
+              <span className="mt-3 inline-flex items-center text-cyan-300">
+                See options
+                <svg
+                  className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1
+                      motion-reduce:transform-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+            </a>
+
+            {/* Music / Audio */}
+            <a
+              href="#quote"
+              className="tile group block transition-[transform,box-shadow,background-color] duration-200
+               hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-md
+               focus-visible:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-cyan-400/60
+               motion-reduce:transition-none motion-reduce:transform-none"
+              aria-label="Get a quote for music & game audio"
+            >
+              <h3 className="tile-title">Music & game audio</h3>
+              <p className="tile-body">
+                Original soundtracks and sound design for indie games—clean
+                loops, stingers, and mixes ready for Unity/Unreal.
+              </p>
+              <span className="mt-3 inline-flex items-center text-cyan-300">
+                Hear details
+                <svg
+                  className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1
+                      motion-reduce:transform-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          </div>
+
+          {/* CTA row — square corners, no frills */}
+          <div className="mt-10 flex items-center justify-center gap-4">
+            <a
+              href="#services"
+              className="px-5 py-2.5 border border-cyan-400/50 text-cyan-300
+               hover:bg-cyan-400/10 focus-visible:outline-none
+               focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+            >
+              See services
+            </a>
+          </div>
+
           {/* <DeployInfo /> */}
         </article>
         <Rule className="mt-16 md:mt-24 max-w-5xl" widthClass="w-full" />
-        <Section id="quote" title="Get a quote" className="text-center">
-          <div className="mx-auto max-w-2xl">
-            <p className="text-base md:text-lg leading-relaxed text-neutral-300">
-              Tell us what you’re building and we’ll reply with a scope,
-              timeline, and a clear price. Include links, deadlines, and any
-              must-haves.
-            </p>
 
-            {/* remove the extra divider here — Section already adds one above */}
-            {/* <Rule ... />  ← not needed */}
-            <Rule className="mt-7" />
+        {/** GET A QUOTE SECTION */}
 
-            <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
-              <Link
-                href="mailto:rhymedominic.costa@damiagency.com?subject=Project%20quote%20request&body=Hi%20Dami%20Agency%2C%0A%0AProject%20name%3A%20%0AGoals%20%2B%20audience%3A%20%0AKey%20pages%2Ffeatures%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0ALinks%3A%20%0A%0AThanks!"
-                className="inline-flex items-center px-5 py-2.5 text-sm font-medium
-                   border border-cyan-400/50 bg-cyan-500/10 text-white
-                   hover:bg-cyan-500/15 focus-visible:outline-none
-                   focus-visible:ring-2 focus-visible:ring-cyan-400/60"
-              >
-                Email us
-              </Link>
-
-              <Link
-                href="#services"
-                className="inline-flex items-center px-5 py-2.5 text-sm font-medium
-                   border border-white/12 bg-white/4 text-white/90
-                   hover:bg-white/10 focus-visible:outline-none
-                   focus-visible:ring-2 focus-visible:ring-cyan-400/60"
-              >
-                See services
-              </Link>
-            </div>
-            <div className=" mt-6 text-xs ">
-              <p className=" ">
-                Typical turnaround: proposal in 24–48h after we receive your
-                brief.
-              </p>
-            </div>
-          </div>
+        <Section id="quote" title="Get a quote">
+          <QuoteBuilder />
         </Section>
+        <Footer />
       </div>
     </main>
   );
