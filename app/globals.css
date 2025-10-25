@@ -226,3 +226,36 @@ html {
     opacity: 0.6; /* keep a static soft glow */
   }
 }
+
+@layer components {
+  /* Mobile header surface (desktop overrides go in JSX) */
+  .nav-header {
+    @apply bg-black/70 ring-1 ring-white/10 backdrop-blur-sm text-white;
+  }
+
+  /* Mobile dropdown panel */
+  .nav-panel {
+    @apply bg-black/70 ring-1 ring-white/10 backdrop-blur-sm text-white;
+  }
+
+  /* Link styling readable on both surfaces */
+  .nav-link {
+    @apply text-white/90 hover:text-white focus-visible:outline-none
+           focus-visible:ring-2 focus-visible:ring-cyan-400/60;
+  }
+
+  /* Reusable square service/quote tiles (we’ll use soon) */
+  .tile {
+    @apply border border-white/15 bg-white/5 p-6 md:p-8 shadow-sm;
+  }
+  .tile-title {
+    @apply text-base md:text-lg font-semibold text-white/90;
+  }
+  .tile-body {
+    @apply mt-2 text-sm md:text-base leading-relaxed text-white/70;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}

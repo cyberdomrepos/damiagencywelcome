@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <main className="relative min-h-dvh p-6 pt-[calc(var(--header-h)+100px)] pb-24">
+    <main className="relative min-h-dvh p-6 pt-[calc(var(--header-h)+100px)] pb-24 scroll-pt-16 md:scroll-pt-20">
       <div className="relative z-10 mx-auto max-w-7xl">
         <article className=" mx-auto text-center">
           <h1 className="text-5xl md:text-8xl font-bold tracking-tight text-neutral-100 leading-tight text-balance drop-shadow-[0_12px_36px_rgba(0,0,0,0.55)]">
@@ -19,10 +19,10 @@ export default function Page() {
           </h1>
 
           <div
-            className="mt-4 h-px w-40 md:w-56 mx-auto 
+            className="mt-6 h-px w-40 md:w-56 mx-auto 
                 bg-linear-to-r from-transparent via-cyan-300/30 to-transparent"
           />
-          <p className="mt-5 text-base md:text-lg leading-relaxed text-neutral-300">
+          <p className="mt-8 text-base md:text-lg leading-relaxed text-neutral-300">
             We’re an independent studio crafting fast websites, striking
             visuals, and original music. This welcome page is the starting
             line—lightweight by design, focused on clarity and speed. Bring us
@@ -30,7 +30,7 @@ export default function Page() {
             scoped, designed, built, and delivered with care.
           </p>
           <div
-            className="mt-4 h-px w-40 md:w-56 mx-auto 
+            className="mt-7 h-px w-40 md:w-56 mx-auto 
                 bg-linear-to-r from-transparent via-cyan-300/30 to-transparent"
           />
 

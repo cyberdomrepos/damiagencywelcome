@@ -1,4 +1,3 @@
-// next.config.ts
 import type { NextConfig } from "next";
 
 const IS_DEV = process.env.NODE_ENV !== "production";
@@ -8,17 +7,10 @@ const CSP = [
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
-
-  // assets
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "media-src 'self' blob:",
-
-  // styles (safe for GSAP-style inline writes; fine even if you removed GSAP)
   "style-src 'self' 'unsafe-inline'",
-
-  // *** Scripts ***
-  // Next injects small inline bootstraps; also some code may use blob: URLs.
   IS_DEV
     ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:"
     : "script-src 'self' 'unsafe-inline' blob:",
@@ -26,11 +18,7 @@ const CSP = [
     ? "script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' blob:"
     : "script-src-elem 'self' 'unsafe-inline' blob:",
   "script-src-attr 'none'",
-
-  // XHR/fetch (Plausible is proxied under /a/, so 'self' is enough)
   "connect-src 'self'",
-
-  // workers (future-proof three/worker usage)
   "worker-src 'self' blob:",
 ].join("; ");
 
