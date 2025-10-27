@@ -34,26 +34,29 @@ export default function Page() {
   }, []);
   return (
     <main
-      className={`relative min-h-dvh p-6 pt-32 md:pt-36 pb-24 scroll-pt-16 md:scroll-pt-20 transition-opacity duration-1000 ${
+      className={`relative min-h-dvh p-4 sm:p-6 pt-20 sm:pt-24 md:pt-28 pb-16 sm:pb-24 scroll-pt-16 md:scroll-pt-20 transition-opacity duration-1000 ${
         isLoaded ? "opacity-100" : "opacity-0"
       }`}
       data-prefers-reduced-motion={prefersReducedMotion}
     >
       <div className="relative z-10 mx-auto max-w-7xl">
-        <CreativeTrinity
-          isLoaded={isLoaded}
-          prefersReducedMotion={prefersReducedMotion}
-        />
+        <CreativeTrinity prefersReducedMotion={prefersReducedMotion} />
 
         {/** ABOUT US SECTION */}
-        <AboutUs prefersReducedMotion={prefersReducedMotion} />
+        <div className="mt-16 sm:mt-20 md:mt-24">
+          <AboutUs prefersReducedMotion={prefersReducedMotion} />
+        </div>
 
         {/** GET A QUOTE SECTION */}
-        <Section id="quote" title="Get a quote" className="mt-24 md:mt-32">
+        <Section
+          id="quote"
+          title="Get a quote"
+          className="mt-48 md:mt-64 lg:mt-72"
+        >
           <QuoteBuilder prefersReducedMotion={prefersReducedMotion} />
         </Section>
 
-        <div className="mt-24 md:mt-32">
+        <div className="mt-48 md:mt-64 lg:mt-72">
           <Footer prefersReducedMotion={prefersReducedMotion} />
         </div>
       </div>

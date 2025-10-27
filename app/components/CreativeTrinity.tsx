@@ -35,12 +35,10 @@ const services: Service[] = [
 ];
 
 interface CreativeTrinityProps {
-  isLoaded?: boolean;
   prefersReducedMotion?: boolean;
 }
 
 export default function CreativeTrinity({
-  isLoaded = true,
   prefersReducedMotion = false,
 }: CreativeTrinityProps) {
   const [isVisible, setIsVisible] = useState(false);
@@ -67,7 +65,7 @@ export default function CreativeTrinity({
       >
         {/* Welcome Section */}
         <h1
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 text-center"
           style={{
             fontFamily:
               '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -80,7 +78,7 @@ export default function CreativeTrinity({
 
         {/* Punchline */}
         <p
-          className="text-2xl md:text-3xl lg:text-4xl text-gray-300 mb-6 font-light leading-relaxed"
+          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-300 mb-6 font-light leading-relaxed text-center"
           style={{
             fontFamily:
               '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -91,7 +89,7 @@ export default function CreativeTrinity({
 
         {/* What we do */}
         <p
-          className="text-base md:text-lg text-gray-400 mb-20 font-light max-w-3xl mx-auto leading-relaxed"
+          className="text-sm sm:text-base md:text-lg text-gray-400 mb-20 font-light max-w-3xl mx-auto leading-relaxed text-center px-4"
           style={{
             fontFamily:
               '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -101,12 +99,12 @@ export default function CreativeTrinity({
         </p>
 
         {/* Service Cards - Dark Glassy Minimal */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto mb-16 px-4">
           {services.map((service, index) => (
             <div
               key={service.id}
-              className={`group relative bg-black/30 backdrop-blur-md border border-white/10 rounded-lg p-8 
-                         transition-all duration-700 hover:bg-black/40 hover:border-white/20 hover:shadow-2xl
+              className={`group relative bg-black/30 backdrop-blur-md border border-white/10 rounded-lg p-6 sm:p-8 
+                         transition-all duration-700 hover:bg-black/40 hover:border-white/20 hover:shadow-2xl text-center
                          ${
                            prefersReducedMotion
                              ? "opacity-100"
@@ -127,7 +125,7 @@ export default function CreativeTrinity({
               <div className="relative z-10">
                 {/* Service Title */}
                 <h3
-                  className="text-2xl md:text-3xl font-light text-white mb-4 tracking-wide"
+                  className="text-xl sm:text-2xl md:text-3xl font-light text-white mb-4 tracking-wide text-center"
                   style={{
                     fontFamily:
                       '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -138,7 +136,7 @@ export default function CreativeTrinity({
 
                 {/* Service Description */}
                 <p
-                  className="text-gray-300 text-base md:text-lg mb-6 leading-relaxed font-light"
+                  className="text-gray-300 text-sm sm:text-base md:text-lg mb-6 leading-relaxed font-light text-center"
                   style={{
                     fontFamily:
                       '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -149,7 +147,7 @@ export default function CreativeTrinity({
 
                 {/* Service Details */}
                 <p
-                  className="text-gray-400 text-sm md:text-base leading-relaxed font-light"
+                  className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed font-light text-center"
                   style={{
                     fontFamily:
                       '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',

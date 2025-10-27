@@ -5,10 +5,20 @@ import BrandMark from "./BrandMark";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuId = useId();
   const toggleRef = useRef<HTMLButtonElement | null>(null);
 
-  // ESC closes menu & return focus
+  // Scroll detection for navbar background
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // ESC closes menu & return focus, click outside closes menu
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -16,21 +26,51 @@ export default function NavBar() {
         toggleRef.current?.focus();
       }
     };
+
+    const onClick = (e: MouseEvent) => {
+      const nav = document.querySelector('nav[aria-label="Primary"]');
+      if (open && nav && !nav.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+    if (open) {
+      window.addEventListener("click", onClick);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("click", onClick);
+    };
+  }, [open]);
 
   // Lock scroll when menu open
   useEffect(() => {
     const root = document.documentElement;
-    if (open) root.classList.add("overflow-hidden");
-    else root.classList.remove("overflow-hidden");
-    return () => root.classList.remove("overflow-hidden");
+    const body = document.body;
+    if (open) {
+      root.classList.add("overflow-hidden");
+      body.classList.add("overflow-hidden");
+    } else {
+      root.classList.remove("overflow-hidden");
+      body.classList.remove("overflow-hidden");
+    }
+    return () => {
+      root.classList.remove("overflow-hidden");
+      body.classList.remove("overflow-hidden");
+    };
   }, [open]);
 
   return (
-    // Mobile: in-flow. Desktop: still in-flow (per your constraint), but transparent.
-    <header className="top-0 left-0 right-0 z-50 h-16 md:h-20 border-b border-white/10">
+    // Fixed navbar - transparent initially, solid when scrolled
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 h-16 md:h-20 transition-all duration-300 ${
+        scrolled
+          ? "bg-black/90 backdrop-blur-md border-b border-white/10"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
       <nav
         aria-label="Primary"
         className="
@@ -139,19 +179,28 @@ export default function NavBar() {
       </nav>
 
       {/* Mobile dropdown */}
-      <div id={menuId} hidden={!open} className="md:hidden pointer-events-auto">
+      <div
+        id={menuId}
+        className={`md:hidden transition-all duration-300 ease-in-out ${
+          open
+            ? "opacity-100 visible pointer-events-auto"
+            : "opacity-0 invisible pointer-events-none"
+        }`}
+      >
         <div
           className="
             absolute left-0 right-0 top-full z-50
-            bg-black/80 backdrop-blur-md
-            border-b border-white/10 shadow-2xl
+            bg-black/95 backdrop-blur-md
+            border-b border-white/20 shadow-2xl
+            min-h-[200px]
           "
         >
-          <ul className="px-6 py-6 space-y-2">
+          <ul className="px-6 py-8 space-y-3">
             <li>
               <a
                 href="#quote"
-                className="block px-4 py-3 rounded-md text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium"
+                onClick={() => setOpen(false)}
+                className="block px-6 py-4 rounded-lg text-white hover:text-cyan-300 hover:bg-white/10 transition-all duration-200 font-medium text-lg"
                 style={{
                   fontFamily:
                     '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -163,7 +212,8 @@ export default function NavBar() {
             <li>
               <a
                 href="#services"
-                className="block px-4 py-3 rounded-md text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium"
+                onClick={() => setOpen(false)}
+                className="block px-6 py-4 rounded-lg text-white hover:text-cyan-300 hover:bg-white/10 transition-all duration-200 font-medium text-lg"
                 style={{
                   fontFamily:
                     '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -175,7 +225,8 @@ export default function NavBar() {
             <li>
               <a
                 href="#portfolio"
-                className="block px-4 py-3 rounded-md text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium"
+                onClick={() => setOpen(false)}
+                className="block px-6 py-4 rounded-lg text-white hover:text-cyan-300 hover:bg-white/10 transition-all duration-200 font-medium text-lg"
                 style={{
                   fontFamily:
                     '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -187,7 +238,8 @@ export default function NavBar() {
             <li>
               <a
                 href="#about"
-                className="block px-4 py-3 rounded-md text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium"
+                onClick={() => setOpen(false)}
+                className="block px-6 py-4 rounded-lg text-white hover:text-cyan-300 hover:bg-white/10 transition-all duration-200 font-medium text-lg"
                 style={{
                   fontFamily:
                     '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',

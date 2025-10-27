@@ -37,12 +37,7 @@ export default function AboutUs({
     return () => observer.disconnect();
   }, [prefersReducedMotion]);
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      aria-labelledby="about-title"
-      className="mt-32 md:mt-40"
-    >
+    <section ref={sectionRef} id="about" aria-labelledby="about-title">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section title outside the box */}
         <div
@@ -107,10 +102,10 @@ export default function AboutUs({
 
           <div className="relative z-10">
             {/* Content grid with left/right alignment */}
-            <div className="grid md:grid-cols-2 gap-12 md:gap-16">
-              {/* Who we are - Left aligned */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16">
+              {/* Who we are - Center on mobile, left on desktop */}
               <div
-                className={`space-y-6 text-left ${
+                className={`space-y-6 text-center md:text-left ${
                   prefersReducedMotion
                     ? "opacity-100"
                     : `transition-all duration-800 ${
@@ -159,9 +154,9 @@ export default function AboutUs({
                 </p>
               </div>
 
-              {/* What we do - Right aligned */}
+              {/* What we do - Center on mobile, right on desktop */}
               <div
-                className={`space-y-6 text-left md:text-right ${
+                className={`space-y-6 text-center md:text-right ${
                   prefersReducedMotion
                     ? "opacity-100"
                     : `transition-all duration-800 ${

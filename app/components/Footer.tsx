@@ -62,7 +62,7 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
           {/* Glass overlay effect */}
           <div className="absolute inset-0 rounded-lg bg-linear-to-br from-white/2 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-          <div className="relative z-10 grid gap-8 md:gap-12 md:grid-cols-3">
+          <div className="relative z-10 grid gap-8 sm:gap-10 md:gap-12 grid-cols-1 md:grid-cols-3 text-center md:text-left">
             {/* Brand Section */}
             <div
               className={`space-y-8 ${
@@ -115,7 +115,7 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
                 </p>
                 <a
                   href="mailto:damiagencyadmin@damiagency.com"
-                  className="text-cyan-400/90 hover:text-cyan-300 text-sm font-light transition-colors duration-300 hover:underline underline-offset-4"
+                  className="text-cyan-400/90 hover:text-cyan-300 text-sm font-light transition-colors duration-300 hover:underline underline-offset-4 break-all sm:break-normal"
                   style={{
                     fontFamily:
                       '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',

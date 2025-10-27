@@ -49,9 +49,9 @@ export default function QuoteBuilder({
   };
 
   return (
-    <div ref={sectionRef} className="max-w-4xl mx-auto">
+    <div ref={sectionRef} className="max-w-4xl mx-auto px-4 sm:px-6">
       <div
-        className={`text-center mb-16 ${
+        className={`text-center mb-12 sm:mb-16 ${
           prefersReducedMotion
             ? "opacity-100"
             : `transition-all duration-1000 ${
@@ -62,7 +62,7 @@ export default function QuoteBuilder({
         }`}
       >
         <p
-          className="text-white/80 text-lg font-light leading-relaxed max-w-3xl mx-auto"
+          className="text-white/80 text-base sm:text-lg font-light leading-relaxed max-w-3xl mx-auto px-4 text-center"
           style={{
             fontFamily:
               '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
