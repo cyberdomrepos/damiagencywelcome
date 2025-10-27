@@ -1,4 +1,4 @@
-import Rule from "./Rule";
+import GradientUnderline from "./GradientUnderline";
 
 type Props = {
   id: string;
@@ -11,8 +11,6 @@ type Props = {
   eyebrow?: string;
   /** Pass custom classes to the body wrapper (overrides default space-y rhythm) */
   bodyClassName?: string;
-  /** Hide the divider Rule if you don’t want it */
-  noRule?: boolean;
 };
 
 export default function Section({
@@ -23,7 +21,6 @@ export default function Section({
   align = "center",
   eyebrow,
   bodyClassName,
-  noRule = false,
 }: Props) {
   const titleAlign = align === "left" ? "text-left" : "text-center";
 
@@ -31,11 +28,19 @@ export default function Section({
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className={`mx-auto max-w-screen-2xl px-6 py-16 md:py-20 ${className}`}
+      className={`mx-auto max-w-screen-2xl px-6 py-12 md:py-16 ${className}`}
+      style={{
+        fontFamily:
+          '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
+      }}
     >
       {eyebrow && (
         <p
           className={`text-xs tracking-widest text-white/40 uppercase ${titleAlign}`}
+          style={{
+            fontFamily:
+              '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
+          }}
         >
           {eyebrow}
         </p>
@@ -44,11 +49,15 @@ export default function Section({
       <h2
         id={`${id}-title`}
         className={`${titleAlign} text-4xl md:text-6xl font-bold tracking-tight text-neutral-100 leading-tight text-balance drop-shadow-[0_12px_36px_rgba(0,0,0,0.55)]`}
+        style={{
+          fontFamily:
+            '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
+        }}
       >
         {title}
       </h2>
 
-      {!noRule && <Rule className="mt-4 md:mt-6" />}
+      <GradientUnderline className="mt-8 md:mt-10" />
 
       <div
         className={

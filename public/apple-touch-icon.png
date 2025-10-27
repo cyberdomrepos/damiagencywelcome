@@ -1,0 +1,13 @@
+<!-- app/icon.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- square corners, subtle border/tint to match brand -->
+  <rect x="2" y="2" width="60" height="60" fill="#0b0f12"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- minimal DA mark: stacked bars suggesting layers/sections -->
+  <g transform="translate(12,16)">
+    <rect width="40" height="6" rx="0" fill="#22d3ee"/>
+    <rect y="12" width="40" height="6" rx="0" fill="#94a3b8"/>
+    <rect y="24" width="40" height="6" rx="0" fill="#22d3ee"/>
+  </g>
+</svg>

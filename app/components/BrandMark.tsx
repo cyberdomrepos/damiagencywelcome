@@ -8,24 +8,26 @@ export default function BrandMark({ className = "" }: Props) {
       href="/"
       aria-label="DamiAgency — Home"
       className={[
-        // glassy pill
-        "inline-flex items-center gap-2",
-        "shadow-sm shadow-black/20",
-        "px-3 py-2",
+        // Clean minimal design
+        "inline-flex items-center",
+        "py-2",
         // text
-        "font-semibold tracking-tight",
+        "font-bold tracking-tight text-xl",
         "text-white",
         "select-none",
+        "hover:opacity-80 transition-opacity duration-200",
         // accessibility
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60",
         className,
       ].join(" ")}
+      style={{
+        fontFamily:
+          '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
+      }}
     >
-      {/* tiny accent chip */}
-
       <span>
-        <span className="text-cyan-300">Dami</span>
-        <span className="text-white/95">Agency</span>
+        <span className="text-white">Dami</span>
+        <span className="text-cyan-300 font-normal">Agency</span>
       </span>
     </Link>
   );
