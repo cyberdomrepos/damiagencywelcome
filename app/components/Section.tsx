@@ -28,7 +28,7 @@ export default function Section({
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className={`mx-auto max-w-screen-2xl px-6 py-12 md:py-16 ${className}`}
+      className={`mx-auto max-w-screen-2xl px-6 py-8 sm:py-12 md:py-16 lg:py-20 ${className}`}
       style={{
         fontFamily:
           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -57,12 +57,12 @@ export default function Section({
         {title}
       </h2>
 
-      <GradientUnderline className="mt-8 md:mt-10" />
+      <GradientUnderline className="mt-6 sm:mt-8 md:mt-10 lg:mt-12" />
 
       <div
         className={
           bodyClassName ??
-          "mt-6 md:mt-8 space-y-6 md:space-y-8 [&>*:first-child]:mt-0"
+          "mt-8 sm:mt-10 md:mt-12 lg:mt-16 space-y-6 md:space-y-8 lg:space-y-10 [&>*:first-child]:mt-0"
         }
       >
         {children}

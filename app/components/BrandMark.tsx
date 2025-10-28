@@ -8,14 +8,16 @@ export default function BrandMark({ className = "" }: Props) {
       href="/"
       aria-label="DamiAgency — Home"
       className={[
-        // Clean minimal design
-        "inline-flex items-center",
-        "py-2",
-        // text
+        // Premium brand design - minimal spacing
+        "group inline-flex items-center",
+        "py-2 px-1",
+        // Enhanced text styling
         "font-bold tracking-tight text-xl",
         "text-white",
         "select-none",
-        "hover:opacity-80 transition-opacity duration-200",
+        // Super smooth transitions
+        "transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]",
+        "relative",
         // accessibility
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60",
         className,
@@ -25,9 +27,9 @@ export default function BrandMark({ className = "" }: Props) {
           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
       }}
     >
-      <span>
-        <span className="text-white">Dami</span>
-        <span className="text-cyan-300 font-normal">Agency</span>
+      <span className="relative">
+        <span className="text-cyan-400 font-extrabold glow-cyan">Dami</span>
+        <span className="text-white font-normal ml-0.5">Agency</span>
       </span>
     </Link>
   );

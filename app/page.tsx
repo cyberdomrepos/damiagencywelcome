@@ -7,7 +7,7 @@ import QuoteBuilder from "./components/QuoteBuilder";
 import Footer from "./components/Footer";
 import CreativeTrinity from "./components/CreativeTrinity";
 import AboutUs from "./components/AboutUs";
-import ParticleSystem from "./components/ParticleSystem";
+import InteractiveBackground from "./components/InteractiveBackground";
 
 export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -35,8 +35,8 @@ export default function Page() {
   }, []);
   return (
     <>
-      {/* Particle System Background */}
-      {!prefersReducedMotion && <ParticleSystem />}
+      {/* Interactive Code & Audio Background */}
+      <InteractiveBackground prefersReducedMotion={prefersReducedMotion} />
 
       <main
         className={`relative min-h-dvh p-4 sm:p-6 pt-20 sm:pt-24 md:pt-28 pb-16 sm:pb-24 scroll-pt-16 md:scroll-pt-20 transition-opacity duration-1000 ${
@@ -45,10 +45,19 @@ export default function Page() {
         data-prefers-reduced-motion={prefersReducedMotion}
       >
         <div className="relative z-10 mx-auto max-w-7xl">
+          {/* HERO SECTION */}
           <CreativeTrinity prefersReducedMotion={prefersReducedMotion} />
 
+          {/* 
+            CONSISTENT SPACING SYSTEM:
+            - Section gaps: mt-32 sm:mt-40 md:mt-48 lg:mt-56
+            - Internal padding: py-8 sm:py-12 md:py-16 lg:py-20
+            - Internal spacing: mb-12 sm:mb-16 md:mb-20 lg:mb-24
+            - Micro spacing: gap-6 sm:gap-8 md:gap-10 lg:gap-12
+          */}
+
           {/** ABOUT US SECTION */}
-          <div className="mt-16 sm:mt-20 md:mt-24">
+          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
             <AboutUs prefersReducedMotion={prefersReducedMotion} />
           </div>
 
@@ -56,12 +65,13 @@ export default function Page() {
           <Section
             id="quote"
             title="Get a quote"
-            className="mt-48 md:mt-64 lg:mt-72"
+            className="mt-32 sm:mt-40 md:mt-48 lg:mt-56"
           >
             <QuoteBuilder prefersReducedMotion={prefersReducedMotion} />
           </Section>
 
-          <div className="mt-48 md:mt-64 lg:mt-72">
+          {/** FOOTER SECTION */}
+          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
             <Footer prefersReducedMotion={prefersReducedMotion} />
           </div>
         </div>

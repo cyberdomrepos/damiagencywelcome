@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import GradientUnderline from "./GradientUnderline";
+import ServiceCard from "./ServiceCard";
+import { useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface Service {
   id: string;
@@ -42,146 +44,238 @@ export default function CreativeTrinity({
   prefersReducedMotion = false,
 }: CreativeTrinityProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const { elementRef: cardsRef, visibleItems: cardVisibility } =
+    useStaggeredScrollAnimation(3, 200, 150);
 
   useEffect(() => {
     const delay = prefersReducedMotion ? 0 : 100;
     const timer = setTimeout(() => setIsVisible(true), delay);
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [prefersReducedMotion]);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 z-20">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 sm:py-24 md:py-32 lg:py-40 z-20">
+      {/* Subtle Premium Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Floating Geometric Shapes */}
+        <div
+          className="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-400/20 rounded-full blur-sm animate-pulse"
+          style={{ animationDelay: "0s", animationDuration: "3s" }}
+        ></div>
+        <div
+          className="absolute top-1/3 right-1/3 w-1 h-1 bg-cyan-300/30 rounded-full blur-sm animate-pulse"
+          style={{ animationDelay: "1s", animationDuration: "4s" }}
+        ></div>
+        <div
+          className="absolute bottom-1/3 left-1/5 w-1.5 h-1.5 bg-cyan-500/15 rounded-full blur-sm animate-pulse"
+          style={{ animationDelay: "2s", animationDuration: "5s" }}
+        ></div>
+        <div
+          className="absolute top-2/3 right-1/4 w-0.5 h-0.5 bg-cyan-400/25 rounded-full animate-pulse"
+          style={{ animationDelay: "0.5s", animationDuration: "3.5s" }}
+        ></div>
+
+        {/* Subtle Grid Overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+            linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px)
+          `,
+            backgroundSize: "60px 60px",
+          }}
+        ></div>
+
+        {/* Premium Corner Accents */}
+        <div className="absolute top-8 left-8 w-16 h-16 border-l border-t border-cyan-400/10"></div>
+        <div className="absolute top-8 right-8 w-16 h-16 border-r border-t border-cyan-400/10"></div>
+        <div className="absolute bottom-8 left-8 w-16 h-16 border-l border-b border-cyan-400/10"></div>
+        <div className="absolute bottom-8 right-8 w-16 h-16 border-r border-b border-cyan-400/10"></div>
+      </div>
+
       {/* Hero Content */}
-      <div
-        className={`text-center max-w-6xl mx-auto ${
-          prefersReducedMotion
-            ? "opacity-100"
-            : `transition-all duration-1000 ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-              }`
-        }`}
-      >
-        {/* Welcome Section */}
+      <div className="text-center max-w-6xl mx-auto relative z-10">
+        {/* Bold Eye-Catching Headline */}
         <h1
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 text-center"
+          className={`text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black tracking-tight text-white mb-8 text-center leading-tight
+                     ${prefersReducedMotion ? "opacity-100" : "hero-text"}`}
           style={{
             fontFamily:
               '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
+            textShadow:
+              "0 0 30px rgba(34, 211, 238, 0.5), 0 0 60px rgba(34, 211, 238, 0.2)",
           }}
         >
-          Welcome to <span className="font-bold text-cyan-400">DamiAgency</span>
+          Welcome to{" "}
+          <span className="text-cyan-400 font-extrabold glow-cyan">Dami</span>
+          <span className="text-white font-normal">Agency</span>
         </h1>
 
-        <GradientUnderline className="mt-8 md:mt-10 mb-8" />
+        {/* Gradient Underline */}
+        <div
+          className={`${
+            prefersReducedMotion ? "opacity-100" : "hero-text hero-text-delay-1"
+          }`}
+        >
+          <GradientUnderline className="mb-8" />
+        </div>
 
-        {/* Punchline */}
-        <p
-          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-300 mb-6 font-light leading-relaxed text-center"
+        {/* Smaller Catchy Subheadline */}
+        <h2
+          className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-300 mb-8 text-center leading-relaxed
+                     ${
+                       prefersReducedMotion
+                         ? "opacity-100"
+                         : "hero-text hero-text-delay-2"
+                     }`}
           style={{
             fontFamily:
               '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
           }}
         >
           We blend code, design & sound
-        </p>
+        </h2>
 
-        {/* What we do */}
-        <p
-          className="text-sm sm:text-base md:text-lg text-gray-400 mb-20 font-light max-w-3xl mx-auto leading-relaxed text-center px-4"
-          style={{
-            fontFamily:
-              '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-          }}
-        >
-          Fresh studio. Proven skills. Ready to make your vision reality.
-        </p>
-
-        {/* Service Cards - Dark Glassy Minimal */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto mb-16 px-4">
-          {services.map((service, index) => (
-            <div
-              key={service.id}
-              className={`group relative bg-black/30 backdrop-blur-md border border-white/10 rounded-lg p-6 sm:p-8 
-                         transition-all duration-700 hover:bg-black/40 hover:border-white/20 hover:shadow-2xl text-center
-                         ${
-                           prefersReducedMotion
-                             ? "opacity-100"
-                             : isVisible
-                             ? "opacity-100 translate-y-0"
-                             : "opacity-0 translate-y-12"
-                         }`}
-              style={{
-                transitionDelay: prefersReducedMotion
-                  ? "0ms"
-                  : `${index * 200}ms`,
-                backdropFilter: "blur(12px)",
-              }}
-            >
-              {/* Glass overlay effect */}
-              <div className="absolute inset-0 rounded-lg bg-linear-to-br from-white/2 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="relative z-10">
-                {/* Service Title */}
-                <h3
-                  className="text-xl sm:text-2xl md:text-3xl font-light text-white mb-4 tracking-wide text-center"
-                  style={{
-                    fontFamily:
-                      '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                  }}
-                >
-                  {service.title}
-                </h3>
-
-                {/* Service Description */}
-                <p
-                  className="text-gray-300 text-sm sm:text-base md:text-lg mb-6 leading-relaxed font-light text-center"
-                  style={{
-                    fontFamily:
-                      '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                  }}
-                >
-                  {service.description}
-                </p>
-
-                {/* Service Details */}
-                <p
-                  className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed font-light text-center"
-                  style={{
-                    fontFamily:
-                      '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                  }}
-                >
-                  {service.details}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA Button */}
-        <div
-          className={`${
-            prefersReducedMotion
-              ? "opacity-100"
-              : `transition-all duration-1000 delay-700 ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`
-          }`}
-        >
-          <button
-            className="group relative px-10 py-4 bg-black/40 backdrop-blur-md border border-cyan-400/30 rounded-lg text-white font-light text-lg overflow-hidden transition-all duration-500 hover:border-cyan-400/60 hover:bg-black/50 hover:shadow-xl"
+        {/* Professional Description with Premium Styling */}
+        <div className="relative mb-12 sm:mb-16 md:mb-20 lg:mb-24">
+          <p
+            className={`text-base sm:text-lg text-gray-400 font-light text-center max-w-2xl mx-auto leading-relaxed
+                       ${
+                         prefersReducedMotion
+                           ? "opacity-100"
+                           : "hero-text hero-text-delay-3"
+                       }`}
             style={{
               fontFamily:
                 '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
             }}
           >
-            <span className="relative z-10">Start Your Project</span>
-            <div className="absolute inset-0 bg-linear-to-r from-cyan-500/5 to-transparent translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+            Fresh studio. Proven skills. Ready to make your vision reality.
+          </p>
+
+          {/* Subtle accent lines */}
+          <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-transparent via-cyan-400/20 to-transparent"></div>
+          <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-transparent via-cyan-400/20 to-transparent"></div>
+        </div>
+
+        {/* Minimal Dark Tech Service Cards */}
+        <div
+          ref={cardsRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12 max-w-6xl mx-auto mb-16 sm:mb-20 md:mb-24 lg:mb-28 px-4"
+        >
+          {services.map((service, index) => (
+            <div
+              key={service.id}
+              className={`${
+                prefersReducedMotion
+                  ? "opacity-100"
+                  : cardVisibility[index]
+                  ? "scale-in visible animate-delay-1"
+                  : "scale-in"
+              }`}
+            >
+              <ServiceCard
+                service={service}
+                index={index}
+                isVisible={cardVisibility[index] || prefersReducedMotion}
+                prefersReducedMotion={prefersReducedMotion}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Premium Dual CTA Strategy */}
+        <div
+          className={`${prefersReducedMotion ? "opacity-100" : "fade-in"} ${
+            isVisible ? "visible" : ""
+          } flex flex-col sm:flex-row gap-6 justify-center items-center mb-16`}
+        >
+          {/* Primary CTA */}
+          <button
+            className="group relative px-6 py-3 text-white font-medium text-base overflow-hidden 
+                       transition-all duration-500 ease-out 
+                       border border-cyan-400/40 hover:border-cyan-400/60 rounded-sm
+                       bg-black/40 hover:bg-cyan-400/10 
+                       backdrop-blur-sm hover:shadow-lg hover:shadow-cyan-400/20"
+            style={{
+              fontFamily:
+                '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
+            }}
+          >
+            <span className="relative z-10 tracking-wide">Get Free Quote</span>
           </button>
+
+          {/* Secondary CTA */}
+          <button
+            className="group relative px-6 py-3 text-gray-400 hover:text-gray-200 font-light text-base 
+                       transition-all duration-500 ease-out 
+                       border border-gray-700/40 hover:border-gray-600/60 rounded-sm
+                       bg-transparent hover:bg-gray-800/20 backdrop-blur-sm"
+            style={{
+              fontFamily:
+                '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
+            }}
+          >
+            <span className="relative z-10 tracking-wide">View Portfolio</span>
+          </button>
+        </div>
+
+        {/* Enhanced Premium Stats Bar */}
+        <div
+          className={`mt-20 pt-12 relative
+                     ${
+                       prefersReducedMotion
+                         ? "opacity-100"
+                         : "hero-text hero-text-delay-5"
+                     }`}
+        >
+          {/* Premium border with gradient */}
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent"></div>
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"></div>
+
+          <div
+            className="flex flex-wrap justify-center gap-12 text-center"
+            style={{
+              fontFamily:
+                '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
+            }}
+          >
+            <div className="flex flex-col relative group">
+              <span className="text-2xl font-bold text-cyan-400 mb-1 group-hover:text-cyan-300 transition-colors duration-300">
+                1k+
+              </span>
+              <span className="text-xs text-gray-500 group-hover:text-gray-400 transition-colors duration-300">
+                Designs Created
+              </span>
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-px bg-cyan-400/50 group-hover:w-full transition-all duration-500"></div>
+            </div>
+            <div className="flex flex-col relative group">
+              <span className="text-2xl font-bold text-cyan-400 mb-1 group-hover:text-cyan-300 transition-colors duration-300">
+                500+
+              </span>
+              <span className="text-xs text-gray-500 group-hover:text-gray-400 transition-colors duration-300">
+                Game Soundtracks
+              </span>
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-px bg-cyan-400/50 group-hover:w-full transition-all duration-500"></div>
+            </div>
+            <div className="flex flex-col relative group">
+              <span className="text-2xl font-bold text-cyan-400 mb-1 group-hover:text-cyan-300 transition-colors duration-300">
+                15+
+              </span>
+              <span className="text-xs text-gray-500 group-hover:text-gray-400 transition-colors duration-300">
+                Web Apps Built
+              </span>
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-px bg-cyan-400/50 group-hover:w-full transition-all duration-500"></div>
+            </div>
+          </div>
+
+          {/* Subtle accent dots */}
+          <div className="absolute top-6 left-1/4 w-1 h-1 bg-cyan-400/20 rounded-full"></div>
+          <div className="absolute top-6 right-1/4 w-1 h-1 bg-cyan-400/20 rounded-full"></div>
         </div>
       </div>
     </section>

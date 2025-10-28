@@ -136,28 +136,6 @@ export default function ParticleSystem({
     });
   };
 
-  // Animation loop
-  const animate = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    draw(ctx, canvas.width, canvas.height);
-    animationRef.current = requestAnimationFrame(animate);
-  };
-
-  // Handle resize
-  const handleResize = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initParticles(canvas.width, canvas.height);
-  };
-
   // Handle mouse movement
   const handleMouseMove = (e: MouseEvent) => {
     mouseRef.current = {
@@ -166,21 +144,45 @@ export default function ParticleSystem({
     };
   };
 
+  // Mount-only effect: define animate and resize handlers inside the effect
+  // We intentionally run this effect once on mount. draw and initParticles
+  // are stable for this component's lifecycle, so it's fine to omit them
+  // from dependencies here.
+  // eslint-disable-next-line
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Local resize handler
+    const handleResizeLocal = () => {
+      const c = canvasRef.current;
+      if (!c) return;
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+      initParticles(c.width, c.height);
+    };
+
+    // Local animation loop
+    const animateLocal = () => {
+      const c = canvasRef.current;
+      if (!c) return;
+      const ctx = c.getContext("2d");
+      if (!ctx) return;
+      draw(ctx, c.width, c.height);
+      animationRef.current = requestAnimationFrame(animateLocal);
+    };
+
     // Set up canvas
-    handleResize();
+    handleResizeLocal();
 
     // Start animation with delay for better UX
     const timer = setTimeout(() => {
       setIsVisible(true);
-      animate();
+      animateLocal();
     }, 500);
 
     // Event listeners
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResizeLocal);
     window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
@@ -188,7 +190,7 @@ export default function ParticleSystem({
       if (animationRef.current !== null) {
         cancelAnimationFrame(animationRef.current);
       }
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResizeLocal);
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);

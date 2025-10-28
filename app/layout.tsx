@@ -58,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bodyFont.variable} ${headingFont.variable}`}>
       <body className="text-white">
-        <AuroraLayer /> {/* fixed, behind, client-only */}
+        <AuroraLayer /> {/* Re-enabled with subtle dark tech aurora */}
         <NavBar />
         {children}
       </body>
