@@ -50,7 +50,7 @@ export default function CreativeTrinity({
   }, [prefersReducedMotion]);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 z-20">
       {/* Hero Content */}
       <div
         className={`text-center max-w-6xl mx-auto ${
