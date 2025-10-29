@@ -348,7 +348,7 @@ export default function QuoteBuilder({
               {/* Project Details */}
               <div>
                 <label
-                  className="block text-white/90 text-sm font-light mb-3 tracking-wide"
+                  className="block text-white/90 text-xs sm:text-sm font-light mb-2 sm:mb-3 tracking-wide"
                   style={{
                     fontFamily:
                       '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -360,27 +360,27 @@ export default function QuoteBuilder({
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    rows={6}
-                    className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-4 py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 resize-none font-light hover:border-gray-600/60"
+                    rows={5}
+                    className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 resize-none font-light hover:border-gray-600/60 text-sm sm:text-base"
                     style={{
                       fontFamily:
                         '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
                     }}
-                    placeholder="Tell us about your project vision, goals, target audience, technical requirements, design preferences, and any specific features you need. The more details you share, the better we can tailor our proposal."
+                    placeholder="Tell us about your project vision, goals, target audience, technical requirements, design preferences, and any specific features you need."
                   />
-                  {/* Tech corner accents */}
-                  <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
-                  <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
-                  <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
-                  <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
+                  {/* Tech corner accents - Mobile Responsive */}
+                  <div className="absolute top-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-l border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
+                  <div className="absolute top-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-r border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
+                  <div className="absolute bottom-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-l border-b border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
+                  <div className="absolute bottom-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-r border-b border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
                 </div>
               </div>
 
-              <div className="text-center pt-8">
+              <div className="text-center pt-6 sm:pt-8">
                 <button
                   type="submit"
-                  className="group relative px-10 py-4 text-white font-medium text-base overflow-hidden 
-                           transition-all duration-500 ease-out 
+                  className="group relative px-8 sm:px-10 py-3 sm:py-4 text-white font-medium text-sm sm:text-base overflow-hidden 
+                           transition-all duration-500 ease-out w-full sm:w-auto
                            border border-cyan-400/40 hover:border-cyan-400/60 rounded-sm
                            bg-black/60 hover:bg-cyan-400/10 
                            backdrop-blur-sm hover:shadow-lg hover:shadow-cyan-400/20 
@@ -402,7 +402,7 @@ export default function QuoteBuilder({
                   ></div>
 
                   <span
-                    className="relative z-10 tracking-wide flex items-center space-x-2"
+                    className="relative z-10 tracking-wide flex items-center justify-center space-x-2"
                     style={{
                       fontFamily:
                         '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -410,7 +410,7 @@ export default function QuoteBuilder({
                   >
                     <span>Send Quote Request</span>
                     <svg
-                      className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
+                      className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -419,7 +419,7 @@ export default function QuoteBuilder({
                   </span>
                 </button>
                 <p
-                  className="text-white/50 text-sm mt-6 font-light max-w-md mx-auto leading-relaxed"
+                  className="text-white/50 text-xs sm:text-sm mt-4 sm:mt-6 font-light max-w-md mx-auto leading-relaxed px-4 sm:px-0"
                   style={{
                     fontFamily:
                       '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',

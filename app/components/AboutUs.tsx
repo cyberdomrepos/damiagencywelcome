@@ -44,7 +44,7 @@ export default function AboutUs({
       aria-labelledby="about-title"
       className="py-8 sm:py-12 md:py-16 lg:py-20"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Premium Section Header - Mobile Optimized */}
         <div
           className={`text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24 ${
@@ -95,11 +95,12 @@ export default function AboutUs({
           }`}
         >
           <div className="flex justify-center px-2 sm:px-0">
-            <div className="glass-card rounded-full p-1 flex flex-col sm:flex-row gap-1 w-full sm:w-auto max-w-md sm:max-w-none">
+            <div className="glass-card rounded-xl sm:rounded-full p-2 sm:p-1 flex flex-col sm:flex-row gap-2 sm:gap-1 w-full sm:w-auto max-w-sm sm:max-w-none">
               {[
                 {
                   id: "story",
                   label: "Our Story",
+                  shortLabel: "Story", // Mobile version
                   svg: (
                     <svg
                       className="w-4 h-4"
@@ -113,6 +114,7 @@ export default function AboutUs({
                 {
                   id: "expertise",
                   label: "Expertise",
+                  shortLabel: "Skills", // Mobile version
                   svg: (
                     <svg
                       className="w-4 h-4"
@@ -127,6 +129,7 @@ export default function AboutUs({
                 {
                   id: "approach",
                   label: "Approach",
+                  shortLabel: "Method", // Mobile version
                   svg: (
                     <svg
                       className="w-4 h-4"
@@ -141,7 +144,7 @@ export default function AboutUs({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 flex items-center justify-center sm:space-x-2 relative overflow-hidden flex-1 sm:flex-initial ${
+                  className={`px-4 py-3 sm:px-4 md:px-6 sm:py-3 rounded-lg sm:rounded-full text-sm font-medium transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden w-full sm:w-auto ${
                     activeTab === tab.id
                       ? "bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 shadow-lg shadow-cyan-400/10"
                       : "text-gray-400 hover:text-gray-200 hover:bg-white/5"
@@ -154,12 +157,13 @@ export default function AboutUs({
                   {activeTab === tab.id && (
                     <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-transparent"></div>
                   )}
-                  <div className="relative z-10 flex items-center space-x-1 sm:space-x-2">
-                    <div className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0">
+                  <div className="relative z-10 flex items-center space-x-2">
+                    <div className="w-4 h-4 flex-shrink-0">
                       {tab.svg}
                     </div>
-                    <span className="text-xs sm:text-sm truncate">
-                      {tab.label}
+                    <span className="text-sm whitespace-nowrap">
+                      <span className="sm:hidden">{tab.shortLabel}</span>
+                      <span className="hidden sm:inline">{tab.label}</span>
                     </span>
                   </div>
                 </button>
@@ -170,7 +174,7 @@ export default function AboutUs({
 
         {/* Premium Content Container with Dark Tech Styling - Mobile Optimized */}
         <div
-          className={`relative glass-card glass-card-hover rounded-lg sm:rounded-xl overflow-hidden border border-cyan-400/10 mx-2 sm:mx-0 ${
+          className={`relative glass-card glass-card-hover rounded-lg sm:rounded-xl overflow-hidden border border-cyan-400/10 mx-4 sm:mx-0 ${
             prefersReducedMotion
               ? "opacity-100"
               : isVisible
@@ -233,20 +237,20 @@ export default function AboutUs({
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-cyan-500/2 rounded-full blur-3xl"></div>
           </div>
 
-          <div className="relative z-10 p-8 md:p-12">
-            {/* Dynamic Content Based on Active Tab */}
+          <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-16 xl:p-20">
+            {/* Dynamic Content Based on Active Tab - Mobile Optimized */}
             {activeTab === "story" && (
               <div
                 className={`transition-all duration-500 ${
                   animateContent ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="space-y-6">
-                    <div className="flex items-center space-x-3 mb-6">
-                      <div className="p-2 bg-cyan-400/10 rounded-lg border border-cyan-400/20">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center mx-2 sm:mx-0">
+                  <div className="space-y-4 sm:space-y-6 px-2 sm:px-0">
+                    <div className="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6">
+                      <div className="flex-shrink-0 p-2 bg-cyan-400/10 rounded-lg border border-cyan-400/20">
                         <svg
-                          className="w-6 h-6 text-cyan-400"
+                          className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400"
                           fill="currentColor"
                           viewBox="0 0 24 24"
                         >
@@ -254,7 +258,7 @@ export default function AboutUs({
                         </svg>
                       </div>
                       <h3
-                        className="text-2xl font-bold text-white"
+                        className="text-lg sm:text-xl md:text-2xl font-bold text-white leading-tight"
                         style={{
                           fontFamily:
                             '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -264,7 +268,7 @@ export default function AboutUs({
                       </h3>
                     </div>
                     <p
-                      className="text-gray-300 leading-relaxed"
+                      className="text-gray-300 leading-relaxed text-sm sm:text-base"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -277,7 +281,7 @@ export default function AboutUs({
                       digital projects.
                     </p>
                     <p
-                      className="text-gray-400 leading-relaxed"
+                      className="text-gray-400 leading-relaxed text-sm sm:text-base"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -288,17 +292,17 @@ export default function AboutUs({
                       don't just look great—they feel great too.
                     </p>
                   </div>
-                  <div className="relative">
-                    <div className="glass-card p-6 space-y-4 border border-cyan-400/10 relative overflow-hidden">
+                  <div className="relative mt-6 sm:mt-0 px-2 sm:px-0">
+                    <div className="glass-card p-6 sm:p-8 space-y-4 sm:space-y-6 border border-cyan-400/10 relative overflow-hidden mx-2 sm:mx-0">
                       {/* Premium background effect */}
                       <div className="absolute inset-0">
                         <div className="absolute top-0 right-0 w-16 h-16 bg-cyan-400/3 rounded-full blur-2xl"></div>
                         <div className="absolute bottom-0 left-0 w-12 h-12 bg-cyan-300/2 rounded-full blur-xl"></div>
                       </div>
 
-                      <div className="relative z-10 space-y-4">
-                        <div className="flex items-center space-x-3 group">
-                          <div className="flex items-center justify-center w-8 h-8 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
+                      <div className="relative z-10 space-y-3 sm:space-y-4">
+                        <div className="flex items-center space-x-3 sm:space-x-4 group">
+                          <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
                             <svg
                               className="w-4 h-4 text-cyan-400"
                               fill="currentColor"
@@ -308,15 +312,15 @@ export default function AboutUs({
                             </svg>
                           </div>
                           <span
-                            className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
+                            className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 text-sm sm:text-base leading-relaxed"
                             style={{ fontFamily: '"Iosevka Aile", monospace' }}
                           >
                             Founded in 2024
                           </span>
                         </div>
 
-                        <div className="flex items-center space-x-3 group">
-                          <div className="flex items-center justify-center w-8 h-8 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
+                        <div className="flex items-center space-x-3 sm:space-x-4 group">
+                          <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
                             <svg
                               className="w-4 h-4 text-cyan-400"
                               fill="currentColor"
@@ -326,15 +330,15 @@ export default function AboutUs({
                             </svg>
                           </div>
                           <span
-                            className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
+                            className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 text-sm sm:text-base leading-relaxed"
                             style={{ fontFamily: '"Iosevka Aile", monospace' }}
                           >
                             100+ Projects Delivered
                           </span>
                         </div>
 
-                        <div className="flex items-center space-x-3 group">
-                          <div className="flex items-center justify-center w-8 h-8 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
+                        <div className="flex items-center space-x-3 sm:space-x-4 group">
+                          <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
                             <svg
                               className="w-4 h-4 text-cyan-400"
                               fill="currentColor"
@@ -344,7 +348,7 @@ export default function AboutUs({
                             </svg>
                           </div>
                           <span
-                            className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
+                            className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 text-sm sm:text-base leading-relaxed"
                             style={{ fontFamily: '"Iosevka Aile", monospace' }}
                           >
                             3 Core Disciplines
@@ -363,7 +367,7 @@ export default function AboutUs({
                   animateContent ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mx-2 sm:mx-0">
                   {[
                     {
                       svg: (
@@ -428,7 +432,7 @@ export default function AboutUs({
                   ].map((expertise, index) => (
                     <div
                       key={expertise.title}
-                      className="relative glass-card p-6 group hover:bg-cyan-400/5 transition-all duration-500 hover:border-cyan-400/20 border border-transparent overflow-hidden"
+                      className="relative glass-card p-6 md:p-8 group hover:bg-cyan-400/5 transition-all duration-500 hover:border-cyan-400/20 border border-transparent overflow-hidden mx-2 sm:mx-0"
                     >
                       {/* Premium Background Effect */}
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -460,11 +464,11 @@ export default function AboutUs({
                           {expertise.skills.map((skill) => (
                             <div
                               key={skill}
-                              className="flex items-center space-x-2"
+                              className="flex items-center space-x-3"
                             >
-                              <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full"></div>
+                              <div className="flex-shrink-0 w-1.5 h-1.5 bg-cyan-400 rounded-full"></div>
                               <span
-                                className="text-gray-300 text-sm"
+                                className="text-gray-300 text-sm leading-relaxed"
                                 style={{
                                   fontFamily: '"Iosevka Aile", monospace',
                                 }}
@@ -487,9 +491,9 @@ export default function AboutUs({
                   animateContent ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <div className="text-center mb-8">
+                <div className="text-center mb-8 px-4 sm:px-0">
                   <h3
-                    className="text-2xl font-bold text-white mb-4"
+                    className="text-xl sm:text-2xl font-bold text-white mb-4"
                     style={{
                       fontFamily: '"Iosevka Aile", monospace',
                     }}
@@ -497,7 +501,7 @@ export default function AboutUs({
                     Our Creative Process
                   </h3>
                   <p
-                    className="text-gray-400 max-w-2xl mx-auto"
+                    className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base"
                     style={{
                       fontFamily: '"Iosevka Aile", monospace',
                     }}
@@ -507,7 +511,7 @@ export default function AboutUs({
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-2 sm:mx-0">
                   {[
                     {
                       step: "01",
@@ -569,8 +573,8 @@ export default function AboutUs({
                       ),
                     },
                   ].map((phase, index) => (
-                    <div key={phase.step} className="relative">
-                      <div className="glass-card p-6 text-center group hover:bg-cyan-400/5 transition-all duration-500 h-full border border-cyan-400/10 hover:border-cyan-400/20 relative overflow-hidden">
+                    <div key={phase.step} className="relative mx-2 sm:mx-0">
+                      <div className="glass-card p-6 md:p-8 text-center group hover:bg-cyan-400/5 transition-all duration-500 h-full border border-cyan-400/10 hover:border-cyan-400/20 relative overflow-hidden">
                         {/* Premium background effect */}
                         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                           <div className="absolute top-0 right-0 w-12 h-12 bg-cyan-400/5 rounded-full blur-xl"></div>
@@ -623,52 +627,54 @@ export default function AboutUs({
               </div>
             )}
 
-            {/* Premium CTA Section with Dark Tech Styling */}
-            <div className="mt-16 pt-8 border-t border-cyan-400/20 text-center relative">
-              {/* Tech accents on border */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400/40 rounded-full"></div>
-              <div className="absolute top-0 left-1/4 transform -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-300/30 rounded-full"></div>
-              <div className="absolute top-0 right-1/4 transform translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-300/30 rounded-full"></div>
+            {/* Premium CTA Section with Dark Tech Styling - Mobile Optimized */}
+            <div className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-cyan-400/20 text-center relative px-4 sm:px-0">
+              {/* Tech accents on border - Hidden on small screens */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 sm:w-3 sm:h-3 bg-cyan-400/40 rounded-full"></div>
+              <div className="hidden sm:block absolute top-0 left-1/4 transform -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-300/30 rounded-full"></div>
+              <div className="hidden sm:block absolute top-0 right-1/4 transform translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-300/30 rounded-full"></div>
 
               <p
-                className="text-gray-300 mb-8 text-lg"
+                className="text-gray-300 mb-6 sm:mb-8 text-base sm:text-lg px-2 sm:px-0"
                 style={{
                   fontFamily: '"Iosevka Aile", monospace',
                 }}
               >
                 Ready to create something extraordinary together?
               </p>
-              <button
-                className="group relative px-6 py-3 text-white font-medium text-base overflow-hidden 
-                           transition-all duration-500 ease-out 
-                           border border-cyan-400/40 hover:border-cyan-400/60 rounded-sm
-                           bg-black/40 hover:bg-cyan-400/10 
-                           backdrop-blur-sm hover:shadow-lg hover:shadow-cyan-400/20 
-                           hover:scale-105 active:scale-95"
-                style={{
-                  fontFamily:
-                    '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                }}
-              >
-                {/* Dark tech background effects */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 to-black/50 opacity-80"></div>
+              <div className="flex justify-center">
+                <button
+                  className="group relative px-6 sm:px-8 py-3 sm:py-4 text-white font-medium text-sm sm:text-base overflow-hidden 
+                             transition-all duration-500 ease-out w-full sm:w-auto max-w-xs sm:max-w-none
+                             border border-cyan-400/40 hover:border-cyan-400/60 rounded-sm
+                             bg-black/40 hover:bg-cyan-400/10 
+                             backdrop-blur-sm hover:shadow-lg hover:shadow-cyan-400/20 
+                             hover:scale-105 active:scale-95"
+                  style={{
+                    fontFamily:
+                      '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
+                  }}
+                >
+                  {/* Dark tech background effects */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 to-black/50 opacity-80"></div>
 
-                {/* Premium tech border accents */}
-                <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-cyan-400/30"></div>
-                <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-cyan-400/30"></div>
-                <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-cyan-400/30"></div>
-                <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-cyan-400/30"></div>
+                  {/* Premium tech border accents - Mobile Responsive */}
+                  <div className="absolute top-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-l border-t border-cyan-400/30"></div>
+                  <div className="absolute top-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-r border-t border-cyan-400/30"></div>
+                  <div className="absolute bottom-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-l border-b border-cyan-400/30"></div>
+                  <div className="absolute bottom-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-r border-b border-cyan-400/30"></div>
 
-                {/* Subtle scan line effect */}
-                <div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent 
-                              translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"
-                ></div>
+                  {/* Subtle scan line effect */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent 
+                                translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"
+                  ></div>
 
-                <span className="relative z-10 tracking-wide">
-                  Start Your Project
-                </span>
-              </button>
+                  <span className="relative z-10 tracking-wide">
+                    Start Your Project
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

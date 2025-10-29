@@ -28,7 +28,7 @@ export default function Section({
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className={`mx-auto max-w-screen-2xl px-6 py-8 sm:py-12 md:py-16 lg:py-20 ${className}`}
+      className={`mx-auto max-w-screen-2xl px-4 sm:px-6 py-8 sm:py-12 md:py-16 lg:py-20 ${className}`}
       style={{
         fontFamily:
           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -48,7 +48,7 @@ export default function Section({
 
       <h2
         id={`${id}-title`}
-        className={`${titleAlign} text-4xl md:text-6xl font-bold tracking-tight text-neutral-100 leading-tight text-balance drop-shadow-[0_12px_36px_rgba(0,0,0,0.55)]`}
+        className={`${titleAlign} text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-100 leading-tight text-balance drop-shadow-[0_12px_36px_rgba(0,0,0,0.55)] px-2 sm:px-0`}
         style={{
           fontFamily:
             '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',

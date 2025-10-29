@@ -85,9 +85,9 @@ export default function ServiceCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Minimal Dark Tech Premium Card */}
+      {/* Minimal Dark Tech Premium Card - Mobile Optimized */}
       <div
-        className="relative overflow-hidden rounded-sm h-72 w-full group cursor-pointer border border-gray-800/40"
+        className="relative overflow-hidden rounded-sm h-64 sm:h-72 w-full group cursor-pointer border border-gray-800/40 mx-auto"
         style={{
           ...cardStyle,
           background: "rgba(0, 0, 0, 0.6)",
@@ -104,17 +104,17 @@ export default function ServiceCard({
                         group-hover:from-cyan-400/5 group-hover:to-transparent"
         ></div>
 
-        {/* Content Layout - Ultra Minimal */}
+        {/* Content Layout - Mobile Optimized */}
         <div
-          className="relative h-full flex flex-col justify-between p-6 text-left"
+          className="relative h-full flex flex-col justify-between p-4 sm:p-6 text-left"
           style={{
             transform: prefersReducedMotion ? "none" : "translateZ(10px)",
           }}
         >
-          {/* Top Section - Service Title */}
+          {/* Top Section - Service Title - Mobile Optimized */}
           <div>
             <h3
-              className="text-2xl font-medium text-white mb-4 tracking-tight
+              className="text-xl sm:text-2xl font-medium text-white mb-3 sm:mb-4 tracking-tight
                           group-hover:text-cyan-400 transition-colors duration-700"
               style={{
                 fontFamily:
@@ -125,7 +125,7 @@ export default function ServiceCard({
             </h3>
 
             <p
-              className="text-gray-300 text-base mb-4 leading-relaxed font-light
+              className="text-gray-300 text-sm sm:text-base mb-3 sm:mb-4 leading-relaxed font-light
                          group-hover:text-gray-200 transition-colors duration-700"
               style={{
                 fontFamily:
@@ -136,10 +136,10 @@ export default function ServiceCard({
             </p>
           </div>
 
-          {/* Bottom Section - Service Details & Button */}
+          {/* Bottom Section - Service Details & Button - Mobile Optimized */}
           <div>
             <p
-              className="text-gray-500 text-sm leading-relaxed font-light mb-4
+              className="text-gray-500 text-xs sm:text-sm leading-relaxed font-light mb-3 sm:mb-4
                          group-hover:text-gray-400 transition-all duration-700"
               style={{
                 fontFamily:
@@ -149,13 +149,14 @@ export default function ServiceCard({
               {service.details}
             </p>
 
-            {/* Premium See More Button */}
+            {/* Premium See More Button - Mobile Optimized */}
             <button
-              className="transition-all duration-500 ease-out
+              className="transition-all duration-500 ease-out w-full sm:w-auto
                          text-xs text-gray-400 hover:text-cyan-400 font-medium
                          border border-gray-700/60 hover:border-cyan-400/40 rounded-sm
-                         px-4 py-2 bg-black/60 hover:bg-cyan-400/10
-                         tracking-wide uppercase shadow-sm hover:shadow-cyan-400/20"
+                         px-4 py-2.5 sm:py-2 bg-black/60 hover:bg-cyan-400/10
+                         tracking-wide uppercase shadow-sm hover:shadow-cyan-400/20
+                         text-center"
               style={{
                 fontFamily:
                   '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
