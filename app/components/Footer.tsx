@@ -391,9 +391,9 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
 
               <div className="space-y-3 sm:space-y-4">
                 <div className="relative">
-                  <div className="flex items-center justify-center md:justify-end space-x-2">
+                  <div className="flex items-center justify-center md:justify-end space-x-1.5 sm:space-x-2">
                     <svg
-                      className="w-4 h-4 text-cyan-400/40"
+                      className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-400/40 flex-shrink-0"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -406,7 +406,7 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
                       />
                     </svg>
                     <p
-                      className="text-white/70 text-sm font-light bg-black/20 backdrop-blur-sm px-3 py-1 rounded-md border border-cyan-400/10"
+                      className="text-white/70 text-xs sm:text-sm font-light bg-black/20 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-md border border-cyan-400/10"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -417,10 +417,10 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <div className="flex items-center justify-center md:justify-end space-x-2">
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex items-center justify-center md:justify-end space-x-1.5 sm:space-x-2">
                     <svg
-                      className="w-3 h-3 text-cyan-400/40"
+                      className="w-3 h-3 text-cyan-400/40 flex-shrink-0"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -441,9 +441,9 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-center md:justify-end space-x-2">
+                  <div className="flex items-center justify-center md:justify-end space-x-1.5 sm:space-x-2">
                     <svg
-                      className="w-3 h-3 text-cyan-400/40"
+                      className="w-3 h-3 text-cyan-400/40 flex-shrink-0"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -471,9 +471,9 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
           </div>
         </div>
 
-        {/* Premium Tech Bottom Section */}
+        {/* Premium Tech Bottom Section - Mobile Optimized */}
         <div
-          className={`relative mt-12 pt-6 border-t border-cyan-400/10 text-center overflow-hidden ${
+          className={`relative mt-8 sm:mt-12 pt-4 sm:pt-6 border-t border-cyan-400/10 text-center overflow-hidden ${
             prefersReducedMotion
               ? "opacity-100"
               : `transition-all duration-1000 ${
@@ -493,10 +493,10 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
           {/* Scan Line Effect */}
           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent animate-pulse"></div>
 
-          {/* Back to Top Button */}
+          {/* Back to Top Button - Mobile Optimized */}
           <a
             href="#top"
-            className="group relative inline-flex items-center gap-3 text-white/40 hover:text-cyan-300 text-sm font-light transition-all duration-700 hover:-translate-y-1 px-6 py-3 rounded-lg hover:bg-cyan-400/5 border border-transparent hover:border-cyan-400/20 backdrop-blur-sm mx-4"
+            className="group relative inline-flex items-center gap-2 sm:gap-3 text-white/40 hover:text-cyan-300 text-sm font-light transition-all duration-700 hover:-translate-y-1 px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-cyan-400/5 border border-transparent hover:border-cyan-400/20 backdrop-blur-sm mx-2 sm:mx-4"
             style={{
               fontFamily:
                 '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -505,13 +505,13 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
             {/* Left Tech Accent */}
             <div className="hidden md:flex items-center space-x-2">
               <div className="w-1.5 h-1.5 bg-cyan-400/20 rounded-full group-hover:bg-cyan-400/40 transition-colors duration-300"></div>
-              <span className="w-6 h-px bg-gradient-to-r from-transparent to-cyan-400/20 group-hover:to-cyan-400/40 transition-all duration-500" />
+              <span className="w-4 sm:w-6 h-px bg-gradient-to-r from-transparent to-cyan-400/20 group-hover:to-cyan-400/40 transition-all duration-500" />
             </div>
 
             {/* Content */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1.5 sm:space-x-2">
               <svg
-                className="w-4 h-4 text-cyan-400/40 group-hover:text-cyan-400 transition-all duration-300 group-hover:-translate-y-0.5"
+                className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-400/40 group-hover:text-cyan-400 transition-all duration-300 group-hover:-translate-y-0.5 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -523,14 +523,14 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
                   d="M7 11l5-5m0 0l5 5m-5-5v12"
                 />
               </svg>
-              <span className="group-hover:tracking-wide transition-all duration-300">
+              <span className="group-hover:tracking-wide transition-all duration-300 text-xs sm:text-sm">
                 Back to top
               </span>
             </div>
 
             {/* Right Tech Accent */}
             <div className="hidden md:flex items-center space-x-2">
-              <span className="w-6 h-px bg-gradient-to-l from-transparent to-cyan-400/20 group-hover:to-cyan-400/40 transition-all duration-500" />
+              <span className="w-4 sm:w-6 h-px bg-gradient-to-l from-transparent to-cyan-400/20 group-hover:to-cyan-400/40 transition-all duration-500" />
               <div className="w-1.5 h-1.5 bg-cyan-400/20 rounded-full group-hover:bg-cyan-400/40 transition-colors duration-300"></div>
             </div>
 

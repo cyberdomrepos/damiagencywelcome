@@ -49,20 +49,20 @@ export default function QuoteBuilder({
   };
 
   return (
-    <section className="relative py-20">
-      {/* Dark Tech Background Elements */}
+    <section className="relative py-12 sm:py-16 md:py-20">
+      {/* Dark Tech Background Elements - Mobile Optimized */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Tech Particles */}
+        {/* Floating Tech Particles - Responsive */}
         <div
-          className="absolute top-1/4 left-1/5 w-2 h-2 bg-cyan-400/20 rounded-full blur-sm animate-pulse"
+          className="absolute top-1/4 left-1/5 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400/20 rounded-full blur-sm animate-pulse"
           style={{ animationDelay: "0s", animationDuration: "3s" }}
         ></div>
         <div
-          className="absolute top-1/3 right-1/4 w-1 h-1 bg-cyan-300/30 rounded-full blur-sm animate-pulse"
+          className="absolute top-1/3 right-1/4 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-cyan-300/30 rounded-full blur-sm animate-pulse"
           style={{ animationDelay: "1s", animationDuration: "4s" }}
         ></div>
         <div
-          className="absolute bottom-1/4 left-1/6 w-1.5 h-1.5 bg-cyan-500/15 rounded-full blur-sm animate-pulse"
+          className="absolute bottom-1/4 left-1/6 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-cyan-500/15 rounded-full blur-sm animate-pulse"
           style={{ animationDelay: "2s", animationDuration: "5s" }}
         ></div>
         <div
@@ -70,32 +70,32 @@ export default function QuoteBuilder({
           style={{ animationDelay: "0.5s", animationDuration: "3.5s" }}
         ></div>
 
-        {/* Tech Grid Overlay */}
+        {/* Tech Grid Overlay - Responsive */}
         <div
-          className="absolute inset-0 opacity-[0.015]"
+          className="absolute inset-0 opacity-[0.01] sm:opacity-[0.015]"
           style={{
             backgroundImage: `
             linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px)
           `,
-            backgroundSize: "50px 50px",
+            backgroundSize: "30px 30px",
           }}
         ></div>
 
-        {/* Corner Tech Accents */}
-        <div className="absolute top-10 left-10 w-16 h-16 border-l border-t border-cyan-400/10"></div>
-        <div className="absolute top-10 right-10 w-16 h-16 border-r border-t border-cyan-400/10"></div>
-        <div className="absolute bottom-10 left-10 w-16 h-16 border-l border-b border-cyan-400/10"></div>
-        <div className="absolute bottom-10 right-10 w-16 h-16 border-r border-b border-cyan-400/10"></div>
+        {/* Corner Tech Accents - Responsive */}
+        <div className="absolute top-4 sm:top-6 md:top-10 left-4 sm:left-6 md:left-10 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 border-l border-t border-cyan-400/10"></div>
+        <div className="absolute top-4 sm:top-6 md:top-10 right-4 sm:right-6 md:right-10 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 border-r border-t border-cyan-400/10"></div>
+        <div className="absolute bottom-4 sm:bottom-6 md:bottom-10 left-4 sm:left-6 md:left-10 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 border-l border-b border-cyan-400/10"></div>
+        <div className="absolute bottom-4 sm:bottom-6 md:bottom-10 right-4 sm:right-6 md:right-10 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 border-r border-b border-cyan-400/10"></div>
       </div>
 
       <div
         ref={sectionRef}
         className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6"
       >
-        {/* Optional description text */}
+        {/* Optional description text - Mobile Optimized */}
         <div
-          className={`text-center mb-12 sm:mb-16 ${
+          className={`text-center mb-8 sm:mb-12 md:mb-16 px-2 sm:px-0 ${
             prefersReducedMotion
               ? "opacity-100"
               : `transition-all duration-1000 ${
@@ -106,7 +106,7 @@ export default function QuoteBuilder({
           }`}
         >
           <p
-            className="text-gray-400 text-lg max-w-3xl mx-auto"
+            className="text-gray-400 text-sm sm:text-base md:text-lg max-w-3xl mx-auto"
             style={{
               fontFamily:
                 '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -117,9 +117,9 @@ export default function QuoteBuilder({
           </p>
         </div>
 
-        {/* Premium Dark Tech Form Container */}
+        {/* Premium Dark Tech Form Container - Mobile Optimized */}
         <div
-          className={`relative glass-card rounded-xl p-10 md:p-12 border border-cyan-400/10 overflow-hidden transition-all duration-1000 hover:border-cyan-400/20 hover:shadow-2xl hover:shadow-cyan-400/10 ${
+          className={`relative glass-card rounded-lg sm:rounded-xl p-6 sm:p-8 md:p-10 lg:p-12 border border-cyan-400/10 overflow-hidden transition-all duration-1000 hover:border-cyan-400/20 hover:shadow-2xl hover:shadow-cyan-400/10 mx-2 sm:mx-0 ${
             prefersReducedMotion
               ? "opacity-100"
               : isVisible
@@ -128,26 +128,26 @@ export default function QuoteBuilder({
           }`}
           style={{ transitionDelay: "300ms" }}
         >
-          {/* Premium Background Effects */}
+          {/* Premium Background Effects - Mobile Responsive */}
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-10 right-10 w-32 h-32 bg-cyan-400/3 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-10 left-10 w-24 h-24 bg-cyan-300/2 rounded-full blur-2xl"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-cyan-500/1 rounded-full blur-3xl"></div>
+            <div className="absolute top-6 sm:top-10 right-6 sm:right-10 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-cyan-400/3 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-cyan-300/2 rounded-full blur-2xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 bg-cyan-500/1 rounded-full blur-3xl"></div>
           </div>
 
-          {/* Corner Tech Accents */}
-          <div className="absolute top-4 left-4 w-8 h-8 border-l border-t border-cyan-400/20"></div>
-          <div className="absolute top-4 right-4 w-8 h-8 border-r border-t border-cyan-400/20"></div>
-          <div className="absolute bottom-4 left-4 w-8 h-8 border-l border-b border-cyan-400/20"></div>
-          <div className="absolute bottom-4 right-4 w-8 h-8 border-r border-b border-cyan-400/20"></div>
+          {/* Corner Tech Accents - Mobile Responsive */}
+          <div className="absolute top-3 sm:top-4 left-3 sm:left-4 w-6 h-6 sm:w-8 sm:h-8 border-l border-t border-cyan-400/20"></div>
+          <div className="absolute top-3 sm:top-4 right-3 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 border-r border-t border-cyan-400/20"></div>
+          <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 w-6 h-6 sm:w-8 sm:h-8 border-l border-b border-cyan-400/20"></div>
+          <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 border-r border-b border-cyan-400/20"></div>
 
           <div className="relative z-10">
-            <form onSubmit={handleSubmit} className="space-y-8">
-              {/* Personal Information */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+              {/* Personal Information - Mobile Optimized */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label
-                    className="block text-white/90 text-sm font-light mb-3 tracking-wide"
+                    className="block text-white/90 text-xs sm:text-sm font-light mb-2 sm:mb-3 tracking-wide"
                     style={{
                       fontFamily:
                         '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -161,7 +161,7 @@ export default function QuoteBuilder({
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-4 py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60"
+                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 text-sm sm:text-base"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -169,13 +169,13 @@ export default function QuoteBuilder({
                       placeholder="Your name"
                     />
                     {/* Tech corner accents */}
-                    <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
-                    <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
+                    <div className="absolute top-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-l border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
+                    <div className="absolute top-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-r border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
                   </div>
                 </div>
                 <div>
                   <label
-                    className="block text-white/90 text-sm font-light mb-3 tracking-wide"
+                    className="block text-white/90 text-xs sm:text-sm font-light mb-2 sm:mb-3 tracking-wide"
                     style={{
                       fontFamily:
                         '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -189,7 +189,7 @@ export default function QuoteBuilder({
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-4 py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60"
+                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 text-sm sm:text-base"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -197,14 +197,14 @@ export default function QuoteBuilder({
                       placeholder="your@email.com"
                     />
                     {/* Tech corner accents */}
-                    <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
-                    <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
+                    <div className="absolute top-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-l border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
+                    <div className="absolute top-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-r border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
                   </div>
                 </div>
               </div>
 
-              {/* Project Information */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Project Information - Mobile Optimized */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                 <div>
                   <label
                     className="block text-white/90 text-sm font-light mb-3 tracking-wide"

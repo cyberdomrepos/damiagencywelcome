@@ -44,10 +44,10 @@ export default function AboutUs({
       aria-labelledby="about-title"
       className="py-8 sm:py-12 md:py-16 lg:py-20"
     >
-      <div className="mx-auto max-w-7xl px-6">
-        {/* Premium Section Header */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        {/* Premium Section Header - Mobile Optimized */}
         <div
-          className={`text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24 ${
+          className={`text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24 ${
             prefersReducedMotion
               ? "opacity-100"
               : `transition-all duration-1000 ${
@@ -57,20 +57,20 @@ export default function AboutUs({
                 }`
           }`}
         >
-          <div className="relative">
+          <div className="relative px-4 sm:px-0">
             <h2
               id="about-title"
-              className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight mb-3 sm:mb-4"
               style={{
                 fontFamily:
                   '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                textShadow: "0 0 30px rgba(34, 211, 238, 0.3)",
+                textShadow: "0 0 20px rgba(34, 211, 238, 0.3)",
               }}
             >
               About <span className="text-cyan-400 glow-cyan">Dami</span>Agency
             </h2>
             <p
-              className="text-gray-400 text-lg max-w-2xl mx-auto mb-8"
+              className="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-6 sm:mb-8 px-2 sm:px-0"
               style={{
                 fontFamily:
                   '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -82,9 +82,9 @@ export default function AboutUs({
           </div>
         </div>
 
-        {/* Premium Interactive Tabs with Tech SVG Icons */}
+        {/* Premium Interactive Tabs with Tech SVG Icons - Mobile Optimized */}
         <div
-          className={`mb-8 sm:mb-12 md:mb-16 lg:mb-20 ${
+          className={`mb-6 sm:mb-8 md:mb-12 lg:mb-16 xl:mb-20 ${
             prefersReducedMotion
               ? "opacity-100"
               : `transition-all duration-800 ${
@@ -94,8 +94,8 @@ export default function AboutUs({
                 }`
           }`}
         >
-          <div className="flex justify-center">
-            <div className="glass-card rounded-full p-1 flex flex-wrap sm:flex-nowrap gap-1">
+          <div className="flex justify-center px-2 sm:px-0">
+            <div className="glass-card rounded-full p-1 flex flex-col sm:flex-row gap-1 w-full sm:w-auto max-w-md sm:max-w-none">
               {[
                 {
                   id: "story",
@@ -141,7 +141,7 @@ export default function AboutUs({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 sm:px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 flex items-center space-x-2 relative overflow-hidden ${
+                  className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 flex items-center justify-center sm:space-x-2 relative overflow-hidden flex-1 sm:flex-initial ${
                     activeTab === tab.id
                       ? "bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 shadow-lg shadow-cyan-400/10"
                       : "text-gray-400 hover:text-gray-200 hover:bg-white/5"
@@ -154,10 +154,13 @@ export default function AboutUs({
                   {activeTab === tab.id && (
                     <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-transparent"></div>
                   )}
-                  <div className="relative z-10 flex items-center space-x-2">
-                    {tab.svg}
-                    <span className="hidden sm:inline">{tab.label}</span>
-                    <span className="sm:hidden">{tab.label}</span>
+                  <div className="relative z-10 flex items-center space-x-1 sm:space-x-2">
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0">
+                      {tab.svg}
+                    </div>
+                    <span className="text-xs sm:text-sm truncate">
+                      {tab.label}
+                    </span>
                   </div>
                 </button>
               ))}
@@ -165,9 +168,9 @@ export default function AboutUs({
           </div>
         </div>
 
-        {/* Premium Content Container with Dark Tech Styling */}
+        {/* Premium Content Container with Dark Tech Styling - Mobile Optimized */}
         <div
-          className={`relative glass-card glass-card-hover rounded-xl overflow-hidden border border-cyan-400/10 ${
+          className={`relative glass-card glass-card-hover rounded-lg sm:rounded-xl overflow-hidden border border-cyan-400/10 mx-2 sm:mx-0 ${
             prefersReducedMotion
               ? "opacity-100"
               : isVisible
@@ -182,19 +185,19 @@ export default function AboutUs({
               : "0ms",
           }}
         >
-          {/* Dark Tech Background Elements */}
+          {/* Dark Tech Background Elements - Mobile Optimized */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {/* Floating Geometric Shapes - Hero Style */}
+            {/* Floating Geometric Shapes - Responsive */}
             <div
-              className="absolute top-1/6 left-1/5 w-2 h-2 bg-cyan-400/20 rounded-full blur-sm animate-pulse"
+              className="absolute top-1/6 left-1/5 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400/20 rounded-full blur-sm animate-pulse"
               style={{ animationDelay: "0s", animationDuration: "3s" }}
             ></div>
             <div
-              className="absolute top-1/4 right-1/4 w-1 h-1 bg-cyan-300/30 rounded-full blur-sm animate-pulse"
+              className="absolute top-1/4 right-1/4 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-cyan-300/30 rounded-full blur-sm animate-pulse"
               style={{ animationDelay: "1s", animationDuration: "4s" }}
             ></div>
             <div
-              className="absolute bottom-1/4 left-1/6 w-1.5 h-1.5 bg-cyan-500/15 rounded-full blur-sm animate-pulse"
+              className="absolute bottom-1/4 left-1/6 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-cyan-500/15 rounded-full blur-sm animate-pulse"
               style={{ animationDelay: "2s", animationDuration: "5s" }}
             ></div>
             <div
@@ -202,13 +205,13 @@ export default function AboutUs({
               style={{ animationDelay: "0.5s", animationDuration: "3.5s" }}
             ></div>
             <div
-              className="absolute bottom-1/3 right-2/3 w-1 h-1 bg-cyan-200/20 rounded-full blur-sm animate-pulse"
+              className="absolute bottom-1/3 right-2/3 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-cyan-200/20 rounded-full blur-sm animate-pulse"
               style={{ animationDelay: "1.5s", animationDuration: "4.5s" }}
             ></div>
 
-            {/* Tech Grid Overlay */}
+            {/* Tech Grid Overlay - Responsive */}
             <div
-              className="absolute inset-0 opacity-[0.015]"
+              className="absolute inset-0 opacity-[0.01] sm:opacity-[0.015]"
               style={{
                 backgroundImage: `
                 linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
