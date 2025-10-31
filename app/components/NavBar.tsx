@@ -1,21 +1,22 @@
-"use client";
+"use client"; // NavBar is a client component
 
-import { useEffect, useId, useRef, useState } from "react";
-import BrandMark from "./BrandMark";
+import { useEffect, useId, useRef, useState } from "react"; // React hooks for state and effects
+import BrandMark from "./BrandMark"; // Brand Logo Component
 
+// NavBar component with smooth background transition, responsive menu, and accessibility features
 export default function NavBar() {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const menuId = useId();
-  const toggleRef = useRef<HTMLButtonElement | null>(null);
+  const [open, setOpen] = useState(false); // Mobile menu open state
+  const [scrolled, setScrolled] = useState(false); // Scroll state for background transition
+  const menuId = useId(); // Unique ID for menu
+  const toggleRef = useRef<HTMLButtonElement | null>(null); // Ref for the menu toggle button
 
   // Scroll detection for smooth background transition
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 30); // Consider scrolled if more than 30px down
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll); // Attach scroll listener
+    return () => window.removeEventListener("scroll", handleScroll); // Cleanup on unmount
   }, []);
 
   // ESC closes menu & return focus, click outside closes menu
@@ -27,18 +28,20 @@ export default function NavBar() {
       }
     };
 
+    // Click outside to close menu
     const onClick = (e: MouseEvent) => {
       const nav = document.querySelector('nav[aria-label="Primary"]');
       if (open && nav && !nav.contains(e.target as Node)) {
         setOpen(false);
       }
     };
-
+    // Attach event listeners
     window.addEventListener("keydown", onKey);
     if (open) {
       window.addEventListener("click", onClick);
     }
 
+    // Cleanup event listeners
     return () => {
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("click", onClick);
@@ -62,10 +65,27 @@ export default function NavBar() {
     };
   }, [open]);
 
+  const FONT_FAMILY =
+    '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace';
+
+  // Transition classes
+  const EASE = "ease-[cubic-bezier(0.25,0.46,0.45,0.94)]";
+  const TRANS500 = `transition-all duration-500 ${EASE}`;
+  const TRANS600 = `transition-all duration-600 ${EASE}`;
+  const TRANS1000 = `transition-all duration-1000 ${EASE}`;
+
+  //  Menu items configuration
+  const MENU_ITEMS: { href: string; label: string; primary?: boolean }[] = [
+    { href: "#services", label: "Services" },
+    { href: "#portfolio", label: "Portfolio" },
+    { href: "#about", label: "About Us" },
+    { href: "#quote", label: "Get a Quote", primary: true },
+  ];
+
   return (
     // Super smooth transparent navbar that becomes dark on scroll
     <header
-      className={`fixed top-0 left-0 right-0 z-50 h-16 md:h-18 transition-all duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+      className={`fixed top-0 left-0 right-0 z-50 h-16 md:h-18 ${TRANS1000} ${
         scrolled ? "border-b border-white/8" : "border-b border-transparent"
       }`}
       style={{
@@ -81,75 +101,54 @@ export default function NavBar() {
             h-full px-6 py-3 md:px-12 relative z-10 
             text-white"
       >
-        <BrandMark className="text-[20px] md:text-[22px]" />
-
+        <BrandMark className="text-[20px] md:text-[22px]" /> {/** Brand logo */}
         {/* Premium desktop navigation */}
         <ul className="hidden md:flex items-center gap-8 text-sm">
-          <li>
-            <a
-              href="#quote"
-              className="nav-link-premium nav-link-primary relative text-cyan-400 hover:text-cyan-300 
-                         transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] font-medium px-4 py-2 tracking-wide"
-              style={{
-                fontFamily:
-                  '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-              }}
-            >
-              Get a Quote
-            </a>
-          </li>
-          <li>
-            <a
-              href="#services"
-              className="nav-link-premium relative text-white/75 hover:text-white 
-                         transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] font-medium px-4 py-2 tracking-wide"
-              style={{
-                fontFamily:
-                  '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-              }}
-            >
-              Services
-            </a>
-          </li>
-          <li>
-            <a
-              href="#portfolio"
-              className="nav-link-premium relative text-white/75 hover:text-white 
-                         transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] font-medium px-4 py-2 tracking-wide"
-              style={{
-                fontFamily:
-                  '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-              }}
-            >
-              Portfolio
-            </a>
-          </li>
-          <li>
-            <a
-              href="#about"
-              className="nav-link-premium relative text-white/75 hover:text-white 
-                         transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] font-medium px-4 py-2 tracking-wide"
-              style={{
-                fontFamily:
-                  '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-              }}
-            >
-              About Us
-            </a>
-          </li>
+          {MENU_ITEMS.map((item) => (
+            <li key={item.href}>
+              {item.primary ? (
+                // Transparent, less-rounded CTA with an arrow
+                <a
+                  href={item.href}
+                  className={`inline-flex items-center group transform motion-safe:${TRANS500} motion-safe:hover:scale-105 px-4 py-2 rounded-sm bg-transparent border border-white/30 text-cyan-300 font-medium tracking-wider hover:bg-black/20 hover:border-cyan-400/40 hover:backdrop-blur-sm hover:ring-6 hover:ring-cyan-400/30 hover:ring-offset-2 hover:ring-offset-black/20 focus-visible:outline-none focus-visible:ring-6 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 active:scale-95`}
+                  style={{ fontFamily: FONT_FAMILY }}
+                >
+                  <span className="uppercase tracking-wider">{item.label}</span>
+                  <svg
+                    className="ml-2 w-4 h-4 transition-transform duration-300"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M5 12h14M13 5l7 7-7 7"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="group-hover:translate-x-1"
+                    />
+                  </svg>
+                </a>
+              ) : (
+                <a
+                  href={item.href}
+                  className={`nav-link-premium relative ${TRANS500} font-normal px-2 py-2 tracking-wide text-white/75 hover:text-white`}
+                  style={{ fontFamily: FONT_FAMILY }}
+                >
+                  {item.label}
+                </a>
+              )}
+            </li>
+          ))}
         </ul>
-
         {/* Premium mobile toggle */}
         <button
           ref={toggleRef}
           type="button"
-          className="md:hidden p-3 rounded-lg text-white/75 hover:text-white
-                     transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] active:scale-95
-                     hover:bg-white/3"
-          style={{
-            fontFamily:
-              '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-          }}
+          className={`md:hidden p-3 rounded-lg text-white/75 hover:text-white ${TRANS500} active:scale-95 hover:bg-white/3`}
+          style={{ fontFamily: FONT_FAMILY }}
           aria-expanded={open}
           aria-controls={menuId}
           aria-label="Toggle navigation menu"
@@ -160,7 +159,7 @@ export default function NavBar() {
             height="22"
             viewBox="0 0 24 24"
             fill="none"
-            className={`transition-all duration-600 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+            className={`${TRANS600} ${
               open ? "rotate-180 scale-90" : "rotate-0 scale-100"
             }`}
           >
@@ -188,7 +187,7 @@ export default function NavBar() {
       {/* Premium mobile dropdown */}
       <div
         id={menuId}
-        className={`md:hidden transition-all duration-600 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+        className={`md:hidden ${TRANS600} ${
           open
             ? "opacity-100 visible pointer-events-auto"
             : "opacity-0 invisible pointer-events-none"
@@ -196,7 +195,7 @@ export default function NavBar() {
       >
         <div
           className={`absolute left-0 right-0 top-full z-50
-                     transform transition-all duration-600 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] origin-top
+                     transform ${TRANS600} origin-top
                      ${open ? "scale-y-100" : "scale-y-95"}`}
           style={{
             background: "rgba(0, 0, 0, 0.9)",
@@ -205,15 +204,10 @@ export default function NavBar() {
           }}
         >
           <ul className="px-6 py-6 space-y-2">
-            {[
-              { href: "#quote", label: "Get a Quote", primary: true },
-              { href: "#services", label: "Services" },
-              { href: "#portfolio", label: "Portfolio" },
-              { href: "#about", label: "About Us" },
-            ].map((item, index) => (
+            {MENU_ITEMS.map((item, index) => (
               <li
                 key={item.href}
-                className={`transform transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+                className={`transform ${TRANS500} ${
                   open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
                 }`}
                 style={{
@@ -223,19 +217,12 @@ export default function NavBar() {
                 <a
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className={`
-                    block py-3 px-4 rounded-lg font-medium text-base tracking-wide
-                    transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]
-                    ${
-                      item.primary
-                        ? "text-cyan-400 hover:text-cyan-300"
-                        : "text-white/75 hover:text-white"
-                    }
-                  `}
-                  style={{
-                    fontFamily:
-                      '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                  }}
+                  className={
+                    item.primary
+                      ? `block w-full text-center transform py-3 px-4 rounded-sm font-medium text-base tracking-wide motion-safe:${TRANS500} motion-safe:hover:scale-105 bg-transparent border border-white/10 text-cyan-400 hover:bg-white/3 hover:ring-6 hover:ring-cyan-400/40 hover:ring-offset-2 hover:ring-offset-black/20 focus-visible:outline-none focus-visible:ring-6 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 active:scale-95`
+                      : `block py-3 px-4 rounded-lg font-medium text-base tracking-wide ${TRANS500} text-white/75 hover:text-white`
+                  }
+                  style={{ fontFamily: FONT_FAMILY }}
                 >
                   {item.label}
                 </a>
