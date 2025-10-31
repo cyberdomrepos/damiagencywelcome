@@ -110,12 +110,12 @@ export default function NavBar() {
                 // Transparent, less-rounded CTA with an arrow
                 <a
                   href={item.href}
-                  className={`inline-flex items-center group transform motion-safe:${TRANS500} motion-safe:hover:scale-105 px-4 py-2 rounded-sm bg-transparent border border-white/30 text-cyan-300 font-medium tracking-wider hover:bg-black/20 hover:border-cyan-400/40 hover:backdrop-blur-sm hover:ring-6 hover:ring-cyan-400/30 hover:ring-offset-2 hover:ring-offset-black/20 focus-visible:outline-none focus-visible:ring-6 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 active:scale-95`}
+                  className={`inline-flex items-center group transform ${TRANS500} motion-safe:group-hover:scale-105 px-4 py-2 rounded-sm bg-transparent border border-white/10 text-cyan-300 font-medium tracking-wider hover:border-cyan-300/40 hover:ring-1 hover:ring-cyan-300/30 hover:shadow-[0_6px_18px_rgba(6,182,212,0.04)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/20 active:scale-[0.98]`}
                   style={{ fontFamily: FONT_FAMILY }}
                 >
                   <span className="uppercase tracking-wider">{item.label}</span>
                   <svg
-                    className="ml-2 w-4 h-4 transition-transform duration-300"
+                    className="ml-2 w-4 h-4 transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:translate-x-1"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +127,6 @@ export default function NavBar() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="group-hover:translate-x-1"
                     />
                   </svg>
                 </a>
@@ -219,7 +218,7 @@ export default function NavBar() {
                   onClick={() => setOpen(false)}
                   className={
                     item.primary
-                      ? `block w-full text-center transform py-3 px-4 rounded-sm font-medium text-base tracking-wide motion-safe:${TRANS500} motion-safe:hover:scale-105 bg-transparent border border-white/10 text-cyan-400 hover:bg-white/3 hover:ring-6 hover:ring-cyan-400/40 hover:ring-offset-2 hover:ring-offset-black/20 focus-visible:outline-none focus-visible:ring-6 focus-visible:ring-cyan-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 active:scale-95`
+                      ? `block w-full text-center transform py-3 px-4 rounded-sm font-medium text-base tracking-wide ${TRANS500} motion-safe:group-hover:scale-105 bg-transparent border border-white/10 text-cyan-400 hover:border-cyan-300/40 hover:ring-1 hover:ring-cyan-300/30 hover:shadow-[0_6px_18px_rgba(6,182,212,0.04)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/20 active:scale-[0.98]`
                       : `block py-3 px-4 rounded-lg font-medium text-base tracking-wide ${TRANS500} text-white/75 hover:text-white`
                   }
                   style={{ fontFamily: FONT_FAMILY }}
