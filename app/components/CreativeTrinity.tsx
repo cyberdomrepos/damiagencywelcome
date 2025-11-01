@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import GradientUnderline from "./GradientUnderline";
-import ServiceCard from "./ServiceCard";
+import ServiceCard from "./ServiceCard"; 
 import { useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface Service {
