@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import NavBar from "./components/NavBar";
 import AuroraLayer from "./components/AuroraLayer";
+import InProgressModal from "./components/InProgressModal";
 
 // Iosevka Aile is loaded via CSS import in globals.css
 const bodyFont = Inter({
@@ -60,6 +61,7 @@ export default function RootLayout({
       <body className="text-white">
         <AuroraLayer /> {/* Re-enabled with subtle dark tech aurora */}
         <NavBar />
+        <InProgressModal />
         {children}
       </body>
     </html>
