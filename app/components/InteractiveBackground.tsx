@@ -9,26 +9,22 @@ export default function InteractiveBackground({
   prefersReducedMotion = false,
 }: InteractiveBackgroundProps) {
   return (
-    <div className="fixed inset-0 pointer-events-none z-0">
-      {/* Optimized static gradient background */}
-      <div 
-        className="absolute inset-0" 
+    // place behind other background layers so grid can sit on top
+    <div className="fixed inset-0 pointer-events-none z-[-20]">
+      {/* Clean, high-quality gradient background (no inline noise SVG) */}
+      <div
+        className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse 80% 50% at 20% 40%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse 60% 80% at 80% 60%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-            linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(15, 23, 42) 50%, rgb(0, 0, 0) 100%)
-          `
+            radial-gradient(ellipse 60% 40% at 18% 35%, rgba(6,182,212,0.06) 0%, transparent 35%),
+            radial-gradient(ellipse 40% 60% at 82% 65%, rgba(34,211,238,0.03) 0%, transparent 40%),
+            linear-gradient(180deg, rgba(6,11,15,1) 0%, rgba(6,9,12,1) 25%, rgba(8,10,14,1) 50%, rgba(0,0,0,1) 100%)
+          `,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       />
-      {/* Subtle noise texture */}
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          mixBlendMode: 'multiply'
-        }}
-      />
+      {/* Removed low-res noise overlay to keep the grid crisp and visible */}
     </div>
   );
 }

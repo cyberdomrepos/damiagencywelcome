@@ -2,14 +2,76 @@
    Use Google Fonts with display=swap for better performance */
 @import url("https://fonts.googleapis.com/css2?family=Iosevka+Aile:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+/*
+  Local Iosevka shipping: the repository doesn't include font binaries for licensing reasons.
+  To use a locally shipped font, place WOFF2 files in `public/fonts/` with these names:
+    - IosevkaAile-Regular.woff2
+    - IosevkaAile-Medium.woff2
+    - IosevkaAile-SemiBold.woff2
+
+  The @font-face blocks below will prefer the local files when present and fall back
+  to the Google-hosted import above if not found.
+*/
+
+@font-face {
+  font-family: "Iosevka Aile Local";
+  src: url("/fonts/IosevkaAile-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Iosevka Aile Local";
+  src: url("/fonts/IosevkaAile-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Iosevka Aile Local";
+  src: url("/fonts/IosevkaAile-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback to TTC files present in /public/fonts if WOFF2 not provided.
+   Some browsers may not support TTC directly; these entries help local testing
+   when the TTC files are present. Prefer WOFF2 for production when possible. */
+@font-face {
+  font-family: "Iosevka Aile Local";
+  src: url("/fonts/SGr-Iosevka-Regular.ttc") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Iosevka Aile Local";
+  src: url("/fonts/SGr-Iosevka-Medium.ttc") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Iosevka Aile Local";
+  src: url("/fonts/SGr-Iosevka-SemiBold.ttc") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Tailwind CSS v4 - import the framework */
 @import "tailwindcss";
 
 :root {
   --safe-top: env(safe-area-inset-top);
   --header-h: 64px;
-  --font-iosevka: "Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code",
-    "Consolas", monospace;
+  --font-iosevka: "Iosevka Aile Local", "Iosevka Aile", "SF Mono", "Monaco",
+    "Cascadia Code", "Consolas", monospace;
 }
 
 header {
@@ -550,6 +612,85 @@ label {
   animation: glow-pulse 2s ease-in-out infinite;
 }
 
+/* Hero subtitle styling: compact, techy, responsive tracking */
+.hero-subtitle {
+  display: inline-block;
+  color: rgba(229, 231, 235, 0.95); /* text-gray-200 */
+  font-variant: small-caps;
+  -webkit-font-smoothing: antialiased;
+  will-change: transform;
+}
+
+/* increase tracking slightly on very large displays for better legibility */
+@media (min-width: 1400px) {
+  .hero-subtitle {
+    letter-spacing: 0.02em;
+  }
+}
+
+/* Subtitle underline removed from CSS — use the reusable GradientUnderline component
+   placed in the hero markup for consistent control and flexibility. */
+
+/* One-liner copy under subtitle */
+.hero-oneliner {
+  color: rgba(229, 231, 235, 0.78); /* text-gray-300 */
+  line-height: 1.8;
+  max-width: 48rem;
+}
+
+/* CTA styles */
+.cta-primary {
+  border: 1px solid rgba(34, 211, 238, 0.34);
+  background: linear-gradient(
+    180deg,
+    rgba(34, 211, 238, 0.06),
+    rgba(34, 211, 238, 0.02)
+  );
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  position: relative;
+  z-index: 40; /* ensure CTAs sit above subtle backgrounds */
+}
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(6, 182, 212, 0.06),
+    inset 0 -2px 6px rgba(34, 211, 238, 0.04);
+}
+
+.cta-ghost {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(229, 231, 235, 0.78);
+  transition: transform 180ms ease, color 180ms ease, border-color 180ms ease;
+  position: relative;
+  z-index: 40; /* keep above background */
+}
+.cta-ghost:hover {
+  transform: translateY(-2px);
+  color: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Primary CTA arrow using pseudo element for a small chevron */
+.cta-primary::after {
+  content: "\2192";
+  display: inline-block;
+  margin-left: 0.6rem;
+  transform: translateY(-0.5px);
+  color: rgba(34, 211, 238, 0.9);
+  font-weight: 700;
+}
+
+/* Micro-accessibility tweak: reduce motion when user prefers it */
+@media (prefers-reduced-motion: reduce) {
+  .cta-primary,
+  .cta-ghost {
+    transition: none;
+  }
+  .brand-premium:hover span:last-child {
+    animation: none;
+  }
+}
+
 /* Premium brand hover shimmer */
 @keyframes shimmer {
   0% {
@@ -571,6 +712,58 @@ label {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(34, 211, 238, 0.1);
 }
 
+/* Marquee small card (chip) styles */
+.marquee-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: rgba(34, 211, 238, 0.85);
+  font-family: var(--font-iosevka);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+.marquee-chip:hover,
+.marquee-chip:focus {
+  transform: translateY(-2px);
+  background: rgba(34, 211, 238, 0.02);
+  box-shadow: 0 6px 18px rgba(6, 182, 212, 0.04);
+  outline: none;
+}
+.marquee-chip:focus {
+  box-shadow: 0 6px 22px rgba(6, 182, 212, 0.08);
+  border-color: rgba(34, 211, 238, 0.28);
+}
+.marquee-chip__icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  background: linear-gradient(
+    180deg,
+    rgba(34, 211, 238, 0.12),
+    rgba(34, 211, 238, 0.04)
+  );
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+/* Marquee container adjustments */
+.marquee-container {
+  pointer-events: auto; /* allow hover/focus */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-moving {
+    animation: none !important;
+  }
+}
+
 /* Subtle glow for minimal cards */
 @keyframes minimal-glow {
   0%,
@@ -580,5 +773,64 @@ label {
   50% {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4),
       0 0 0 1px rgba(34, 211, 238, 0.15), 0 0 20px rgba(34, 211, 238, 0.05);
+  }
+}
+
+/* Retro grid layers styling (subtle designer aesthetic) */
+.retro-grid-layer {
+  opacity: 1;
+  transform-origin: center;
+  filter: blur(0.2px);
+}
+.retro-grid--lines {
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+}
+.retro-grid--dots {
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+}
+.retro-grid--fine {
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+}
+
+/* Centered neon accent streak used by GridBackground for Tron-style glow */
+.grid-neon-accent {
+  width: min(640px, 48%);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.95), transparent);
+  filter: blur(6px);
+  opacity: 0.06;
+  border-radius: 999px;
+  box-shadow: 0 0 28px rgba(34,211,238,0.18), 0 0 8px rgba(34,211,238,0.08) inset;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .retro-grid--lines {
+    animation: retro-float 14s ease-in-out infinite;
+  }
+  .retro-grid--dots {
+    animation: retro-float 22s ease-in-out infinite reverse;
+  }
+}
+
+@keyframes retro-float {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.22;
+  }
+  50% {
+    transform: translateY(-6px) scale(1.002);
+    opacity: 0.24;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.22;
   }
 }
