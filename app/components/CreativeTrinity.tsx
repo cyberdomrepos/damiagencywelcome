@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Marquee3D from "./Marquee3D";
-import Services from "./ServicesBig";
+import ServicesBig from "./ServicesBig";
 
 interface CreativeTrinityProps {
   prefersReducedMotion?: boolean;
@@ -31,13 +31,13 @@ export default function CreativeTrinity({
 
   return (
     <>
-      <section className="relative min-h-screen flex items-center justify-center px-6 sm:px-8 py-32 z-20">
+      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 py-20 sm:py-32 z-20">
         <div className="relative max-w-6xl w-full mx-auto">
           <div
             className={`mx-auto w-full text-center md:text-left ${visibilityClass} transition-all duration-700 ease-out`}
           >
             {/* Hero section: marquee (top) + left content + right decorative media */}
-            <div className="mb-10 flex justify-center">
+            <div className="mb-6 sm:mb-10 flex justify-center">
               <Marquee3D
                 items={[
                   "React",
@@ -64,15 +64,15 @@ export default function CreativeTrinity({
                 ]}
               />
             </div>
-            <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">
               <div className="md:col-span-7">
                 <div>
                   <h1
                     className="text-white font-extrabold leading-tight max-w-none tracking-tight text-center md:text-left"
-                    style={{ fontSize: "clamp(3.5rem, 8.5vw, 9rem)" }}
+                    style={{ fontSize: "clamp(2.5rem, 8.5vw, 9rem)" }}
                   >
-                    <span className="block whitespace-nowrap">Build fast.</span>
-                    <span className="block whitespace-nowrap">
+                    <span className="block">Build fast.</span>
+                    <span className="block">
                       Look{" "}
                       <span
                         className="bg-clip-text text-transparent"
@@ -87,22 +87,22 @@ export default function CreativeTrinity({
                     </span>
                   </h1>
 
-                  <div className="mt-8 flex flex-wrap items-center gap-4 justify-center md:justify-start">
+                  <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-center gap-4 justify-center md:justify-start">
                     <a
                       href="#quote"
-                      className="inline-flex items-center gap-4 px-8 py-4 rounded-lg   bg-white text-black font-semibold text-2xl shadow-sm cta-lift"
+                      className="inline-flex items-center gap-4 px-6 sm:px-8 py-3 sm:py-4 rounded-lg bg-white text-black font-semibold text-lg sm:text-2xl shadow-sm cta-lift w-full sm:w-auto justify-center"
                     >
                       Contact Us
                     </a>
 
                     <a
                       href="#about"
-                      className="inline-flex items-center gap-3 px-6 py-4 rounded-lg bg-zinc-800 text-white font-semibold text-lg shadow-sm transition transform hover:-translate-y-1 hover:shadow-lg hover:bg-zinc-700"
+                      className="inline-flex items-center gap-3 px-5 sm:px-6 py-3 sm:py-4 rounded-lg bg-zinc-800 text-white font-semibold text-base sm:text-lg shadow-sm transition transform hover:-translate-y-1 hover:shadow-lg hover:bg-zinc-700 w-full sm:w-auto justify-center"
                       aria-label="About us"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
+                        className="h-5 w-5 sm:h-6 sm:w-6"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                         aria-hidden="true"
@@ -117,7 +117,7 @@ export default function CreativeTrinity({
                     </a>
                   </div>
 
-                  <div className="mt-8 flex items-stretch gap-4">
+                  <div className="mt-6 sm:mt-8 flex items-stretch gap-3 sm:gap-4">
                     {/* subtle vertical divider on md+ */}
                     <span className="hidden md:block w-px rounded bg-white/12" />
                     <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-xl mx-auto md:mx-0">
@@ -160,7 +160,7 @@ export default function CreativeTrinity({
           </div>
         </div>
       </section>
-      <Services />
+      <ServicesBig />
     </>
   );
 }

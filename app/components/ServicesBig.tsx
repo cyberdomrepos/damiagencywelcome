@@ -147,20 +147,20 @@ export default function ServicesBig() {
   ];
 
   return (
-    <section id="services" className="mt-16 md:mt-24 py-20">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+    <section id="services" className="mt-12 sm:mt-16 md:mt-24 py-12 sm:py-16 md:py-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 md:gap-12 items-start">
           <div className="md:col-span-7" />
-          <div className="md:col-span-5 flex flex-col items-end justify-start">
-            <div className="text-right md:pl-8 md:pt-4">
-              <h2 className="text-5xl md:text-8xl lg:text-9xl font-extrabold text-white leading-tight">
+          <div className="md:col-span-5 flex flex-col items-start md:items-end justify-start">
+            <div className="text-left md:text-right md:pl-8 md:pt-4">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-extrabold text-white leading-tight">
                 <span className="block">What we do.</span>
-                <span className="block text-teal-300 text-xl md:text-2xl font-medium mt-3">
+                <span className="block text-teal-300 text-lg sm:text-xl md:text-2xl font-medium mt-2 sm:mt-3">
                   Three core areas that move products forward
                 </span>
               </h2>
 
-              <div className="mt-6 pl-4 md:pl-8 border-l border-white/10 max-w-xl">
+              <div className="mt-4 sm:mt-6 pl-3 sm:pl-4 md:pl-8 border-l border-white/10 max-w-xl">
                 <p className="text-sm md:text-base text-gray-300 leading-relaxed">
                   We ship beautiful, usable products with high-performance code,
                   elevated brand systems, and original media that helps teams
@@ -172,14 +172,14 @@ export default function ServicesBig() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-12">
+        <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center gap-8 sm:gap-10 md:gap-12">
           {cards.map((card, i) => {
             const align =
               i === 0
-                ? "self-end md:self-end"
+                ? "self-center md:self-end"
                 : i === 1
-                ? "self-center md:self-center"
-                : "self-start md:self-start";
+                ? "self-center"
+                : "self-center md:self-start";
 
             const iconBg =
               i === 0
@@ -195,34 +195,34 @@ export default function ServicesBig() {
               >
                 <a
                   href={card.href}
-                  className={`group block rounded-3xl ${card.bg} ${card.border} ${card.text} p-12 md:p-20 min-h-[260px] md:min-h-[420px] lg:min-h-[520px] shadow-2xl transition-transform transform hover:-translate-y-4 hover:shadow-3xl focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/30`}
+                  className={`group block rounded-2xl sm:rounded-3xl ${card.bg} ${card.border} ${card.text} p-6 sm:p-10 md:p-16 lg:p-20 min-h-[300px] sm:min-h-[360px] md:min-h-[420px] lg:min-h-[520px] shadow-2xl transition-transform transform hover:-translate-y-4 hover:shadow-3xl focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/30`}
                 >
-                  <div className="flex items-start gap-6">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                     <div
-                      className={`flex-none rounded-lg ${iconBg} p-4 shadow-inner`}
+                      className={`flex-none rounded-lg ${iconBg} p-3 sm:p-4 shadow-inner`}
                     >
-                      <span className="inline-block w-16 h-16">
+                      <span className="inline-block w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
                         {card.icon}
                       </span>
                     </div>
 
                     <div
-                      className={`pl-6 md:pl-8 border-l ${
+                      className={`pl-0 sm:pl-4 md:pl-6 lg:pl-8 border-l-0 sm:border-l ${
                         i === 0
-                          ? "border-zinc-200"
+                          ? "sm:border-zinc-200"
                           : i === 1
-                          ? "border-rose-500/40"
-                          : "border-black/20"
+                          ? "sm:border-rose-500/40"
+                          : "sm:border-black/20"
                       } ml-0`}
                     >
                       <h3
-                        className={`text-4xl md:text-5xl lg:text-6xl font-extrabold ${card.text}`}
+                        className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold ${card.text}`}
                       >
                         {card.title}
                       </h3>
 
                       <p
-                        className={`mt-4 text-sm md:text-base leading-relaxed max-w-lg bg-transparent ${
+                        className={`mt-3 sm:mt-4 text-sm md:text-base leading-relaxed max-w-lg bg-transparent ${
                           i === 0
                             ? "text-zinc-700"
                             : i === 1
@@ -233,7 +233,7 @@ export default function ServicesBig() {
                         {card.desc}
                       </p>
 
-                      <ul className="mt-4 ml-4 list-disc space-y-2 text-sm md:text-base max-w-lg">
+                      <ul className="mt-3 sm:mt-4 ml-4 list-disc space-y-1.5 sm:space-y-2 text-sm md:text-base max-w-lg">
                         {card.bullets?.map((b, idx) => (
                           <li
                             key={idx}
@@ -250,9 +250,9 @@ export default function ServicesBig() {
                         ))}
                       </ul>
 
-                      <div className="mt-8">
+                      <div className="mt-6 sm:mt-8">
                         <span
-                          className={`inline-flex items-center gap-3 text-base px-5 py-3 rounded-md transition-colors font-semibold ${
+                          className={`inline-flex items-center gap-2 sm:gap-3 text-sm sm:text-base px-4 sm:px-5 py-2.5 sm:py-3 rounded-md transition-colors font-semibold ${
                             i === 0
                               ? "bg-zinc-900 text-white hover:bg-black/90"
                               : i === 1

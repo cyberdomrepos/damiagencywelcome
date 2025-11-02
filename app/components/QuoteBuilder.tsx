@@ -112,8 +112,8 @@ export default function QuoteBuilder({
                 '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
             }}
           >
-            Tell us what you're building and we'll reply with a concise scope,
-            timeline, and clear price
+            Tell us what you&apos;re building and we&apos;ll reply with a
+            concise scope, timeline, and clear price
           </p>
         </div>
 
@@ -387,7 +387,7 @@ export default function QuoteBuilder({
                            hover:scale-105 active:scale-95"
                 >
                   {/* Dark tech background effects */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 to-black/50 opacity-80"></div>
+                  <div className="absolute inset-0 bg-linear-to-br from-gray-900/50 to-black/50 opacity-80"></div>
 
                   {/* Premium tech border accents */}
                   <div className="absolute top-0 left-0 w-3 h-3 border-l border-t border-cyan-400/30"></div>
@@ -397,7 +397,7 @@ export default function QuoteBuilder({
 
                   {/* Subtle scan line effect */}
                   <div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent 
+                    className="absolute inset-0 bg-linear-to-r from-transparent via-cyan-400/10 to-transparent 
                               translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"
                   ></div>
 
@@ -410,7 +410,7 @@ export default function QuoteBuilder({
                   >
                     <span>Send Quote Request</span>
                     <svg
-                      className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0"
+                      className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300 shrink-0"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >

@@ -100,7 +100,7 @@ export default function ServiceCard({
         {/* Subtle Premium Border Glow */}
         <div
           className="absolute inset-0 rounded-sm border border-cyan-400/0 group-hover:border-cyan-400/20 
-                        transition-all duration-700 bg-gradient-to-br from-cyan-400/0 to-cyan-400/0 
+                        transition-all duration-700 bg-linear-to-br from-cyan-400/0 to-cyan-400/0 
                         group-hover:from-cyan-400/5 group-hover:to-transparent"
         ></div>
 
@@ -172,7 +172,7 @@ export default function ServiceCard({
 
         {/* Premium Hover Shadow */}
         <div
-          className="absolute -inset-0.5 bg-gradient-to-br from-cyan-400/0 to-cyan-400/0 
+          className="absolute -inset-0.5 bg-linear-to-br from-cyan-400/0 to-cyan-400/0 
                         group-hover:from-cyan-400/10 group-hover:to-transparent rounded-sm -z-10
                         opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm"
         ></div>

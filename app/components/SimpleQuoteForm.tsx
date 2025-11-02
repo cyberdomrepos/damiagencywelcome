@@ -267,8 +267,8 @@ export default function SimpleQuoteForm({
         </div>
       </div>
 
-      <div className="flex items-center gap-4 mt-6">
-        <label className="inline-flex items-center gap-2 text-white">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-6">
+        <label className="inline-flex items-center gap-2 text-white text-sm">
           <input
             type="checkbox"
             checked={nda}
@@ -282,14 +282,14 @@ export default function SimpleQuoteForm({
           value={timezone}
           onChange={(e) => setTimezone(e.target.value)}
           placeholder="Timezone (e.g. GMT+1)"
-          className="ml-auto w-44 rounded-md px-3 py-2 text-black bg-white shadow-sm border border-transparent"
+          className="w-full sm:w-44 sm:ml-auto rounded-md px-3 py-2 text-sm text-black bg-white shadow-sm border border-transparent"
         />
       </div>
 
-      <div className="mt-8">
+      <div className="mt-6 sm:mt-8">
         <button
           type="submit"
-          className="w-full rounded-xl px-6 py-5 bg-white text-black font-semibold text-lg shadow-lg"
+          className="w-full rounded-lg sm:rounded-xl px-5 sm:px-6 py-4 sm:py-5 bg-white text-black font-semibold text-base sm:text-lg shadow-lg hover:bg-gray-100 transition-colors"
         >
           Get a quote
         </button>
