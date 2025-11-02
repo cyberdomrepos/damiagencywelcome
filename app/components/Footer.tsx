@@ -39,7 +39,9 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5" />
             </svg>
-            <p className="text-white font-semibold text-sm sm:text-base">DamiAgency</p>
+            <p className="text-white font-semibold text-sm sm:text-base">
+              DamiAgency
+            </p>
           </div>
 
           <p className="text-white/60 text-xs sm:text-sm max-w-xl leading-relaxed">

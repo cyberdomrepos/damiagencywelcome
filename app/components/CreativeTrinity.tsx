@@ -65,10 +65,10 @@ export default function CreativeTrinity({
               />
             </div>
             <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">
-              <div className="md:col-span-7">
-                <div>
+              <div className="md:col-span-12">
+                <div className="w-full">
                   <h1
-                    className="text-white font-extrabold leading-tight max-w-none tracking-tight text-center md:text-left"
+                    className="text-white font-extrabold leading-tight tracking-tight text-center md:text-left w-full"
                     style={{ fontSize: "clamp(2.5rem, 8.5vw, 9rem)" }}
                   >
                     <span className="block">Build fast.</span>
