@@ -23,31 +23,31 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
   };
 
   return (
-    <footer aria-labelledby="site-footer" className="relative py-8">
+    <footer aria-labelledby="site-footer" className="relative py-6 sm:py-8">
       <h2 id="site-footer" className="sr-only">
         Footer
       </h2>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex flex-col items-start gap-4 text-left">
-          <div className="flex items-center space-x-3">
+        <div className="flex flex-col items-start gap-3 sm:gap-4 text-left">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <svg
               aria-hidden
-              className="w-5 h-5 text-white"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-white"
               viewBox="0 0 24 24"
               fill="currentColor"
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5" />
             </svg>
-            <p className="text-white font-semibold">DamiAgency</p>
+            <p className="text-white font-semibold text-sm sm:text-base">DamiAgency</p>
           </div>
 
-          <p className="text-white/60 text-sm max-w-xl">
+          <p className="text-white/60 text-xs sm:text-sm max-w-xl leading-relaxed">
             Design, code, and sound—crafted with attention and speed. Reach out
             for a concise scope and fast turnaround.
           </p>
 
-          <div className="text-sm text-white/50">
+          <div className="text-xs sm:text-sm text-white/50">
             © {year} DamiAgency — All rights reserved.
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
         href="#top"
         onClick={scrollToTop}
         aria-label="Back to top"
-        className="fixed right-6 bottom-6 z-40 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-black/20 text-white/60 hover:bg-black/30 hover:text-white transition-colors duration-200"
+        className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-40 hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-black/20 text-white/60 hover:bg-black/30 hover:text-white transition-colors duration-200"
         title="Back to top"
       >
         <svg

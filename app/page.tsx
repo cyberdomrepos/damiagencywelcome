@@ -38,7 +38,7 @@ export default function Page() {
       <InteractiveBackground prefersReducedMotion={prefersReducedMotion} />
 
       <main
-        className={`relative min-h-dvh px-2 sm:px-4 md:px-6 pt-20 sm:pt-24 md:pt-28 pb-16 sm:pb-24 scroll-pt-16 md:scroll-pt-20 transition-opacity duration-1000 ${
+        className={`relative min-h-dvh px-2 sm:px-4 md:px-6 pt-16 sm:pt-20 md:pt-28 pb-12 sm:pb-16 md:pb-24 scroll-pt-16 md:scroll-pt-20 transition-opacity duration-1000 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
         data-prefers-reduced-motion={prefersReducedMotion}
@@ -56,17 +56,17 @@ export default function Page() {
           */}
 
           {/** ABOUT US SECTION */}
-          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
+          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
             <AboutUs prefersReducedMotion={prefersReducedMotion} />
           </div>
 
           {/** GET A QUOTE SECTION */}
-          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
+          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
             <QuoteSection />
           </div>
 
           {/** FOOTER SECTION */}
-          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
+          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
             <Footer prefersReducedMotion={prefersReducedMotion} />
           </div>
         </div>

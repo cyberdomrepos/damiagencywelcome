@@ -147,7 +147,10 @@ export default function ServicesBig() {
   ];
 
   return (
-    <section id="services" className="mt-12 sm:mt-16 md:mt-24 py-12 sm:py-16 md:py-20">
+    <section
+      id="services"
+      className="mt-12 sm:mt-16 md:mt-24 py-12 sm:py-16 md:py-20"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 md:gap-12 items-start">
           <div className="md:col-span-7" />

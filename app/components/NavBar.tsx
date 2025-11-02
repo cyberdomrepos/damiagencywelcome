@@ -30,7 +30,7 @@ export default function NavBar() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto max-w-screen-2xl px-6 md:px-12 h-20 flex items-center text-white"
+        className="mx-auto max-w-screen-2xl px-4 sm:px-6 md:px-12 h-16 sm:h-20 flex items-center text-white"
       >
         {/* left */}
         <div className="flex items-center">
@@ -38,8 +38,8 @@ export default function NavBar() {
         </div>
 
         {/* center */}
-        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:block font-semibold text-xl">
-          <ul className="flex items-center gap-6">
+        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:block font-semibold text-base lg:text-xl">
+          <ul className="flex items-center gap-4 lg:gap-6">
             {MENU.filter((m) => !m.primary).map((m) => {
               const extra =
                 m.href === "#home" ? "border-b-2 border-white/90 pb-1" : "";
@@ -59,10 +59,10 @@ export default function NavBar() {
         </div>
 
         {/* right */}
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto flex items-center gap-3 sm:gap-4">
           <a
             href="#quote"
-            className="hidden md:inline-block px-5 py-2.5 rounded-md bg-white/95 text-black font-semibold text-xl shadow-sm cta-lift"
+            className="hidden md:inline-block px-4 lg:px-5 py-2 lg:py-2.5 rounded-md bg-white/95 text-black font-semibold text-base lg:text-xl shadow-sm cta-lift"
           >
             Get a Quote
           </a>
@@ -75,8 +75,8 @@ export default function NavBar() {
             onClick={() => setOpen((v) => !v)}
           >
             <svg
-              width="22"
-              height="22"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               className={`${
@@ -116,7 +116,7 @@ export default function NavBar() {
           }`}
           style={{ background: "rgba(0,0,0,0.9)" }}
         >
-          <ul className="px-6 py-4 space-y-2">
+          <ul className="px-4 sm:px-6 py-4 space-y-2">
             {MENU.map((m, i) => (
               <li
                 key={m.href}

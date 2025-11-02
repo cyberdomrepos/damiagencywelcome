@@ -129,19 +129,19 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
         .marquee-token { 
           display:inline-flex; 
           align-items:center; 
-          gap:0.8rem; 
+          gap:0.6rem; 
           color: rgba(170,210,210,0.6); /* muted */
           font-variant:all-small-caps; 
           letter-spacing:0.08em; 
           font-weight:600; 
-          padding: 6px 10px; 
+          padding: 4px 8px; 
           white-space:nowrap; 
           font-family: var(--font-iosevka);
-          font-size: 1.125rem; /* slightly larger */
+          font-size: 0.875rem; /* mobile base size */
           opacity: 0.95;
           min-width: max-content;
         }
-        .marquee-dot { color: rgba(170,255,240,0.45); font-size:0.8rem; opacity:0.55; display:inline-block; width:0.8ch; text-align:center }
+        .marquee-dot { color: rgba(170,255,240,0.45); font-size:0.7rem; opacity:0.55; display:inline-block; width:0.8ch; text-align:center }
         .marquee-token__label { display:inline-block }
 
   .marquee-bg { mix-blend-mode: normal; opacity:0.02 }
@@ -166,9 +166,20 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
           100% { background-position: 0% 50%; }
         }
 
-        /* Slightly reduce contrast on very small viewports */
-        @media (max-width: 480px) {
-          .marquee-token { font-size:1.05rem }
+        /* Responsive font sizes */
+        @media (min-width: 480px) {
+          .marquee-token { 
+            font-size: 1rem;
+            gap: 0.7rem;
+            padding: 5px 9px;
+          }
+        }
+        @media (min-width: 640px) {
+          .marquee-token { 
+            font-size: 1.125rem;
+            gap: 0.8rem;
+            padding: 6px 10px;
+          }
         }
         @media (min-width: 1400px) {
           .marquee-token { font-size:1.6rem }

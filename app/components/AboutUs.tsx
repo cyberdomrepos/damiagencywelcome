@@ -4,7 +4,10 @@ import React from "react";
 
 export default function AboutUs() {
   return (
-    <section id="about" className="mt-20 sm:mt-32 md:mt-40 lg:mt-56 py-12 sm:py-16 md:py-20">
+    <section
+      id="about"
+      className="mt-20 sm:mt-32 md:mt-40 lg:mt-56 py-12 sm:py-16 md:py-20"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 md:gap-12 items-stretch">
           <div className="md:col-span-5 text-left flex flex-col">
@@ -82,7 +85,9 @@ export default function AboutUs() {
                     </svg>
                   </span>
                   <div>
-                    <div className="font-semibold text-sm sm:text-base">Design systems & brand</div>
+                    <div className="font-semibold text-sm sm:text-base">
+                      Design systems & brand
+                    </div>
                     <div className="text-xs sm:text-sm text-white/85 mt-1">
                       Scalable visual languages, tokens, component libraries,
                       and accessible UI patterns — delivered as Figma libraries
@@ -157,7 +162,9 @@ export default function AboutUs() {
                     </svg>
                   </span>
                   <div>
-                    <div className="font-semibold text-sm sm:text-base">Original sound & media</div>
+                    <div className="font-semibold text-sm sm:text-base">
+                      Original sound & media
+                    </div>
                     <div className="text-xs sm:text-sm text-white/85 mt-1">
                       Bespoke soundtracks and sonic identity tuned for products
                       and marketing.
