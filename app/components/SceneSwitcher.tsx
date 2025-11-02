@@ -43,11 +43,6 @@ export default function SceneSwitcher() {
   return useGrid ? (
     <GridNeonFallback />
   ) : (
-    <NeonElevatorScene
-      intensity={0.14}
-      count={14}
-      speed={0.35}
-      drift={0.03}
-    />
+    <NeonElevatorScene intensity={0.14} count={14} speed={0.35} drift={0.03} />
   );
 }

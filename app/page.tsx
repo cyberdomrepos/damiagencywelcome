@@ -2,12 +2,11 @@
 
 // import DeployInfo from "./DeployInfo";
 import { useEffect, useState } from "react";
-import Section from "./components/Section";
-import QuoteBuilder from "./components/QuoteBuilder";
+import QuoteSection from "./components/QuoteSection";
 import Footer from "./components/Footer";
 import CreativeTrinity from "./components/CreativeTrinity";
-import AboutUs from "./components/AboutUs";
 import InteractiveBackground from "./components/InteractiveBackground";
+import AboutUs from "./components/AboutUs";
 
 export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -62,13 +61,9 @@ export default function Page() {
           </div>
 
           {/** GET A QUOTE SECTION */}
-          <Section
-            id="quote"
-            title="Get a quote"
-            className="mt-32 sm:mt-40 md:mt-48 lg:mt-56"
-          >
-            <QuoteBuilder prefersReducedMotion={prefersReducedMotion} />
-          </Section>
+          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
+            <QuoteSection />
+          </div>
 
           {/** FOOTER SECTION */}
           <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">

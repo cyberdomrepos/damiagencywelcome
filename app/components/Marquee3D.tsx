@@ -44,6 +44,8 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
     };
   }, []);
 
+  // No tilt: keep the marquee simple and muted for clarity.
+
   // keyboard accessibility: pause on focus within
   function handleFocusIn() {
     setIsPaused(true);
@@ -79,16 +81,17 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
           }}
         />
 
+        {/* single clean marquee track */}
         <div
           ref={trackRef}
           className="flex marquee-moving relative z-10"
           style={{
-            gap: "2.5rem",
+            gap: "4rem",
             alignItems: "center",
             willChange: "transform",
             animation: prefersReducedMotion
               ? "none"
-              : "marquee-loop 42s linear infinite",
+              : "marquee-loop 48s linear infinite",
             animationPlayState: isPaused ? "paused" : "running",
             paddingTop: "0.5rem",
             paddingBottom: "0.5rem",
@@ -97,7 +100,7 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
           {chips.map((name, i) => (
             <span
               key={`${name}-${i}`}
-              className="marquee-token"
+              className={`marquee-token`}
               role="listitem"
               aria-label={name}
             >
@@ -126,28 +129,41 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
         .marquee-token { 
           display:inline-flex; 
           align-items:center; 
-          gap:0.6rem; 
-          color: rgba(180,255,255,0.55); /* more subtle */
+          gap:0.8rem; 
+          color: rgba(170,210,210,0.6); /* muted */
           font-variant:all-small-caps; 
           letter-spacing:0.08em; 
           font-weight:600; 
-          padding: 6px 0; 
+          padding: 6px 10px; 
           white-space:nowrap; 
           font-family: var(--font-iosevka);
-          font-size: 1rem; /* more subtle size */
-          opacity: 0.9;
+          font-size: 1.125rem; /* slightly larger */
+          opacity: 0.95;
+          min-width: max-content;
         }
         .marquee-dot { color: rgba(170,255,240,0.45); font-size:0.8rem; opacity:0.55; display:inline-block; width:0.8ch; text-align:center }
         .marquee-token__label { display:inline-block }
 
-        .marquee-bg { mix-blend-mode: normal; opacity:0.02 }
+  .marquee-bg { mix-blend-mode: normal; opacity:0.02 }
 
         .marquee-fade { background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0)); }
         .marquee-fade--bottom { background: linear-gradient(0deg, rgba(0,0,0,0.35), rgba(0,0,0,0)); }
 
+        .marquee-token__label { display:inline-block }
+
+        /* gentle tilt removed for a neat, muted look */
+        .marquee-container { perspective: 900px; }
+        .marquee-moving { transform: none }
+
         @keyframes marquee-loop {
           0% { transform: translateX(0); }
           100% { transform: translateX(-33.3333%); }
+        }
+
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
 
         /* Slightly reduce contrast on very small viewports */

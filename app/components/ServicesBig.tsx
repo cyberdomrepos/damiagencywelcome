@@ -210,9 +210,9 @@ export default function ServicesBig() {
                       className={`pl-6 md:pl-8 border-l ${
                         i === 0
                           ? "border-zinc-200"
-                  : i === 1
-                  ? "border-rose-500/40"
-                  : "border-black/20"
+                          : i === 1
+                          ? "border-rose-500/40"
+                          : "border-black/20"
                       } ml-0`}
                     >
                       <h3

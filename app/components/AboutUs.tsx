@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import GradientUnderline from "./GradientUnderline";
+import React from "react";
 
 interface AboutUsProps {
   prefersReducedMotion?: boolean;
@@ -10,670 +9,178 @@ interface AboutUsProps {
 export default function AboutUs({
   prefersReducedMotion = false,
 }: AboutUsProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [animateContent, setAnimateContent] = useState(false);
-  const [activeTab, setActiveTab] = useState("story");
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          // Stagger content animation (instant if reduced motion)
-          const delay = prefersReducedMotion ? 0 : 400;
-          setTimeout(() => setAnimateContent(true), delay);
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "50px",
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [prefersReducedMotion]);
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      aria-labelledby="about-title"
-      className="py-8 sm:py-12 md:py-16 lg:py-20"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Premium Section Header - Mobile Optimized */}
-        <div
-          className={`text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24 ${
-            prefersReducedMotion
-              ? "opacity-100"
-              : `transition-all duration-1000 ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`
-          }`}
-        >
-          <div className="relative px-4 sm:px-0">
-            <h2
-              id="about-title"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight mb-3 sm:mb-4"
-              style={{
-                fontFamily:
-                  '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                textShadow: "0 0 20px rgba(34, 211, 238, 0.3)",
-              }}
-            >
-              About <span className="text-cyan-400 glow-cyan">Dami</span>Agency
+    <section id="about" className="mt-32 sm:mt-40 md:mt-48 lg:mt-56 py-20">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-stretch">
+          <div className="md:col-span-5 text-left flex flex-col">
+            <h2 className="text-5xl md:text-8xl lg:text-9xl font-extrabold text-white leading-tight">
+              <span className="block">About us.</span>
+              <span className="block text-teal-300 text-xl md:text-2xl font-medium mt-3">
+                Design, code, and sound — crafted together
+              </span>
             </h2>
-            <p
-              className="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-6 sm:mb-8 px-2 sm:px-0"
-              style={{
-                fontFamily:
-                  '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-              }}
-            >
-              Where creativity meets technology in perfect harmony
-            </p>
-            <GradientUnderline className="mx-auto" />
-          </div>
-        </div>
 
-        {/* Premium Interactive Tabs with Tech SVG Icons - Mobile Optimized */}
-        <div
-          className={`mb-6 sm:mb-8 md:mb-12 lg:mb-16 xl:mb-20 ${
-            prefersReducedMotion
-              ? "opacity-100"
-              : `transition-all duration-800 ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                }`
-          }`}
-        >
-          <div className="flex justify-center px-2 sm:px-0">
-            <div className="glass-card rounded-xl sm:rounded-full p-2 sm:p-1 flex flex-col sm:flex-row gap-2 sm:gap-1 w-full sm:w-auto max-w-sm sm:max-w-none">
-              {[
-                {
-                  id: "story",
-                  label: "Our Story",
-                  shortLabel: "Story", // Mobile version
-                  svg: (
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                    </svg>
-                  ),
-                },
-                {
-                  id: "expertise",
-                  label: "Expertise",
-                  shortLabel: "Skills", // Mobile version
-                  svg: (
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M13 3l3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" />
-                      <path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6" />
-                    </svg>
-                  ),
-                },
-                {
-                  id: "approach",
-                  label: "Approach",
-                  shortLabel: "Method", // Mobile version
-                  svg: (
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                  ),
-                },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 py-3 sm:px-4 md:px-6 sm:py-3 rounded-lg sm:rounded-full text-sm font-medium transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden w-full sm:w-auto ${
-                    activeTab === tab.id
-                      ? "bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 shadow-lg shadow-cyan-400/10"
-                      : "text-gray-400 hover:text-gray-200 hover:bg-white/5"
-                  }`}
-                  style={{
-                    fontFamily:
-                      '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                  }}
-                >
-                  {activeTab === tab.id && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-transparent"></div>
-                  )}
-                  <div className="relative z-10 flex items-center space-x-2">
-                    <div className="w-4 h-4 flex-shrink-0">
-                      {tab.svg}
-                    </div>
-                    <span className="text-sm whitespace-nowrap">
-                      <span className="sm:hidden">{tab.shortLabel}</span>
-                      <span className="hidden sm:inline">{tab.label}</span>
-                    </span>
-                  </div>
-                </button>
-              ))}
+            <div className="mt-6 pr-4 md:pr-8 border-r border-white/10 max-w-xl mr-auto h-full flex flex-col">
+              <p className="text-sm md:text-base text-gray-300 leading-relaxed">
+                We are a multidisciplinary studio that blends product design,
+                software engineering, and original audio to build cohesive
+                digital experiences. From brand systems and UI to performant
+                React + Next apps and bespoke soundtracks — we design with
+                accessibility, performance, and clarity in mind.
+              </p>
+
+              <p className="mt-4 text-sm md:text-base text-gray-300 leading-relaxed">
+                Our process is pragmatic and collaborative: we prototype fast,
+                validate with users, and ship iteratively. We partner closely
+                with teams to establish reusable systems, reliable pipelines,
+                and measurable performance budgets so your product can evolve
+                confidently.
+              </p>
+
+              <p className="mt-4 text-sm md:text-base text-gray-300 leading-relaxed">
+                Whether you need a refreshed brand, an accessible web
+                experience, or an original soundtrack, we bring a compact team
+                of designers, engineers, and composers to turn ideas into
+                polished products that feel as good as they function.
+              </p>
             </div>
           </div>
-        </div>
 
-        {/* Premium Content Container with Dark Tech Styling - Mobile Optimized */}
-        <div
-          className={`relative glass-card glass-card-hover rounded-lg sm:rounded-xl overflow-hidden border border-cyan-400/10 mx-4 sm:mx-0 ${
-            prefersReducedMotion
-              ? "opacity-100"
-              : isVisible
-              ? "opacity-100 translate-y-0 scale-100"
-              : "opacity-0 translate-y-12 scale-95"
-          }`}
-          style={{
-            transitionDelay: prefersReducedMotion
-              ? "0ms"
-              : isVisible
-              ? "200ms"
-              : "0ms",
-          }}
-        >
-          {/* Dark Tech Background Elements - Mobile Optimized */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {/* Floating Geometric Shapes - Responsive */}
-            <div
-              className="absolute top-1/6 left-1/5 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400/20 rounded-full blur-sm animate-pulse"
-              style={{ animationDelay: "0s", animationDuration: "3s" }}
-            ></div>
-            <div
-              className="absolute top-1/4 right-1/4 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-cyan-300/30 rounded-full blur-sm animate-pulse"
-              style={{ animationDelay: "1s", animationDuration: "4s" }}
-            ></div>
-            <div
-              className="absolute bottom-1/4 left-1/6 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-cyan-500/15 rounded-full blur-sm animate-pulse"
-              style={{ animationDelay: "2s", animationDuration: "5s" }}
-            ></div>
-            <div
-              className="absolute top-3/4 right-1/5 w-0.5 h-0.5 bg-cyan-400/25 rounded-full animate-pulse"
-              style={{ animationDelay: "0.5s", animationDuration: "3.5s" }}
-            ></div>
-            <div
-              className="absolute bottom-1/3 right-2/3 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-cyan-200/20 rounded-full blur-sm animate-pulse"
-              style={{ animationDelay: "1.5s", animationDuration: "4.5s" }}
-            ></div>
-
-            {/* Tech Grid Overlay - Responsive */}
-            <div
-              className="absolute inset-0 opacity-[0.01] sm:opacity-[0.015]"
-              style={{
-                backgroundImage: `
-                linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px)
-              `,
-                backgroundSize: "40px 40px",
-              }}
-            ></div>
-
-            {/* Premium Corner Accents */}
-            <div className="absolute top-6 left-6 w-12 h-12 border-l border-t border-cyan-400/15"></div>
-            <div className="absolute top-6 right-6 w-12 h-12 border-r border-t border-cyan-400/15"></div>
-            <div className="absolute bottom-6 left-6 w-12 h-12 border-l border-b border-cyan-400/15"></div>
-            <div className="absolute bottom-6 right-6 w-12 h-12 border-r border-b border-cyan-400/15"></div>
-
-            {/* Large Glow Orbs */}
-            <div className="absolute top-10 right-10 w-32 h-32 bg-cyan-400/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-10 left-10 w-24 h-24 bg-cyan-300/3 rounded-full blur-2xl"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-cyan-500/2 rounded-full blur-3xl"></div>
-          </div>
-
-          <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-16 xl:p-20">
-            {/* Dynamic Content Based on Active Tab - Mobile Optimized */}
-            {activeTab === "story" && (
-              <div
-                className={`transition-all duration-500 ${
-                  animateContent ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center mx-2 sm:mx-0">
-                  <div className="space-y-4 sm:space-y-6 px-2 sm:px-0">
-                    <div className="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6">
-                      <div className="flex-shrink-0 p-2 bg-cyan-400/10 rounded-lg border border-cyan-400/20">
-                        <svg
-                          className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                      </div>
-                      <h3
-                        className="text-lg sm:text-xl md:text-2xl font-bold text-white leading-tight"
-                        style={{
-                          fontFamily:
-                            '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                        }}
-                      >
-                        Born from Passion
-                      </h3>
-                    </div>
-                    <p
-                      className="text-gray-300 leading-relaxed text-sm sm:text-base"
-                      style={{
-                        fontFamily:
-                          '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                      }}
-                    >
-                      DamiAgency emerged from a simple belief: the best digital
-                      experiences happen when design, development, and sound
-                      work in perfect harmony. We started as a small team of
-                      creators who were frustrated with fragmented approaches to
-                      digital projects.
-                    </p>
-                    <p
-                      className="text-gray-400 leading-relaxed text-sm sm:text-base"
-                      style={{
-                        fontFamily:
-                          '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                      }}
-                    >
-                      Today, we're a creative powerhouse that bridges the gap
-                      between imagination and reality, crafting experiences that
-                      don't just look great—they feel great too.
-                    </p>
-                  </div>
-                  <div className="relative mt-6 sm:mt-0 px-2 sm:px-0">
-                    <div className="glass-card p-6 sm:p-8 space-y-4 sm:space-y-6 border border-cyan-400/10 relative overflow-hidden mx-2 sm:mx-0">
-                      {/* Premium background effect */}
-                      <div className="absolute inset-0">
-                        <div className="absolute top-0 right-0 w-16 h-16 bg-cyan-400/3 rounded-full blur-2xl"></div>
-                        <div className="absolute bottom-0 left-0 w-12 h-12 bg-cyan-300/2 rounded-full blur-xl"></div>
-                      </div>
-
-                      <div className="relative z-10 space-y-3 sm:space-y-4">
-                        <div className="flex items-center space-x-3 sm:space-x-4 group">
-                          <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
-                            <svg
-                              className="w-4 h-4 text-cyan-400"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zm2.5-9H19V1h-2v1H7V1H5v1H3.5C2.67 2 2 2.67 2 3.5v15C2 19.33 2.67 20 3.5 20h17c.83 0 1.5-.67 1.5-1.5v-15C22 2.67 21.33 2 20.5 2z" />
-                            </svg>
-                          </div>
-                          <span
-                            className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 text-sm sm:text-base leading-relaxed"
-                            style={{ fontFamily: '"Iosevka Aile", monospace' }}
-                          >
-                            Founded in 2024
-                          </span>
-                        </div>
-
-                        <div className="flex items-center space-x-3 sm:space-x-4 group">
-                          <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
-                            <svg
-                              className="w-4 h-4 text-cyan-400"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L11 13.5l-1.5-1.5L8 13.5 11 16.5l6.5-6.5L15.5 8z" />
-                            </svg>
-                          </div>
-                          <span
-                            className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 text-sm sm:text-base leading-relaxed"
-                            style={{ fontFamily: '"Iosevka Aile", monospace' }}
-                          >
-                            100+ Projects Delivered
-                          </span>
-                        </div>
-
-                        <div className="flex items-center space-x-3 sm:space-x-4 group">
-                          <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
-                            <svg
-                              className="w-4 h-4 text-cyan-400"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                            </svg>
-                          </div>
-                          <span
-                            className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 text-sm sm:text-base leading-relaxed"
-                            style={{ fontFamily: '"Iosevka Aile", monospace' }}
-                          >
-                            3 Core Disciplines
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <div className="md:col-span-7 flex items-stretch justify-end">
+            <div className="w-full md:w-[720px] bg-linear-to-br from-orange-500/95 via-rose-600/90 to-fuchsia-600/80 rounded-3xl p-12 md:p-20 shadow-lg ring-1 ring-black/20 text-white h-full flex flex-col justify-between">
+              <div className="max-w-176 text-left">
+                <h3 className="text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight">
+                  Process & expertise
+                </h3>
+                <p className="mt-6 text-base md:text-lg text-white/90">
+                  We combine design systems, engineering, and crafted audio to
+                  deliver polished products. We partner with teams to prototype
+                  quickly, set measurable goals, and ship reliable experiences.
+                </p>
               </div>
-            )}
-
-            {activeTab === "expertise" && (
-              <div
-                className={`transition-all duration-500 ${
-                  animateContent ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mx-2 sm:mx-0">
-                  {[
-                    {
-                      svg: (
-                        <svg
-                          className="w-8 h-8 text-cyan-400"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                      ),
-                      title: "Design Excellence",
-                      skills: [
-                        "Brand Identity",
-                        "UI/UX Design",
-                        "Visual Systems",
-                        "Motion Graphics",
-                      ],
-                      description:
-                        "We craft visual experiences that captivate and convert",
-                    },
-                    {
-                      svg: (
-                        <svg
-                          className="w-8 h-8 text-cyan-400"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z" />
-                        </svg>
-                      ),
-                      title: "Development Mastery",
-                      skills: [
-                        "React/Next.js",
-                        "TypeScript",
-                        "WebGL/Three.js",
-                        "Performance Optimization",
-                      ],
-                      description:
-                        "Building fast, scalable, and maintainable applications",
-                    },
-                    {
-                      svg: (
-                        <svg
-                          className="w-8 h-8 text-cyan-400"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
-                        </svg>
-                      ),
-                      title: "Audio Innovation",
-                      skills: [
-                        "Game Soundtracks",
-                        "Audio Branding",
-                        "Interactive Sound",
-                        "Music Production",
-                      ],
-                      description:
-                        "Creating immersive sonic experiences that enhance digital interactions",
-                    },
-                  ].map((expertise, index) => (
-                    <div
-                      key={expertise.title}
-                      className="relative glass-card p-6 md:p-8 group hover:bg-cyan-400/5 transition-all duration-500 hover:border-cyan-400/20 border border-transparent overflow-hidden mx-2 sm:mx-0"
+              <ul className="mt-12 space-y-8">
+                <li className="flex items-start gap-4">
+                  <span className="flex-none w-10 h-10 bg-white/6 rounded-lg flex items-center justify-center">
+                    {/* Gear / process */}
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden
                     >
-                      {/* Premium Background Effect */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <div className="absolute top-0 right-0 w-16 h-16 bg-cyan-400/5 rounded-full blur-xl"></div>
-                        <div className="absolute bottom-0 left-0 w-12 h-12 bg-cyan-300/3 rounded-full blur-lg"></div>
-                      </div>
-
-                      <div className="relative z-10">
-                        <div className="mb-6 p-3 bg-cyan-400/10 rounded-lg w-fit group-hover:bg-cyan-400/15 transition-colors duration-300">
-                          {expertise.svg}
-                        </div>
-                        <h4
-                          className="text-xl font-semibold text-white mb-3"
-                          style={{
-                            fontFamily: '"Iosevka Aile", monospace',
-                          }}
-                        >
-                          {expertise.title}
-                        </h4>
-                        <p
-                          className="text-gray-400 text-sm mb-4 leading-relaxed"
-                          style={{
-                            fontFamily: '"Iosevka Aile", monospace',
-                          }}
-                        >
-                          {expertise.description}
-                        </p>
-                        <div className="space-y-2">
-                          {expertise.skills.map((skill) => (
-                            <div
-                              key={skill}
-                              className="flex items-center space-x-3"
-                            >
-                              <div className="flex-shrink-0 w-1.5 h-1.5 bg-cyan-400 rounded-full"></div>
-                              <span
-                                className="text-gray-300 text-sm leading-relaxed"
-                                style={{
-                                  fontFamily: '"Iosevka Aile", monospace',
-                                }}
-                              >
-                                {skill}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeTab === "approach" && (
-              <div
-                className={`transition-all duration-500 ${
-                  animateContent ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                <div className="text-center mb-8 px-4 sm:px-0">
-                  <h3
-                    className="text-xl sm:text-2xl font-bold text-white mb-4"
-                    style={{
-                      fontFamily: '"Iosevka Aile", monospace',
-                    }}
-                  >
-                    Our Creative Process
-                  </h3>
-                  <p
-                    className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base"
-                    style={{
-                      fontFamily: '"Iosevka Aile", monospace',
-                    }}
-                  >
-                    Every great project starts with understanding. Here's how we
-                    transform your vision into reality.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-2 sm:mx-0">
-                  {[
-                    {
-                      step: "01",
-                      title: "Discover",
-                      description:
-                        "Deep dive into your goals, audience, and vision",
-                      svg: (
-                        <svg
-                          className="w-6 h-6 text-cyan-400"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-                        </svg>
-                      ),
-                    },
-                    {
-                      step: "02",
-                      title: "Design",
-                      description:
-                        "Craft beautiful, functional solutions that resonate",
-                      svg: (
-                        <svg
-                          className="w-6 h-6 text-cyan-400"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                      ),
-                    },
-                    {
-                      step: "03",
-                      title: "Develop",
-                      description:
-                        "Build with precision, performance, and scalability in mind",
-                      svg: (
-                        <svg
-                          className="w-6 h-6 text-cyan-400"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z" />
-                        </svg>
-                      ),
-                    },
-                    {
-                      step: "04",
-                      title: "Deliver",
-                      description: "Launch with confidence and ongoing support",
-                      svg: (
-                        <svg
-                          className="w-6 h-6 text-cyan-400"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-                        </svg>
-                      ),
-                    },
-                  ].map((phase, index) => (
-                    <div key={phase.step} className="relative mx-2 sm:mx-0">
-                      <div className="glass-card p-6 md:p-8 text-center group hover:bg-cyan-400/5 transition-all duration-500 h-full border border-cyan-400/10 hover:border-cyan-400/20 relative overflow-hidden">
-                        {/* Premium background effect */}
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <div className="absolute top-0 right-0 w-12 h-12 bg-cyan-400/5 rounded-full blur-xl"></div>
-                        </div>
-
-                        <div className="relative z-10">
-                          {/* Tech Icon with Step Number */}
-                          <div className="flex items-center justify-center mb-4">
-                            <div className="relative">
-                              <div className="flex items-center justify-center w-16 h-16 bg-cyan-400/10 rounded-full border border-cyan-400/20 group-hover:bg-cyan-400/15 transition-colors duration-300">
-                                {phase.svg}
-                              </div>
-                              <div
-                                className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 bg-cyan-400 text-black text-xs font-bold rounded-full"
-                                style={{
-                                  fontFamily: '"Iosevka Aile", monospace',
-                                }}
-                              >
-                                {phase.step.replace("0", "")}
-                              </div>
-                            </div>
-                          </div>
-
-                          <h4
-                            className="text-lg font-semibold text-white mb-3 group-hover:text-cyan-100 transition-colors duration-300"
-                            style={{
-                              fontFamily: '"Iosevka Aile", monospace',
-                            }}
-                          >
-                            {phase.title}
-                          </h4>
-                          <p
-                            className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300"
-                            style={{
-                              fontFamily: '"Iosevka Aile", monospace',
-                            }}
-                          >
-                            {phase.description}
-                          </p>
-                        </div>
-                      </div>
-                      {index < 3 && (
-                        <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-px bg-gradient-to-r from-cyan-400/30 to-transparent z-10">
-                          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-cyan-400/40 rounded-full"></div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Premium CTA Section with Dark Tech Styling - Mobile Optimized */}
-            <div className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-cyan-400/20 text-center relative px-4 sm:px-0">
-              {/* Tech accents on border - Hidden on small screens */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 sm:w-3 sm:h-3 bg-cyan-400/40 rounded-full"></div>
-              <div className="hidden sm:block absolute top-0 left-1/4 transform -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-300/30 rounded-full"></div>
-              <div className="hidden sm:block absolute top-0 right-1/4 transform translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-300/30 rounded-full"></div>
-
-              <p
-                className="text-gray-300 mb-6 sm:mb-8 text-base sm:text-lg px-2 sm:px-0"
-                style={{
-                  fontFamily: '"Iosevka Aile", monospace',
-                }}
-              >
-                Ready to create something extraordinary together?
-              </p>
-              <div className="flex justify-center">
-                <button
-                  className="group relative px-6 sm:px-8 py-3 sm:py-4 text-white font-medium text-sm sm:text-base overflow-hidden 
-                             transition-all duration-500 ease-out w-full sm:w-auto max-w-xs sm:max-w-none
-                             border border-cyan-400/40 hover:border-cyan-400/60 rounded-sm
-                             bg-black/40 hover:bg-cyan-400/10 
-                             backdrop-blur-sm hover:shadow-lg hover:shadow-cyan-400/20 
-                             hover:scale-105 active:scale-95"
-                  style={{
-                    fontFamily:
-                      '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
-                  }}
-                >
-                  {/* Dark tech background effects */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 to-black/50 opacity-80"></div>
-
-                  {/* Premium tech border accents - Mobile Responsive */}
-                  <div className="absolute top-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-l border-t border-cyan-400/30"></div>
-                  <div className="absolute top-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-r border-t border-cyan-400/30"></div>
-                  <div className="absolute bottom-0 left-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-l border-b border-cyan-400/30"></div>
-                  <div className="absolute bottom-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-r border-b border-cyan-400/30"></div>
-
-                  {/* Subtle scan line effect */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent 
-                                translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"
-                  ></div>
-
-                  <span className="relative z-10 tracking-wide">
-                    Start Your Project
+                      <path
+                        d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09c.7 0 1.3-.4 1.51-1a1.65 1.65 0 0 0-.33-1.82L4.3 3.7A2 2 0 0 1 7.13.87l.06.06c.5.5 1.2.6 1.82.33.6-.26 1.3-.26 1.82 0 .5.26.9.66 1.16 1.16.26.52.26 1.22 0 1.82-.27.62-.17 1.32.33 1.82l.06.06A2 2 0 0 1 20 7.13l-.06.06c-.5.5-.6 1.2-.33 1.82.26.6.66 1 1.16 1.16.52.26 1.22.26 1.82 0z"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </span>
-                </button>
+                  <div>
+                    <div className="font-semibold">Design systems & brand</div>
+                    <div className="text-sm text-white/85">
+                      Scalable visual languages, tokens, component libraries,
+                      and accessible UI patterns — delivered as Figma libraries
+                      and Storybook for repeatable, production-ready components.
+                    </div>
+                  </div>
+                </li>
+
+                <li className="flex items-start gap-4">
+                  <span className="flex-none w-10 h-10 bg-white/6 rounded-lg flex items-center justify-center">
+                    {/* Code / engineering */}
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden
+                    >
+                      <path
+                        d="M16 18l6-6-6-6"
+                        stroke="currentColor"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M8 6L2 12l6 6"
+                        stroke="currentColor"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <div>
+                    <div className="font-semibold">
+                      Engineering & performance
+                    </div>
+                    <div className="text-sm text-white/85">
+                      Next.js apps, measurable performance budgets, and reliable
+                      CI/CD pipelines.
+                    </div>
+                  </div>
+                </li>
+
+                <li className="flex items-start gap-4">
+                  <span className="flex-none w-10 h-10 bg-white/6 rounded-lg flex items-center justify-center">
+                    {/* Audio / sound */}
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden
+                    >
+                      <path
+                        d="M9 18V6l6-2v14l-6-2z"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M19 5a4 4 0 0 1 0 14"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <div>
+                    <div className="font-semibold">Original sound & media</div>
+                    <div className="text-sm text-white/85">
+                      Bespoke soundtracks and sonic identity tuned for products
+                      and marketing.
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <div className="mt-6 flex gap-3 items-center">
+                <a
+                  href="#quote"
+                  className="inline-block px-5 py-2.5 rounded-md bg-white text-black font-semibold text-base shadow-sm"
+                >
+                  Start a project
+                </a>
+                <a
+                  href="#portfolio"
+                  className="inline-block px-4 py-2 rounded-md border border-white/20 text-white/85 text-base"
+                >
+                  Our work
+                </a>
               </div>
             </div>
           </div>

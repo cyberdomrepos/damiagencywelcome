@@ -67,6 +67,12 @@ export default function Section({
       >
         {children}
       </div>
+
+      {/* subtle dividing line after each section */}
+      <div className="mt-12">
+        {/* increased contrast: slightly stronger but still subtle */}
+        <span className="block h-px w-full bg-white/10" aria-hidden />
+      </div>
     </section>
   );
 }

@@ -3,7 +3,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import NavBar from "./components/NavBar";
 import MinimalScrollScene from "./components/MinimalScrollScene";
-import "./styles/theme.css";
 import InProgressModal from "./components/InProgressModal";
 
 // Iosevka Aile is loaded via CSS import in globals.css
@@ -106,10 +105,13 @@ export default function RootLayout({
         />
       </head>
       <body className="text-white">
-        <MinimalScrollScene opacity={0.08} />
+        <MinimalScrollScene opacity={0.12} />
         <NavBar />
         <InProgressModal />
-        {children}
+        {/* Ensure page content is pushed below the fixed header and accounts for safe-area inset */}
+        <main className="pt-[calc(var(--header-h)+var(--safe-top))]">
+          {children}
+        </main>
       </body>
     </html>
   );

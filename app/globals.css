@@ -1,77 +1,16 @@
-/* Load Iosevka Aile first (must be before other rules)
-   Use Google Fonts with display=swap for better performance */
-@import url("https://fonts.googleapis.com/css2?family=Iosevka+Aile:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-/*
-  Local Iosevka shipping: the repository doesn't include font binaries for licensing reasons.
-  To use a locally shipped font, place WOFF2 files in `public/fonts/` with these names:
-    - IosevkaAile-Regular.woff2
-    - IosevkaAile-Medium.woff2
-    - IosevkaAile-SemiBold.woff2
-
-  The @font-face blocks below will prefer the local files when present and fall back
-  to the Google-hosted import above if not found.
-*/
-
-@font-face {
-  font-family: "Iosevka Aile Local";
-  src: url("/fonts/IosevkaAile-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Iosevka Aile Local";
-  src: url("/fonts/IosevkaAile-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Iosevka Aile Local";
-  src: url("/fonts/IosevkaAile-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Fallback to TTC files present in /public/fonts if WOFF2 not provided.
-   Some browsers may not support TTC directly; these entries help local testing
-   when the TTC files are present. Prefer WOFF2 for production when possible. */
-@font-face {
-  font-family: "Iosevka Aile Local";
-  src: url("/fonts/SGr-Iosevka-Regular.ttc") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Iosevka Aile Local";
-  src: url("/fonts/SGr-Iosevka-Medium.ttc") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Iosevka Aile Local";
-  src: url("/fonts/SGr-Iosevka-SemiBold.ttc") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
+/* Load Montserrat from Google Fonts for a clean, minimal tone. */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 
 /* Tailwind CSS v4 - import the framework */
 @import "tailwindcss";
 
 :root {
   --safe-top: env(safe-area-inset-top);
-  --header-h: 64px;
-  --font-iosevka: "Iosevka Aile Local", "Iosevka Aile", "SF Mono", "Monaco",
-    "Cascadia Code", "Consolas", monospace;
+  /* Match header height (h-20 -> 5rem -> 80px). Keep a CSS var so other places can reference it. */
+  --header-h: 80px;
+  /* Global sans for the site. Montserrat is used as the primary family. */
+  --font-iosevka: "Montserrat", system-ui, -apple-system, "Segoe UI", "Roboto",
+    "Helvetica Neue", Arial, sans-serif;
   /* map grid CSS vars to the theme so the CSS fallback matches the 3D scene */
   --grid-primary: var(--primary);
   --grid-accent: var(--accent);
@@ -80,9 +19,8 @@
   --grid-major: 264;
 }
 
-header {
-  padding-top: max(0px, var(--safe-top));
-}
+/* Header safe-area inset moved to Tailwind utilities on the <header> element.
+   Removed global rule to prefer Tailwind-driven spacing. */
 
 /* Force the Iosevka family for the primary navigation to ensure consistency */
 nav[aria-label="Primary"],
@@ -522,6 +460,44 @@ label {
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform: translateZ(0);
   will-change: transform, opacity;
+}
+
+/* Minimal hover underline for simple nav links
+   - text is muted by default and brightens on hover
+   - an animated underline scales from 0 -> 100% on hover
+*/
+.nav-link-underline {
+  position: relative;
+  color: rgba(255, 255, 255, 0.78);
+  transition: color 180ms ease;
+}
+.nav-link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 200ms ease;
+  pointer-events: none;
+}
+.nav-link-underline:hover {
+  color: #fff;
+}
+.nav-link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Simple CTA hover: small lift and gentle scale for buttons */
+.cta-lift {
+  transition: transform 200ms cubic-bezier(0.2, 0.8, 0.2, 0.5),
+    box-shadow 200ms ease;
+}
+.cta-lift:hover {
+  transform: translateY(-4px) scale(1.04);
 }
 
 /* Ultra-smooth premium glow on hover */
