@@ -41,13 +41,12 @@ export default function SceneSwitcher() {
 
   // grid is lightweight CSS fallback; neon is the 3D scene
   return useGrid ? (
-    <GridNeonFallback cell={44} majorEvery={6} intensity={0.85} drift={0.02} />
+    <GridNeonFallback />
   ) : (
     <NeonElevatorScene
       intensity={0.14}
-      cell={44}
-      majorEvery={6}
-      speed={0.85}
+      count={14}
+      speed={0.35}
       drift={0.03}
     />
   );
