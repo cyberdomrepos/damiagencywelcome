@@ -15,7 +15,9 @@ export default function GridBackground3D() {
       : false;
 
     // detect mobile for performance fallbacks
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent || "");
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(
+      navigator.userAgent || ""
+    );
 
     const mountEl = mountRef.current;
     const width = mountEl.clientWidth || window.innerWidth;
@@ -170,5 +172,7 @@ export default function GridBackground3D() {
     };
   }, []);
 
-  return <div ref={mountRef} className="fixed inset-0 pointer-events-none z-0" />;
+  return (
+    <div ref={mountRef} className="fixed inset-0 pointer-events-none z-0" />
+  );
 }

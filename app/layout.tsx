@@ -2,7 +2,8 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import NavBar from "./components/NavBar";
-import GridBackground from "./components/GridBackground3D";
+import MinimalScrollScene from "./components/MinimalScrollScene";
+import "./styles/theme.css";
 import InProgressModal from "./components/InProgressModal";
 
 // Iosevka Aile is loaded via CSS import in globals.css
@@ -105,7 +106,7 @@ export default function RootLayout({
         />
       </head>
       <body className="text-white">
-        <GridBackground />
+        <MinimalScrollScene opacity={0.08} />
         <NavBar />
         <InProgressModal />
         {children}

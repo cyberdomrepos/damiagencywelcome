@@ -16,12 +16,12 @@ export default function BrandMark({ className = "" }: Props) {
         <span
           className="text-cyan-400"
           style={{
-            // Slightly reduce perceived weight and scale so the cyan half balances the white half
+            // Minimal two-color brandmark: primary + white, intentionally very clean
             fontWeight: 700,
             transform: "scale(0.985)",
             display: "inline-block",
-            textShadow: "0 0 4px rgba(34,211,238,0.18)",
-            filter: "drop-shadow(0 0 3px rgba(34, 211, 238, 0.1))",
+            color: "var(--primary)",
+            textShadow: "none",
           }}
         >
           Dami
@@ -30,10 +30,8 @@ export default function BrandMark({ className = "" }: Props) {
           className="text-white ml-0.5"
           style={{
             fontWeight: 400,
-            // faint inner glow to increase perceived weight slightly
-            textShadow:
-              "0 0 1px rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.06)",
             display: "inline-block",
+            textShadow: "none",
           }}
         >
           Agency

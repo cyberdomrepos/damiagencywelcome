@@ -1,0 +1,15 @@
+:root {
+  /* Minimal, professional palette — calm teal + muted slate */
+  --bg: #06121a; /* deep navy background */
+  --primary: #0fb5c3; /* calm teal/cyan */
+  --primary-rgb: 15, 181, 195; /* for rgba() uses */
+  --accent: #9fb3c8; /* muted slate accent (used very sparingly) */
+  --accent-rgb: 159, 179, 200;
+  --muted: #95a1ac;
+  --neon-intensity: 1; /* multiplier for scene intensity (use 1.0 = neutral) */
+}
+
+/* small helper for the neon overlays */
+.neon-vignette {
+  pointer-events: none;
+}

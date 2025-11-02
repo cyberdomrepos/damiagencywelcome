@@ -86,12 +86,18 @@ export default function NavBar() {
     // Super smooth transparent navbar that becomes dark on scroll
     <header
       className={`fixed top-0 left-0 right-0 z-50 h-16 md:h-18 ${TRANS1000} ${
-        scrolled ? "border-b border-white/8" : "border-b border-transparent"
+        scrolled
+          ? "border-b border-cyan-400/10 shadow-[0_4px_20px_rgba(6,182,212,0.08)]"
+          : "border-b border-transparent"
       }`}
       style={{
-        background: scrolled ? "rgba(0, 0, 0, 0.9)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+        background: scrolled
+          ? "rgba(0, 0, 0, 0.85)"
+          : "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)",
+        backdropFilter: scrolled ? "blur(24px) saturate(180%)" : "blur(8px)",
+        WebkitBackdropFilter: scrolled
+          ? "blur(24px) saturate(180%)"
+          : "blur(8px)",
       }}
     >
       <nav
@@ -133,7 +139,7 @@ export default function NavBar() {
               ) : (
                 <a
                   href={item.href}
-                  className={`nav-link-premium relative ${TRANS500} font-normal px-2 py-2 tracking-wide text-white/75 hover:text-white`}
+                  className={`nav-link-premium relative ${TRANS500} font-normal px-3 py-2 tracking-wide text-white/80 hover:text-cyan-300 hover:scale-105`}
                   style={{ fontFamily: FONT_FAMILY }}
                 >
                   {item.label}
@@ -146,7 +152,7 @@ export default function NavBar() {
         <button
           ref={toggleRef}
           type="button"
-          className={`md:hidden p-3 rounded-lg text-white/75 hover:text-white ${TRANS500} active:scale-95 hover:bg-white/3`}
+          className={`md:hidden p-3 rounded-lg text-white/85 hover:text-cyan-300 ${TRANS500} active:scale-95 hover:bg-cyan-400/5 hover:ring-1 hover:ring-cyan-400/20`}
           style={{ fontFamily: FONT_FAMILY }}
           aria-expanded={open}
           aria-controls={menuId}
@@ -218,8 +224,8 @@ export default function NavBar() {
                   onClick={() => setOpen(false)}
                   className={
                     item.primary
-                      ? `block w-full text-center transform py-3 px-4 rounded-sm font-medium text-base tracking-wide ${TRANS500} motion-safe:group-hover:scale-105 bg-transparent border border-white/10 text-cyan-400 hover:border-cyan-300/40 hover:ring-1 hover:ring-cyan-300/30 hover:shadow-[0_6px_18px_rgba(6,182,212,0.04)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/20 active:scale-[0.98]`
-                      : `block py-3 px-4 rounded-lg font-medium text-base tracking-wide ${TRANS500} text-white/75 hover:text-white`
+                      ? `block w-full text-center transform py-3 px-4 rounded-sm font-medium text-base tracking-wide ${TRANS500} motion-safe:group-hover:scale-105 bg-transparent border border-cyan-400/20 text-cyan-300 hover:border-cyan-300/50 hover:bg-cyan-400/5 hover:ring-1 hover:ring-cyan-300/30 hover:shadow-[0_6px_18px_rgba(6,182,212,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/20 active:scale-[0.98]`
+                      : `block py-3 px-4 rounded-lg font-medium text-base tracking-wide ${TRANS500} text-white/80 hover:text-cyan-300 hover:bg-cyan-400/5`
                   }
                   style={{ fontFamily: FONT_FAMILY }}
                 >
