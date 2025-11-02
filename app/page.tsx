@@ -57,7 +57,7 @@ export default function Page() {
 
           {/** ABOUT US SECTION */}
           <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
-            <AboutUs prefersReducedMotion={prefersReducedMotion} />
+            <AboutUs />
           </div>
 
           {/** GET A QUOTE SECTION */}
