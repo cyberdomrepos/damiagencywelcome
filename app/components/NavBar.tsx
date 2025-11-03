@@ -44,7 +44,7 @@ export default function NavBar() {
               const extra =
                 m.href === "#home" ? "border-b-2 border-white/90 pb-1" : "";
               // Remove hover/underline for Home by omitting `nav-link-underline` when href === "#home"
-              const linkClasses = `px-3 py-2 ${
+              const linkClasses = `px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded ${
                 m.href === "#home" ? extra : `nav-link-underline ${extra}`
               }`;
               return (
@@ -62,7 +62,8 @@ export default function NavBar() {
         <div className="ml-auto flex items-center gap-3 sm:gap-4">
           <a
             href="#quote"
-            className="hidden md:inline-block px-4 lg:px-5 py-2 lg:py-2.5 rounded-md bg-white/95 text-black font-semibold text-base lg:text-xl shadow-sm cta-lift"
+            className="hidden md:inline-block px-4 lg:px-5 py-2 lg:py-2.5 rounded-md bg-white/95 text-black font-semibold text-base lg:text-xl shadow-sm cta-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            aria-label="Get a quote for your project"
           >
             Get a Quote
           </a>
@@ -71,7 +72,7 @@ export default function NavBar() {
             aria-expanded={open}
             aria-controls={menuId}
             aria-label="Toggle menu"
-            className="md:hidden p-2"
+            className="md:hidden p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded"
             onClick={() => setOpen((v) => !v)}
           >
             <svg
@@ -131,10 +132,10 @@ export default function NavBar() {
                   onClick={() => setOpen(false)}
                   className={
                     m.primary
-                      ? "block w-full text-center py-3 rounded-md bg-white text-black font-medium"
+                      ? "block w-full text-center py-3 rounded-md bg-white text-black font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                       : m.href === "#home"
-                      ? "block w-full py-3 px-3 rounded-md border border-white/6 text-white/80"
-                      : "block w-full py-3 px-3 rounded-md border border-white/6 text-white/80 nav-link-underline"
+                      ? "block w-full py-3 px-3 rounded-md border border-white/6 text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                      : "block w-full py-3 px-3 rounded-md border border-white/6 text-white/80 nav-link-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                   }
                 >
                   {m.label}

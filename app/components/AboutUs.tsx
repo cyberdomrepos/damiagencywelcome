@@ -175,13 +175,15 @@ export default function AboutUs() {
               <div className="mt-6 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
                 <a
                   href="#quote"
-                  className="inline-block px-5 py-2.5 rounded-md bg-white text-black font-semibold text-sm sm:text-base shadow-sm text-center"
+                  className="inline-block px-5 py-2.5 rounded-md bg-white text-black font-semibold text-sm sm:text-base shadow-sm text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-orange-500"
+                  aria-label="Start a new project with us"
                 >
                   Start a project
                 </a>
                 <a
                   href="#portfolio"
-                  className="inline-block px-4 py-2 rounded-md border border-white/20 text-white/85 text-sm sm:text-base text-center"
+                  className="inline-block px-4 py-2 rounded-md border border-white/20 text-white/85 text-sm sm:text-base text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-orange-500"
+                  aria-label="View our portfolio of work"
                 >
                   Our work
                 </a>

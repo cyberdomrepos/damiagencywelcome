@@ -151,19 +151,20 @@ export default function ServiceCard({
 
             {/* Premium See More Button - Mobile Optimized */}
             <button
+              aria-label={`Learn more about ${service.title} services`}
               className="transition-all duration-500 ease-out w-full sm:w-auto
                          text-xs text-gray-400 hover:text-cyan-400 font-medium
                          border border-gray-700/60 hover:border-cyan-400/40 rounded-sm
                          px-4 py-2.5 sm:py-2 bg-black/60 hover:bg-cyan-400/10
                          tracking-wide uppercase shadow-sm hover:shadow-cyan-400/20
-                         text-center"
+                         text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               style={{
                 fontFamily:
                   '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
               }}
             >
               See More
-              <span className="inline-block ml-2 transform hover:translate-x-1 transition-transform duration-300">
+              <span className="inline-block ml-2 transform hover:translate-x-1 transition-transform duration-300" aria-hidden="true">
                 →
               </span>
             </button>

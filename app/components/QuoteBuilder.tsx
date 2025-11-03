@@ -142,9 +142,10 @@ export default function QuoteBuilder({
           <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 border-r border-b border-cyan-400/20"></div>
 
           <div className="relative z-10">
-            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8" aria-label="Quote request form">
               {/* Personal Information - Mobile Optimized */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <legend className="sr-only">Personal Information</legend>
                 <div>
                   <label
                     htmlFor="qb-name"
@@ -207,10 +208,11 @@ export default function QuoteBuilder({
                     <div className="absolute top-0 right-0 w-1.5 h-1.5 sm:w-2 sm:h-2 border-r border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
                   </div>
                 </div>
-              </div>
+              </fieldset>
 
               {/* Project Information - Mobile Optimized */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+              <fieldset className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                <legend className="sr-only">Project Information</legend>
                 <div>
                   <label
                     htmlFor="qb-service"
@@ -260,6 +262,7 @@ export default function QuoteBuilder({
                 </div>
                 <div>
                   <label
+                    htmlFor="qb-budget"
                     className="block text-white/90 text-sm font-light mb-3 tracking-wide"
                     style={{
                       fontFamily:
@@ -312,6 +315,7 @@ export default function QuoteBuilder({
                 </div>
                 <div>
                   <label
+                    htmlFor="qb-timeline"
                     className="block text-white/90 text-sm font-light mb-3 tracking-wide"
                     style={{
                       fontFamily:
@@ -356,7 +360,7 @@ export default function QuoteBuilder({
                     <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-cyan-400/0 group-focus-within:border-cyan-400/40 transition-colors duration-300"></div>
                   </div>
                 </div>
-              </div>
+              </fieldset>
 
               {/* Project Details */}
               <div>

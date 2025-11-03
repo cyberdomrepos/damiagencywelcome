@@ -60,7 +60,7 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
         href="#top"
         onClick={scrollToTop}
         aria-label="Back to top"
-        className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-40 hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-black/20 text-white/60 hover:bg-black/30 hover:text-white transition-colors duration-200"
+        className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-40 hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-black/20 text-white/60 hover:bg-black/30 hover:text-white transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
         title="Back to top"
       >
         <svg
