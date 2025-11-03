@@ -160,6 +160,24 @@ label {
   box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.6);
 }
 
+/* Global focus-visible styles for form controls to ensure keyboard users see focus */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.18);
+  border-radius: 6px;
+}
+
+/* Make checkboxes/radios easier to see when focused */
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18);
+  border-radius: 4px;
+}
+
 .tile {
   border: 1px solid rgba(255, 255, 255, 0.15);
   background-color: rgba(255, 255, 255, 0.05);

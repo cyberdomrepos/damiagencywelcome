@@ -147,6 +147,7 @@ export default function QuoteBuilder({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label
+                    htmlFor="qb-name"
                     className="block text-white/90 text-xs sm:text-sm font-light mb-2 sm:mb-3 tracking-wide"
                     style={{
                       fontFamily:
@@ -157,11 +158,13 @@ export default function QuoteBuilder({
                   </label>
                   <div className="relative group">
                     <input
+                      id="qb-name"
+                      name="name"
                       type="text"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 text-sm sm:text-base"
+                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 text-sm sm:text-base"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -175,6 +178,7 @@ export default function QuoteBuilder({
                 </div>
                 <div>
                   <label
+                    htmlFor="qb-email"
                     className="block text-white/90 text-xs sm:text-sm font-light mb-2 sm:mb-3 tracking-wide"
                     style={{
                       fontFamily:
@@ -185,11 +189,13 @@ export default function QuoteBuilder({
                   </label>
                   <div className="relative group">
                     <input
+                      id="qb-email"
+                      name="email"
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 text-sm sm:text-base"
+                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 text-sm sm:text-base"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -207,6 +213,7 @@ export default function QuoteBuilder({
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                 <div>
                   <label
+                    htmlFor="qb-service"
                     className="block text-white/90 text-sm font-light mb-3 tracking-wide"
                     style={{
                       fontFamily:
@@ -217,9 +224,11 @@ export default function QuoteBuilder({
                   </label>
                   <div className="relative group">
                     <select
+                      id="qb-service"
+                      name="serviceType"
                       value={serviceType}
                       onChange={(e) => setServiceType(e.target.value)}
-                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-4 py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 cursor-pointer"
+                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 cursor-pointer"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -261,9 +270,11 @@ export default function QuoteBuilder({
                   </label>
                   <div className="relative group">
                     <select
+                      id="qb-budget"
+                      name="budget"
                       value={budget}
                       onChange={(e) => setBudget(e.target.value)}
-                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-4 py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 cursor-pointer"
+                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 cursor-pointer"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -311,9 +322,11 @@ export default function QuoteBuilder({
                   </label>
                   <div className="relative group">
                     <select
+                      id="qb-timeline"
+                      name="timeline"
                       value={timeline}
                       onChange={(e) => setTimeline(e.target.value)}
-                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-4 py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 cursor-pointer"
+                      className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 font-light hover:border-gray-600/60 cursor-pointer"
                       style={{
                         fontFamily:
                           '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -348,6 +361,7 @@ export default function QuoteBuilder({
               {/* Project Details */}
               <div>
                 <label
+                  htmlFor="qb-notes"
                   className="block text-white/90 text-xs sm:text-sm font-light mb-2 sm:mb-3 tracking-wide"
                   style={{
                     fontFamily:
@@ -358,10 +372,12 @@ export default function QuoteBuilder({
                 </label>
                 <div className="relative group">
                   <textarea
+                    id="qb-notes"
+                    name="notes"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     rows={5}
-                    className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 resize-none font-light hover:border-gray-600/60 text-sm sm:text-base"
+                    className="w-full bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-sm text-white px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus:border-cyan-400/50 focus:bg-black/60 transition-all duration-300 resize-none font-light hover:border-gray-600/60 text-sm sm:text-base"
                     style={{
                       fontFamily:
                         '"Iosevka Aile", "SF Mono", "Monaco", "Cascadia Code", monospace',
@@ -379,12 +395,13 @@ export default function QuoteBuilder({
               <div className="text-center pt-6 sm:pt-8">
                 <button
                   type="submit"
+                  aria-label="Send quote request"
                   className="group relative px-8 sm:px-10 py-3 sm:py-4 text-white font-medium text-sm sm:text-base overflow-hidden 
                            transition-all duration-500 ease-out w-full sm:w-auto
                            border border-cyan-400/40 hover:border-cyan-400/60 rounded-sm
                            bg-black/60 hover:bg-cyan-400/10 
                            backdrop-blur-sm hover:shadow-lg hover:shadow-cyan-400/20 
-                           hover:scale-105 active:scale-95"
+                           hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
                 >
                   {/* Dark tech background effects */}
                   <div className="absolute inset-0 bg-linear-to-br from-gray-900/50 to-black/50 opacity-80"></div>
