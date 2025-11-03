@@ -73,14 +73,41 @@ npm run build
 
 ## 📖 Documentation
 
-For complete documentation including:
-- Detailed architecture overview
-- Component API reference
-- Responsive design system
-- Development guidelines
-- Deployment instructions
+### Core Documentation
+- **[DOCUMENTATION.md](./DOCUMENTATION.md)** - Complete technical documentation
+- **[BUILD_FROM_SCRATCH.md](./BUILD_FROM_SCRATCH.md)** - Step-by-step rebuild guide
+- **[TODO_IMPROVEMENTS.md](./TODO_IMPROVEMENTS.md)** - Prioritized improvements roadmap
 
-👉 **See [DOCUMENTATION.md](./DOCUMENTATION.md)**
+### Accessibility & Design
+- **[ACCESSIBILITY_GUIDE.md](./ACCESSIBILITY_GUIDE.md)** - 🆕 Comprehensive accessibility implementation guide
+- **[FLUID_DESIGN_GUIDE.md](./FLUID_DESIGN_GUIDE.md)** - 🆕 Fluid design patterns and best practices
+- **[QUICK_START.md](./QUICK_START.md)** - 🆕 Quick reference for accessibility & fluid design
+
+### Specialized Guides
+- **[GIT_SYNC.md](./GIT_SYNC.md)** - Git synchronization guide
+- **[CODE_CONNECTIONS.md](./CODE_CONNECTIONS.md)** - Code relationships and architecture
+- **[FONT_INSTRUCTIONS.md](./FONT_INSTRUCTIONS.md)** - Font setup and usage
+
+## 🆕 Recent Updates
+
+### Accessibility Improvements ✅
+- Added ARIA labels to all interactive elements
+- Implemented fieldset/legend for form grouping
+- Added visible focus indicators (focus-visible:ring-2) throughout
+- Ensured keyboard accessibility for all components
+- Created comprehensive testing guide with tools
+
+### Documentation Additions 📚
+- **ACCESSIBILITY_GUIDE.md**: 18KB guide covering WCAG principles, implementation, testing
+- **FLUID_DESIGN_GUIDE.md**: 19KB guide covering responsive scaling, clamp() usage, patterns
+- **QUICK_START.md**: Quick reference with checklists and common patterns
+
+### Component Updates
+- `QuoteBuilder.tsx`: Proper form accessibility with fieldset/legend
+- `ServiceCard.tsx`: Descriptive button labels and focus styles
+- `AboutUs.tsx`, `CreativeTrinity.tsx`: Improved CTA accessibility
+- `NavBar.tsx`: Enhanced navigation accessibility
+- `Footer.tsx`: Accessible back-to-top button
 
 ## 🎨 Design System
 
