@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Archive and local files
+/archive/
+/.qodo/
+.env.local
+.env
