@@ -44,7 +44,7 @@ export default function CreativeTrinity({
             className={`mx-auto w-full text-center md:text-left ${visibilityClass} transition-all duration-700 ease-out`}
           >
             {/* Hero section: marquee (top) + left content + right decorative media */}
-            <div className="mb-6 sm:mb-10 flex justify-center">
+            <div className="mb-8 sm:mb-12 flex justify-center">
               <Marquee3D
                 items={[
                   "React",
@@ -69,6 +69,8 @@ export default function CreativeTrinity({
                   "Logic Pro",
                   "Pro Tools",
                 ]}
+                speed={60}
+                className="w-full max-w-full"
               />
             </div>
             <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">

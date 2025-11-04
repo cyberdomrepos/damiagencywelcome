@@ -5,15 +5,18 @@ import React, { useEffect, useRef, useState } from "react";
 interface Marquee3DProps {
   items: string[];
   className?: string;
+  speed?: number; // pixels per second, default 50
 }
 
-// Clean small-card marquee (compact chips, accessible, reduced-motion aware)
-export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
+// Professional marquee with accurate speed control and 3D effects
+export default function Marquee3D({ items, className = "", speed = 50 }: Marquee3DProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [animationDuration, setAnimationDuration] = useState(48);
 
+  // Check for reduced motion preference
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -44,7 +47,30 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
     };
   }, []);
 
-  // No tilt: keep the marquee simple and muted for clarity.
+  // Calculate accurate animation duration based on content width and desired speed
+  useEffect(() => {
+    if (!trackRef.current) return;
+    
+    const calculateDuration = () => {
+      const track = trackRef.current;
+      if (!track) return;
+      
+      // Get the width of one set of items (1/3 of total since we triple the items)
+      const singleSetWidth = track.scrollWidth / 3;
+      
+      // Calculate duration: distance / speed
+      // Speed is in pixels per second, duration is in seconds
+      const duration = singleSetWidth / speed;
+      
+      setAnimationDuration(duration);
+    };
+    
+    // Calculate on mount and when window resizes
+    calculateDuration();
+    window.addEventListener('resize', calculateDuration);
+    
+    return () => window.removeEventListener('resize', calculateDuration);
+  }, [items, speed]);
 
   // keyboard accessibility: pause on focus within
   function handleFocusIn() {
@@ -68,20 +94,33 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
       onBlurCapture={handleFocusOut}
     >
       <div className="relative">
-        {/* subtle translucent background strip behind tokens */}
+        {/* Enhanced professional background with gradient and glow */}
         <div
           aria-hidden
-          className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] h-14 rounded-md pointer-events-none marquee-bg"
+          className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] h-14 rounded-xl pointer-events-none marquee-bg"
           style={{
-            background: "rgba(34,211,238,0.02)",
-            border: "1px solid rgba(34,211,238,0.04)",
-            backdropFilter: "blur(6px)",
-            WebkitBackdropFilter: "blur(6px)",
-            boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.25)",
+            background: "linear-gradient(135deg, rgba(34,211,238,0.04) 0%, rgba(168,85,247,0.04) 100%)",
+            border: "1px solid rgba(34,211,238,0.08)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.3), 0 4px 12px rgba(34,211,238,0.08)",
           }}
         />
 
-        {/* single clean marquee track */}
+        {/* Animated glow effect */}
+        <div
+          aria-hidden
+          className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] h-14 rounded-xl pointer-events-none marquee-glow"
+          style={{
+            background: "linear-gradient(90deg, transparent, rgba(34,211,238,0.15), rgba(168,85,247,0.15), transparent)",
+            backgroundSize: "200% 100%",
+            animation: prefersReducedMotion ? "none" : "marquee-glow 4s ease-in-out infinite",
+            filter: "blur(12px)",
+            opacity: 0.5,
+          }}
+        />
+
+        {/* Enhanced marquee track with professional styling */}
         <div
           ref={trackRef}
           className="flex marquee-moving relative z-10"
@@ -91,10 +130,11 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
             willChange: "transform",
             animation: prefersReducedMotion
               ? "none"
-              : "marquee-loop 48s linear infinite",
+              : `marquee-loop ${animationDuration}s linear infinite`,
             animationPlayState: isPaused ? "paused" : "running",
             paddingTop: "0.5rem",
             paddingBottom: "0.5rem",
+            transform: "translateZ(0)", // Hardware acceleration
           }}
         >
           {chips.map((name, i) => (
@@ -103,6 +143,9 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
               className={`marquee-token`}
               role="listitem"
               aria-label={name}
+              style={{
+                transform: "translateZ(10px)", // Subtle 3D lift
+              }}
             >
               <span className="marquee-dot" aria-hidden>
                 ·
@@ -113,76 +156,147 @@ export default function Marquee3D({ items, className = "" }: Marquee3DProps) {
         </div>
       </div>
 
-      {/* top and bottom fading borders to frame the tokens (subtler) */}
+      {/* Professional gradient fades on edges */}
       <div
-        className="absolute left-0 right-0 top-0 h-6 pointer-events-none marquee-fade marquee-fade--top"
+        className="absolute left-0 top-0 bottom-0 w-32 pointer-events-none marquee-fade marquee-fade--left z-20"
         aria-hidden
-        style={{ opacity: 0.1 }}
+        style={{
+          background: "linear-gradient(90deg, rgba(11,15,18,1) 0%, rgba(11,15,18,0.8) 30%, rgba(11,15,18,0) 100%)",
+        }}
       />
       <div
-        className="absolute left-0 right-0 bottom-0 h-6 pointer-events-none marquee-fade marquee-fade--bottom"
+        className="absolute right-0 top-0 bottom-0 w-32 pointer-events-none marquee-fade marquee-fade--right z-20"
         aria-hidden
-        style={{ opacity: 0.1 }}
+        style={{
+          background: "linear-gradient(270deg, rgba(11,15,18,1) 0%, rgba(11,15,18,0.8) 30%, rgba(11,15,18,0) 100%)",
+        }}
       />
 
       <style>{`
+        /* Professional marquee tokens with enhanced styling */
         .marquee-token { 
-          display:inline-flex; 
-          align-items:center; 
-          gap:0.6rem; 
-          color: rgba(170,210,210,0.6); /* muted */
-          font-variant:all-small-caps; 
-          letter-spacing:0.08em; 
-          font-weight:600; 
-          padding: 4px 8px; 
-          white-space:nowrap; 
+          display: inline-flex; 
+          align-items: center; 
+          gap: 0.6rem; 
+          color: rgba(200,220,225,0.85); /* Brighter, more visible */
+          font-variant: all-small-caps; 
+          letter-spacing: 0.08em; 
+          font-weight: 600; 
+          padding: 6px 12px; 
+          white-space: nowrap; 
           font-family: var(--font-iosevka);
-          font-size: 0.875rem; /* mobile base size */
-          opacity: 0.95;
+          font-size: 0.875rem;
+          opacity: 1;
           min-width: max-content;
+          border-radius: 6px;
+          background: linear-gradient(135deg, rgba(34,211,238,0.05), rgba(168,85,247,0.05));
+          border: 1px solid rgba(255,255,255,0.08);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        .marquee-dot { color: rgba(170,255,240,0.45); font-size:0.7rem; opacity:0.55; display:inline-block; width:0.8ch; text-align:center }
-        .marquee-token__label { display:inline-block }
+        
+        .marquee-token:hover {
+          color: rgba(220,240,245,1);
+          background: linear-gradient(135deg, rgba(34,211,238,0.12), rgba(168,85,247,0.12));
+          border-color: rgba(34,211,238,0.3);
+          box-shadow: 0 4px 16px rgba(34,211,238,0.2);
+          transform: translateY(-2px) translateZ(15px);
+        }
+        
+        .marquee-dot { 
+          color: rgba(34,211,238,0.7); 
+          font-size: 0.8rem; 
+          opacity: 0.8; 
+          display: inline-block; 
+          width: 0.8ch; 
+          text-align: center;
+        }
+        
+        .marquee-token__label { 
+          display: inline-block;
+        }
 
-  .marquee-bg { mix-blend-mode: normal; opacity:0.02 }
+        .marquee-bg { 
+          mix-blend-mode: normal; 
+          opacity: 0.8;
+          transition: opacity 0.5s ease;
+        }
+        
+        .marquee-container:hover .marquee-bg {
+          opacity: 1;
+        }
 
-        .marquee-fade { background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0)); }
-        .marquee-fade--bottom { background: linear-gradient(0deg, rgba(0,0,0,0.35), rgba(0,0,0,0)); }
+        /* Enhanced 3D perspective */
+        .marquee-container { 
+          perspective: 1200px;
+          perspective-origin: center center;
+        }
+        
+        .marquee-moving { 
+          transform-style: preserve-3d;
+        }
 
-        .marquee-token__label { display:inline-block }
-
-        /* gentle tilt removed for a neat, muted look */
-        .marquee-container { perspective: 900px; }
-        .marquee-moving { transform: none }
-
+        /* Smooth, accurate marquee animation */
         @keyframes marquee-loop {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-33.3333%); }
+          0% { 
+            transform: translateX(0) translateZ(0); 
+          }
+          100% { 
+            transform: translateX(-33.3333%) translateZ(0); 
+          }
         }
 
-        @keyframes gradientShift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+        /* Animated glow effect */
+        @keyframes marquee-glow {
+          0%, 100% { 
+            background-position: 0% 50%; 
+            opacity: 0.3;
+          }
+          50% { 
+            background-position: 100% 50%; 
+            opacity: 0.6;
+          }
         }
 
-        /* Responsive font sizes */
+        /* Responsive font sizes with better scaling */
         @media (min-width: 480px) {
           .marquee-token { 
             font-size: 1rem;
             gap: 0.7rem;
-            padding: 5px 9px;
+            padding: 7px 13px;
           }
         }
+        
         @media (min-width: 640px) {
           .marquee-token { 
             font-size: 1.125rem;
             gap: 0.8rem;
-            padding: 6px 10px;
+            padding: 8px 14px;
           }
         }
+        
+        @media (min-width: 1024px) {
+          .marquee-token { 
+            font-size: 1.25rem;
+            padding: 9px 15px;
+          }
+        }
+        
         @media (min-width: 1400px) {
-          .marquee-token { font-size:1.6rem }
+          .marquee-token { 
+            font-size: 1.5rem;
+            padding: 10px 16px;
+          }
+        }
+        
+        /* Ensure smooth animation performance */
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-token,
+          .marquee-token:hover {
+            transition: none;
+          }
         }
       `}</style>
     </div>
