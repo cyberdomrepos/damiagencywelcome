@@ -7,11 +7,13 @@ import dynamic from "next/dynamic";
 const QuoteSection = dynamic(() => import("./components/QuoteSection"));
 const Footer = dynamic(() => import("./components/Footer"));
 const CreativeTrinity = dynamic(() => import("./components/CreativeTrinity"));
-const InteractiveBackground = dynamic(() => import("./components/InteractiveBackground"), {
-  ssr: false,
-});
+const InteractiveBackground = dynamic(
+  () => import("./components/InteractiveBackground"),
+  {
+    ssr: false,
+  }
+);
 const AboutUs = dynamic(() => import("./components/AboutUs"));
-const Portfolio = dynamic(() => import("./components/Portfolio"));
 
 export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -65,12 +67,6 @@ export default function Page() {
           <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
             <AboutUs />
           </div>
-
-          {/** PORTFOLIO SECTION */}
-          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
-            <Portfolio />
-          </div>
-
           {/** GET A QUOTE SECTION */}
           <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
             <QuoteSection />

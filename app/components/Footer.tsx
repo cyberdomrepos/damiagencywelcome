@@ -9,11 +9,12 @@ interface FooterProps {
 
 export default function Footer({ prefersReducedMotion = false }: FooterProps) {
   const year = new Date().getFullYear();
-  
-  const { elementRef: footerRef, isVisible: footerVisible } = useScrollAnimation({
-    delay: 100,
-    threshold: 0.2,
-  });
+
+  const { elementRef: footerRef, isVisible: footerVisible } =
+    useScrollAnimation({
+      delay: 100,
+      threshold: 0.2,
+    });
 
   // lightweight accessibility enhancement: reduce motion respect
   useEffect(() => {
@@ -29,8 +30,8 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
   };
 
   return (
-    <footer 
-      aria-labelledby="site-footer" 
+    <footer
+      aria-labelledby="site-footer"
       className="relative py-6 sm:py-8"
       ref={footerRef as React.RefObject<HTMLElement>}
     >
@@ -38,11 +39,13 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
         Footer
       </h2>
 
-      <div className={`mx-auto max-w-7xl px-4 sm:px-6 transition-all duration-700 ${
-        footerVisible 
-          ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 translate-y-8'
-      }`}>
+      <div
+        className={`mx-auto max-w-7xl px-4 sm:px-6 transition-all duration-700 ${
+          footerVisible
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-8"
+        }`}
+      >
         <div className="flex flex-col items-start gap-3 sm:gap-4 text-left">
           <div className="flex items-center space-x-2 sm:space-x-3">
             <svg
@@ -74,7 +77,7 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
         href="#home"
         onClick={scrollToTop}
         aria-label="Back to top"
-        className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-40 hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-black/20 text-white/60 hover:bg-black/30 hover:text-white transition-colors duration-200"
+        className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-40 flex items-center justify-center w-11 h-11 rounded-full bg-black/40 text-white/80 ring-1 ring-white/6 hover:bg-black/50 hover:text-white transition-colors duration-200 shadow-md"
         title="Back to top"
       >
         <svg
