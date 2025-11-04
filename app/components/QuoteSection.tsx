@@ -41,10 +41,9 @@ export default function QuoteSection() {
                 </p>
 
                 <p className="mt-4 sm:mt-6 text-xs sm:text-sm md:text-base text-white/60 max-w-none">
-                  How to use this form: fill contact details, choose the primary
-                  service, optionally add company and NDA, then provide a short
-                  project description. Clicking &quot;Get a quote&quot; opens
-                  your email client with the filled details.
+                  Fill in your contact details and project requirements. When you
+                  submit the form, we&apos;ll receive your request directly and
+                  respond promptly with a detailed quote and scope.
                 </p>
               </div>
             </div>

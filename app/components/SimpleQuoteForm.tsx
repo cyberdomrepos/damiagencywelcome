@@ -24,19 +24,80 @@ export default function SimpleQuoteForm({
   const [notes, setNotes] = useState("");
   const [nda, setNda] = useState(false);
   const [timezone, setTimezone] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = "Quote Request";
-    const body = `Name: ${name}\nCompany: ${company}\nPhone: ${phone}\nEmail: ${email}\nWebsite: ${website}\nPreferred contact: ${preferredContact}\nEngagement: ${engagementType}\nService: ${serviceType}\nBudget: ${budget}\nTimeline: ${timeline}\nPlatforms: ${platforms.join(
-      ", "
-    )}\nFeatures: ${features.join(", ")}\nTimezone: ${timezone}\nNDA: ${
-      nda ? "Yes" : "No"
-    }\n\nProject details:\n${notes}`;
-    const mailto = `mailto:rhymedominic.costa@damiagency.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      const response = await fetch("/api/send-quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          company,
+          serviceType,
+          phone,
+          website,
+          preferredContact,
+          budget,
+          timeline,
+          engagementType,
+          features,
+          platforms,
+          notes,
+          nda,
+          timezone,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: "success",
+          message: "Thank you! Your quote request has been sent successfully. We'll get back to you soon.",
+        });
+        // Reset form after successful submission
+        setName("");
+        setEmail("");
+        setCompany("");
+        setServiceType("");
+        setPhone("");
+        setWebsite("");
+        setPreferredContact("email");
+        setBudget("");
+        setTimeline("");
+        setEngagementType("");
+        setFeatures([]);
+        setPlatforms([]);
+        setNotes("");
+        setNda(false);
+        setTimezone("");
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: data.error || "Failed to send quote request. Please try again.",
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Network error. Please check your connection and try again.",
+      });
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -362,13 +423,29 @@ export default function SimpleQuoteForm({
         />
       </div>
 
+      {/* Status Message */}
+      {submitStatus.type && (
+        <div
+          className={`mt-6 p-4 rounded-lg ${
+            submitStatus.type === "success"
+              ? "bg-green-600/20 text-green-100 border border-green-500/30"
+              : "bg-red-600/20 text-red-100 border border-red-500/30"
+          }`}
+          role="alert"
+          aria-live="polite"
+        >
+          <p className="text-sm sm:text-base">{submitStatus.message}</p>
+        </div>
+      )}
+
       <div className="mt-6 sm:mt-8">
         <button
           type="submit"
-          aria-label="Send quote request"
-          className="w-full rounded-lg sm:rounded-xl px-5 sm:px-6 py-4 sm:py-5 bg-white text-black font-semibold text-base sm:text-lg shadow-lg hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
+          disabled={isSubmitting}
+          aria-label={isSubmitting ? "Sending quote request..." : "Send quote request"}
+          className="w-full rounded-lg sm:rounded-xl px-5 sm:px-6 py-4 sm:py-5 bg-white text-black font-semibold text-base sm:text-lg shadow-lg hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Get a quote
+          {isSubmitting ? "Sending..." : "Get a quote"}
         </button>
       </div>
     </form>
