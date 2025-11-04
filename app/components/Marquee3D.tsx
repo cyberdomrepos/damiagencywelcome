@@ -65,11 +65,21 @@ export default function Marquee3D({ items, className = "", speed = 50 }: Marquee
       setAnimationDuration(duration);
     };
     
-    // Calculate on mount and when window resizes
+    // Calculate on mount and when window resizes (with debouncing)
     calculateDuration();
-    window.addEventListener('resize', calculateDuration);
     
-    return () => window.removeEventListener('resize', calculateDuration);
+    let resizeTimeout: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(calculateDuration, 150);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
+    };
   }, [items, speed]);
 
   // keyboard accessibility: pause on focus within
