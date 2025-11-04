@@ -17,6 +17,7 @@ export default function ServicesBig() {
       title: "Web & Product Development",
       desc: "Fast, accessible React + Next apps—scoped, tested, and production-ready.",
       href: "#quote",
+      id: undefined,
       bg: "bg-zinc-50",
       text: "text-zinc-900",
       border: "border-zinc-200",
@@ -71,6 +72,7 @@ export default function ServicesBig() {
       title: "Brand & Visual Design",
       desc: "Brand systems, UI, and merch that look premium and ship quickly.",
       href: "#portfolio",
+      id: undefined,
       bg: "bg-linear-to-br from-rose-600/70 via-rose-500/60 to-rose-400/50",
       text: "text-white",
       border: "border-rose-500/40",
@@ -114,6 +116,7 @@ export default function ServicesBig() {
       title: "Sound & Media",
       desc: "Original soundtracks, podcasts, and media assets for creators and teams.",
       href: "#media",
+      id: "media",
       // vibrant orange background for Sound & Media
       bg: "bg-linear-to-br from-orange-500/95 via-orange-500/90 to-orange-400/90",
       // use dark text to match the white-box CTA text color; line (left border) should be black
@@ -206,7 +209,7 @@ export default function ServicesBig() {
             return (
               <div
                 key={card.title}
-                id={i === 2 ? "media" : undefined}
+                id={card.id}
                 className={`${align} w-full md:w-11/12 lg:w-9/12 transition-all duration-700 ${
                   cardVisible[i] 
                     ? 'opacity-100 translate-y-0' 
