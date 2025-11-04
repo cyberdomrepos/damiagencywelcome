@@ -16,7 +16,7 @@ export default function ServicesBig() {
     {
       title: "Web & Product Development",
       desc: "Fast, accessible React + Next apps—scoped, tested, and production-ready.",
-      href: "#contact",
+      href: "#quote",
       bg: "bg-zinc-50",
       text: "text-zinc-900",
       border: "border-zinc-200",
