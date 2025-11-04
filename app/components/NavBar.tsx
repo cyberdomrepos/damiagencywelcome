@@ -14,12 +14,12 @@ export default function NavBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const MENU: { href: string; label: string; primary?: boolean }[] = [
-    { href: "#home", label: "Home" },
-    { href: "#services", label: "Services" },
-    { href: "#portfolio", label: "Portfolio" },
-    { href: "#about", label: "About Us" },
-    { href: "#quote", label: "Get a Quote", primary: true },
+  const MENU: { href: string; label: string; primary?: boolean; ariaLabel?: string }[] = [
+    { href: "#home", label: "Home", ariaLabel: "Navigate to home section" },
+    { href: "#services", label: "Services", ariaLabel: "Navigate to services section" },
+    { href: "#portfolio", label: "Portfolio", ariaLabel: "Navigate to portfolio section" },
+    { href: "#about", label: "About Us", ariaLabel: "Navigate to about us section" },
+    { href: "#quote", label: "Get a Quote", primary: true, ariaLabel: "Navigate to quote form" },
   ];
 
   return (
@@ -49,7 +49,12 @@ export default function NavBar() {
               }`;
               return (
                 <li key={m.href}>
-                  <a href={m.href} className={linkClasses}>
+                  <a 
+                    href={m.href} 
+                    className={linkClasses}
+                    aria-label={m.ariaLabel}
+                    aria-current={m.href === "#home" ? "page" : undefined}
+                  >
                     {m.label}
                   </a>
                 </li>
@@ -62,6 +67,7 @@ export default function NavBar() {
         <div className="ml-auto flex items-center gap-3 sm:gap-4">
           <a
             href="#quote"
+            aria-label="Get a quote for your project"
             className="hidden md:inline-block px-4 lg:px-5 py-2 lg:py-2.5 rounded-md bg-white/95 text-black font-semibold text-base lg:text-xl shadow-sm cta-lift"
           >
             Get a Quote
@@ -129,6 +135,8 @@ export default function NavBar() {
                 <a
                   href={m.href}
                   onClick={() => setOpen(false)}
+                  aria-label={m.ariaLabel}
+                  aria-current={m.href === "#home" ? "page" : undefined}
                   className={
                     m.primary
                       ? "block w-full text-center py-3 rounded-md bg-white text-black font-medium"

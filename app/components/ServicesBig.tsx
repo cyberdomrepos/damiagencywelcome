@@ -206,6 +206,7 @@ export default function ServicesBig() {
             return (
               <div
                 key={card.title}
+                id={i === 2 ? "media" : undefined}
                 className={`${align} w-full md:w-11/12 lg:w-9/12 transition-all duration-700 ${
                   cardVisible[i] 
                     ? 'opacity-100 translate-y-0' 
@@ -214,6 +215,7 @@ export default function ServicesBig() {
               >
                 <a
                   href={card.href}
+                  aria-label={`Learn more about ${card.title}`}
                   className={`group block rounded-2xl sm:rounded-3xl ${card.bg} ${card.border} ${card.text} p-6 sm:p-10 md:p-16 lg:p-20 min-h-[300px] sm:min-h-[360px] md:min-h-[420px] lg:min-h-[520px] shadow-2xl transition-transform transform hover:-translate-y-4 hover:shadow-3xl focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/30`}
                 >
                   <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">

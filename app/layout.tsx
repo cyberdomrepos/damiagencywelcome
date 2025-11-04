@@ -67,11 +67,18 @@ export default function RootLayout({
         {/* Fallback preloads for TTC files placed in /public/fonts for local testing */}
       </head>
       <body className="text-white">
+        {/* Skip to main content link for keyboard navigation */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-4 focus:ring-teal-400/50"
+        >
+          Skip to main content
+        </a>
         <MinimalScrollSceneLoader opacity={0.12} />
         <NavBar />
         <InProgressModal />
         {/* Ensure page content is pushed below the fixed header and accounts for safe-area inset */}
-        <main className="pt-[calc(var(--header-h)+var(--safe-top))]">
+        <main id="main-content" className="pt-[calc(var(--header-h)+var(--safe-top))]">
           {children}
         </main>
       </body>
