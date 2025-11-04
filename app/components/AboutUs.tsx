@@ -189,12 +189,14 @@ export default function AboutUs() {
               <div className="mt-6 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
                 <a
                   href="#quote"
+                  aria-label="Get a quote and start a project with us"
                   className="inline-block px-5 py-2.5 rounded-md bg-white text-black font-semibold text-sm sm:text-base shadow-sm text-center"
                 >
                   Start a project
                 </a>
                 <a
                   href="#portfolio"
+                  aria-label="View our portfolio and past work"
                   className="inline-block px-4 py-2 rounded-md border border-white/20 text-white/85 text-sm sm:text-base text-center"
                 >
                   Our work

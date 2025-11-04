@@ -11,6 +11,7 @@ const InteractiveBackground = dynamic(() => import("./components/InteractiveBack
   ssr: false,
 });
 const AboutUs = dynamic(() => import("./components/AboutUs"));
+const Portfolio = dynamic(() => import("./components/Portfolio"));
 
 export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -42,6 +43,7 @@ export default function Page() {
       <InteractiveBackground prefersReducedMotion={prefersReducedMotion} />
 
       <main
+        id="home"
         className={`relative min-h-dvh px-2 sm:px-4 md:px-6 pt-16 sm:pt-20 md:pt-28 pb-12 sm:pb-16 md:pb-24 scroll-pt-16 md:scroll-pt-20 transition-opacity duration-1000 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
@@ -62,6 +64,11 @@ export default function Page() {
           {/** ABOUT US SECTION */}
           <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
             <AboutUs />
+          </div>
+
+          {/** PORTFOLIO SECTION */}
+          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
+            <Portfolio />
           </div>
 
           {/** GET A QUOTE SECTION */}

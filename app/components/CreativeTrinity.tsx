@@ -97,6 +97,7 @@ export default function CreativeTrinity({
                   <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-center gap-4 justify-center md:justify-start">
                     <a
                       href="#quote"
+                      aria-label="Contact us to start your project"
                       className="inline-flex items-center gap-4 px-6 sm:px-8 py-3 sm:py-4 rounded-lg bg-white text-black font-semibold text-lg sm:text-2xl shadow-sm cta-lift w-full sm:w-auto justify-center"
                     >
                       Contact Us
@@ -105,7 +106,7 @@ export default function CreativeTrinity({
                     <a
                       href="#about"
                       className="inline-flex items-center gap-3 px-5 sm:px-6 py-3 sm:py-4 rounded-lg bg-zinc-800 text-white font-semibold text-base sm:text-lg shadow-sm transition transform hover:-translate-y-1 hover:shadow-lg hover:bg-zinc-700 w-full sm:w-auto justify-center"
-                      aria-label="About us"
+                      aria-label="Learn more about DamiAgency"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
