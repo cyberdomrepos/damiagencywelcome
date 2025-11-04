@@ -71,7 +71,7 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
 
       {/* Subtle fixed back-to-top button (small, low-contrast) */}
       <a
-        href="#top"
+        href="#home"
         onClick={scrollToTop}
         aria-label="Back to top"
         className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-40 hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-black/20 text-white/60 hover:bg-black/30 hover:text-white transition-colors duration-200"
