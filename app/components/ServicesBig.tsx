@@ -1,8 +1,17 @@
 "use client";
 
 import React from "react";
+import { useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
 
 export default function ServicesBig() {
+  // Staggered scroll animation for cards
+  const { elementRef: cardsContainerRef, visibleItems: cardVisible } = useStaggeredScrollAnimation(
+    3, // 3 cards
+    100, // base delay
+    200, // stagger delay between cards
+    true // trigger once
+  );
+
   const cards = [
     {
       title: "Web & Product Development",
@@ -175,7 +184,10 @@ export default function ServicesBig() {
           </div>
         </div>
 
-        <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center gap-8 sm:gap-10 md:gap-12">
+        <div 
+          ref={cardsContainerRef as React.RefObject<HTMLDivElement>}
+          className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center gap-8 sm:gap-10 md:gap-12"
+        >
           {cards.map((card, i) => {
             const align =
               i === 0
@@ -194,7 +206,11 @@ export default function ServicesBig() {
             return (
               <div
                 key={card.title}
-                className={`${align} w-full md:w-11/12 lg:w-9/12`}
+                className={`${align} w-full md:w-11/12 lg:w-9/12 transition-all duration-700 ${
+                  cardVisible[i] 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-12'
+                }`}
               >
                 <a
                   href={card.href}

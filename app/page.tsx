@@ -1,12 +1,16 @@
 "use client";
 
-// import DeployInfo from "./DeployInfo";
 import { useEffect, useState } from "react";
-import QuoteSection from "./components/QuoteSection";
-import Footer from "./components/Footer";
-import CreativeTrinity from "./components/CreativeTrinity";
-import InteractiveBackground from "./components/InteractiveBackground";
-import AboutUs from "./components/AboutUs";
+import dynamic from "next/dynamic";
+
+// Lazy load heavy components
+const QuoteSection = dynamic(() => import("./components/QuoteSection"));
+const Footer = dynamic(() => import("./components/Footer"));
+const CreativeTrinity = dynamic(() => import("./components/CreativeTrinity"));
+const InteractiveBackground = dynamic(() => import("./components/InteractiveBackground"), {
+  ssr: false,
+});
+const AboutUs = dynamic(() => import("./components/AboutUs"));
 
 export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false);

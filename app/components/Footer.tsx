@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface FooterProps {
   prefersReducedMotion?: boolean;
@@ -8,6 +9,11 @@ interface FooterProps {
 
 export default function Footer({ prefersReducedMotion = false }: FooterProps) {
   const year = new Date().getFullYear();
+  
+  const { elementRef: footerRef, isVisible: footerVisible } = useScrollAnimation({
+    delay: 100,
+    threshold: 0.2,
+  });
 
   // lightweight accessibility enhancement: reduce motion respect
   useEffect(() => {
@@ -23,12 +29,20 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
   };
 
   return (
-    <footer aria-labelledby="site-footer" className="relative py-6 sm:py-8">
+    <footer 
+      aria-labelledby="site-footer" 
+      className="relative py-6 sm:py-8"
+      ref={footerRef as React.RefObject<HTMLElement>}
+    >
       <h2 id="site-footer" className="sr-only">
         Footer
       </h2>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className={`mx-auto max-w-7xl px-4 sm:px-6 transition-all duration-700 ${
+        footerVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-8'
+      }`}>
         <div className="flex flex-col items-start gap-3 sm:gap-4 text-left">
           <div className="flex items-center space-x-2 sm:space-x-3">
             <svg

@@ -2,11 +2,25 @@
 
 import React from "react";
 import SimpleQuoteForm from "./SimpleQuoteForm";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 export default function QuoteSection() {
+  const { elementRef: quoteRef, isVisible: quoteVisible } = useScrollAnimation({
+    delay: 150,
+    threshold: 0.15,
+  });
+
   return (
-    <section id="quote" className="py-12 sm:py-16 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+    <section 
+      id="quote" 
+      className="py-12 sm:py-16 md:py-20"
+      ref={quoteRef as React.RefObject<HTMLElement>}
+    >
+      <div className={`max-w-6xl mx-auto px-4 sm:px-6 md:px-8 transition-all duration-1000 ${
+        quoteVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-16'
+      }`}>
         <div className="bg-linear-to-br from-black/95 via-zinc-900 to-slate-900 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/30">
           <div className="px-6 sm:px-10 md:px-14 lg:px-16 py-10 sm:py-14 md:py-16">
             <div className="w-full">
@@ -21,8 +35,8 @@ export default function QuoteSection() {
 
                 <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-white/90 max-w-none">
                   Share a short summary of your project — what you want built,
-                  the timeline you're aiming for, and any constraints. Use the
-                  form to give us the essentials and we'll reply with a concise
+                  the timeline you&apos;re aiming for, and any constraints. Use the
+                  form to give us the essentials and we&apos;ll reply with a concise
                   scope and clear pricing.
                 </p>
 

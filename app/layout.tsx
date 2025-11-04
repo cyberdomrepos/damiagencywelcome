@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import NavBar from "./components/NavBar";
-import MinimalScrollScene from "./components/MinimalScrollScene";
+import MinimalScrollSceneLoader from "./components/MinimalScrollSceneLoader";
 import InProgressModal from "./components/InProgressModal";
 
 // Iosevka Aile is loaded via CSS import in globals.css
@@ -64,52 +64,10 @@ export default function RootLayout({
     <html lang="en" className={`${bodyFont.variable} ${headingFont.variable}`}>
       <head>
         {/* Preload local Iosevka fonts when present to reduce FOUT */}
-        <link
-          rel="preload"
-          href="/fonts/IosevkaAile-SemiBold.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/IosevkaAile-Medium.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/IosevkaAile-Regular.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         {/* Fallback preloads for TTC files placed in /public/fonts for local testing */}
-        <link
-          rel="preload"
-          href="/fonts/SGr-Iosevka-SemiBold.ttc"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/SGr-Iosevka-Medium.ttc"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/SGr-Iosevka-Regular.ttc"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className="text-white">
-        <MinimalScrollScene opacity={0.12} />
+        <MinimalScrollSceneLoader opacity={0.12} />
         <NavBar />
         <InProgressModal />
         {/* Ensure page content is pushed below the fixed header and accounts for safe-area inset */}

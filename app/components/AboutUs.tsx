@@ -1,8 +1,13 @@
 "use client";
 
 import React from "react";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 export default function AboutUs() {
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation({ delay: 100 });
+  const { elementRef: contentRef, isVisible: contentVisible } = useScrollAnimation({ delay: 200 });
+  const { elementRef: cardRef, isVisible: cardVisible } = useScrollAnimation({ delay: 300 });
+
   return (
     <section
       id="about"
@@ -11,14 +16,20 @@ export default function AboutUs() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 md:gap-12 items-stretch">
           <div className="md:col-span-5 text-left flex flex-col">
-            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-extrabold text-white leading-tight">
+            <h2 
+              ref={titleRef as React.RefObject<HTMLHeadingElement>}
+              className={`text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-extrabold text-white leading-tight transition-all duration-1000 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
               <span className="block">About us.</span>
               <span className="block text-teal-300 text-lg sm:text-xl md:text-2xl font-medium mt-2 sm:mt-3">
                 Design, code, and sound — crafted together
               </span>
             </h2>
 
-            <div className="mt-4 sm:mt-6 pr-3 sm:pr-4 md:pr-8 border-r border-white/10 max-w-xl mr-auto h-full flex flex-col">
+            <div 
+              ref={contentRef as React.RefObject<HTMLDivElement>}
+              className={`mt-4 sm:mt-6 pr-3 sm:pr-4 md:pr-8 border-r border-white/10 max-w-xl mr-auto h-full flex flex-col transition-all duration-1000 delay-200 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            >
               <p className="text-sm md:text-base text-gray-300 leading-relaxed">
                 We are a multidisciplinary studio that blends product design,
                 software engineering, and original audio to build cohesive
@@ -45,7 +56,10 @@ export default function AboutUs() {
           </div>
 
           <div className="md:col-span-7 flex items-stretch justify-start md:justify-end">
-            <div className="w-full md:w-[720px] bg-linear-to-br from-orange-500/95 via-rose-600/90 to-fuchsia-600/80 rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16 lg:p-20 shadow-lg ring-1 ring-black/20 text-white h-full flex flex-col justify-between">
+            <div 
+              ref={cardRef as React.RefObject<HTMLDivElement>}
+              className={`w-full md:w-[720px] bg-linear-to-br from-orange-500/95 via-rose-600/90 to-fuchsia-600/80 rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16 lg:p-20 shadow-lg ring-1 ring-black/20 text-white h-full flex flex-col justify-between transition-all duration-1000 delay-300 ${cardVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
+            >
               <div className="max-w-176 text-left">
                 <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight">
                   Process & expertise

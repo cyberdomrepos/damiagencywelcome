@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Marquee3D from "./Marquee3D";
 import ServicesBig from "./ServicesBig";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface CreativeTrinityProps {
   prefersReducedMotion?: boolean;
@@ -13,6 +14,12 @@ export default function CreativeTrinity({
   prefersReducedMotion = false,
 }: CreativeTrinityProps) {
   const [isVisible, setIsVisible] = useState(false);
+  
+  // Scroll animations for hero media
+  const { elementRef: mediaRef, isVisible: mediaVisible } = useScrollAnimation({ 
+    delay: 200,
+    threshold: 0.2,
+  });
 
   useEffect(() => {
     const delay = prefersReducedMotion ? 0 : 100;
@@ -136,7 +143,14 @@ export default function CreativeTrinity({
           </div>
 
           {/* Hero decorative media below the hero, aligned right on md+ screens */}
-          <div className="hidden md:flex md:mt-20 items-center justify-end">
+          <div 
+            ref={mediaRef as React.RefObject<HTMLDivElement>}
+            className={`hidden md:flex md:mt-20 items-center justify-end transition-all duration-1000 ${
+              mediaVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-12'
+            }`}
+          >
             <div className="w-[360px] h-[220px] md:w-[560px] md:h-[350px] lg:w-[720px] lg:h-[450px] xl:w-[880px] xl:h-[550px]">
               <div className="relative group w-full h-full">
                 {/* stronger static border */}
