@@ -46,6 +46,39 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate name and email are strings
+    if (typeof name !== 'string' || typeof email !== 'string') {
+      return NextResponse.json(
+        { error: "Invalid data format" },
+        { status: 400 }
+      );
+    }
+
+    // Validate array fields
+    if (features && !Array.isArray(features)) {
+      return NextResponse.json(
+        { error: "Features must be an array" },
+        { status: 400 }
+      );
+    }
+
+    if (platforms && !Array.isArray(platforms)) {
+      return NextResponse.json(
+        { error: "Platforms must be an array" },
+        { status: 400 }
+      );
+    }
+
+    // Ensure array items are strings
+    const validFeatures = Array.isArray(features) 
+      ? features.filter((f): f is string => typeof f === 'string')
+      : [];
+    
+    const validPlatforms = Array.isArray(platforms)
+      ? platforms.filter((p): p is string => typeof p === 'string')
+      : [];
+
+
     // Validate email format using a safer, more restrictive pattern
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
@@ -99,17 +132,17 @@ export async function POST(request: NextRequest) {
                 ${timezone ? `<div class="field"><span class="label">Timezone:</span><span class="value">${escapeHtml(timezone)}</span></div>` : ''}
               </div>
               
-              ${platforms && platforms.length > 0 ? `
+              ${validPlatforms.length > 0 ? `
                 <div class="section">
                   <h3>Platforms</h3>
-                  <div class="value">${platforms.map(p => escapeHtml(p)).join(', ')}</div>
+                  <div class="value">${validPlatforms.map(p => escapeHtml(p)).join(', ')}</div>
                 </div>
               ` : ''}
               
-              ${features && features.length > 0 ? `
+              ${validFeatures.length > 0 ? `
                 <div class="section">
                   <h3>Key Features</h3>
-                  <div class="value">${features.map(f => escapeHtml(f)).join(', ')}</div>
+                  <div class="value">${validFeatures.map(f => escapeHtml(f)).join(', ')}</div>
                 </div>
               ` : ''}
               
@@ -135,6 +168,7 @@ export async function POST(request: NextRequest) {
     `;
 
     // Plain text version for email clients that don't support HTML
+    // Note: Plain text doesn't require HTML escaping but uses validated arrays
     const textContent = `
 New Quote Request
 
@@ -153,8 +187,8 @@ ${timeline ? `Timeline: ${timeline}` : ''}
 ${preferredContact ? `Preferred Contact: ${preferredContact}` : ''}
 ${timezone ? `Timezone: ${timezone}` : ''}
 
-${platforms && platforms.length > 0 ? `Platforms: ${platforms.join(', ')}` : ''}
-${features && features.length > 0 ? `Key Features: ${features.join(', ')}` : ''}
+${validPlatforms.length > 0 ? `Platforms: ${validPlatforms.join(', ')}` : ''}
+${validFeatures.length > 0 ? `Key Features: ${validFeatures.join(', ')}` : ''}
 
 ${notes ? `Project Description:\n${notes}` : ''}
 
