@@ -90,6 +90,17 @@ Handles quote form submissions and sends emails.
 }
 ```
 
+## Security Features
+
+This implementation includes several security measures:
+
+- **XSS Protection**: All user inputs are HTML-escaped before being included in emails
+- **Email Validation**: Server-side email format validation using a safe regex pattern
+- **ReDoS Prevention**: Email regex designed to avoid Regular Expression Denial of Service
+- **Input Sanitization**: All form fields are validated and sanitized
+- **Server-side Processing**: Email sending happens on the server, API key never exposed to client
+- **Environment Variables**: Sensitive credentials stored securely in environment variables
+
 ## Form Component Updates
 
 The `SimpleQuoteForm` component has been updated with:
@@ -155,7 +166,9 @@ Resend offers:
 - Never commit `.env` or `.env.local` files to Git
 - Use environment variables for all sensitive data
 - API key is server-side only (not exposed to client)
-- Form includes validation to prevent spam/abuse
+- All user inputs are HTML-escaped to prevent XSS attacks
+- Email validation uses a safe regex pattern to prevent ReDoS
+- Form includes server-side validation to prevent spam/abuse
 - Reply-to field uses user's email for safe responses
 
 ## Future Enhancements
