@@ -14,6 +14,7 @@ const InteractiveBackground = dynamic(
   }
 );
 const AboutUs = dynamic(() => import("./components/AboutUs"));
+const PortfolioSection = dynamic(() => import("./components/PortfolioSection"));
 
 export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -62,6 +63,11 @@ export default function Page() {
             - Internal spacing: mb-12 sm:mb-16 md:mb-20 lg:mb-24
             - Micro spacing: gap-6 sm:gap-8 md:gap-10 lg:gap-12
           */}
+
+          {/** PORTFOLIO SECTION */}
+          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
+            <PortfolioSection />
+          </div>
 
           {/** ABOUT US SECTION */}
           <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">

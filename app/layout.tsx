@@ -81,6 +81,15 @@ export default function RootLayout({
         <main id="main-content" className="pt-[calc(var(--header-h)+var(--safe-top))]">
           {children}
         </main>
+
+        {/* Sticky mobile CTA */}
+        <a
+          href="#quote"
+          aria-label="Get a quote in 24 hours"
+          className="md:hidden fixed inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-50 flex items-center justify-center h-12 rounded-xl bg-white text-black font-semibold shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+        >
+          Get a quote in 24h
+        </a>
       </body>
     </html>
   );

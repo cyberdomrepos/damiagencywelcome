@@ -58,6 +58,7 @@ export default function SimpleQuoteForm({
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
+            autoComplete="name"
             className="w-full rounded-md px-4 py-3 text-black bg-white shadow-sm border border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
             placeholder="Your name"
           />
@@ -77,6 +78,8 @@ export default function SimpleQuoteForm({
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            inputMode="email"
             className="w-full rounded-md px-4 py-3 text-black bg-white shadow-sm border border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
             placeholder="you@company.com"
           />
@@ -96,6 +99,7 @@ export default function SimpleQuoteForm({
             name="company"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
+            autoComplete="organization"
             className="w-full rounded-md px-4 py-3 text-black bg-white shadow-sm border border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
             placeholder="Company (optional)"
           />
@@ -138,6 +142,9 @@ export default function SimpleQuoteForm({
             name="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
             className="w-full rounded-md px-4 py-3 text-black bg-white shadow-sm border border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
             placeholder="Phone (optional)"
           />
@@ -155,6 +162,9 @@ export default function SimpleQuoteForm({
             name="website"
             value={website}
             onChange={(e) => setWebsite(e.target.value)}
+            type="url"
+            inputMode="url"
+            autoComplete="url"
             className="w-full rounded-md px-4 py-3 text-black bg-white shadow-sm border border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
             placeholder="https://your-site.com"
           />
