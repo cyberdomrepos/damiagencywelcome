@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import NavBar from "./components/NavBar";
-import GlobalAnimations from "./components/GlobalAnimations";
 
 // Load only Poppins for the entire site. Other fonts (Inter/Sora/Montserrat)
 // were removed to avoid multiple font preloads and mismatched preloads.
@@ -72,9 +71,6 @@ export default function RootLayout({
         >
           {children}
         </main>
-        {/* Global animations: onload and scroll reveal (client) */}
-        <GlobalAnimations />
-
         {/* Sticky mobile CTA removed to avoid overlap with navigation on small screens */}
       </body>
     </html>

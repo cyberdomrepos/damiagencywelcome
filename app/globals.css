@@ -1269,3 +1269,62 @@ input[type="radio"]:focus-visible {
     display: none !important;
   }
 }
+
+/* ------------------------------------------------------------------
+   DISABLE ALL ANIMATIONS (user requested)
+   Overrides animation and transition rules so the site renders without
+   onload/scroll loading effects which were causing a black/blocked UI.
+------------------------------------------------------------------- */
+.fade-in,
+.fade-in-left,
+.fade-in-right,
+.scale-in,
+.scroll-fade-in,
+.hero-text,
+.loading-shimmer,
+.aurora-flow,
+.aurora-wave,
+.aurora-shimmer,
+.gridneon-stars,
+.gridneon-grid,
+.gridneon-horizon,
+.gridneon-overlay {
+  transition: none !important;
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Ensure visible variants do not hide content */
+.fade-in.visible,
+.fade-in-left.visible,
+.fade-in-right.visible,
+.scale-in.visible,
+.scroll-fade-in.scroll-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Remove shimmer backgrounds */
+.loading-shimmer {
+  background: none !important;
+}
+
+/* Disable hero onload animation */
+.hero-text {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Reduce any background animated layers' visibility to avoid black overlays */
+.minimal-scroll-scene,
+.neon-scene,
+.gridneon-stars,
+.gridneon-grid,
+.gridneon-horizon,
+.gridneon-overlay {
+  display: none !important;
+  visibility: visible !important; /* keep DOM but hide visual effect */
+}
+
