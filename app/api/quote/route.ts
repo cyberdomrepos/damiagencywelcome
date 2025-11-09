@@ -13,9 +13,11 @@ export async function POST(req: Request) {
 		const body = await req.json().catch(() => null);
 
 		// If a SendGrid API key is provided via env, attempt to send a transactional email.
-		const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
-		const TO_EMAIL = process.env.TO_EMAIL || process.env.SENDGRID_TO || "hello@damiagency.com";
-		const FROM_EMAIL = process.env.SENDGRID_FROM || `no-reply@damiagency.com`;
+	const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+	// Force all quote emails to a single administrative inbox per request from the owner.
+	// Do not rely on environment-provided TO_EMAIL here — use the address below only.
+	const TO_EMAIL = "damiagencyadmin@damiagency.com";
+	const FROM_EMAIL = process.env.SENDGRID_FROM || `no-reply@damiagency.com`;
 
 		if (SENDGRID_API_KEY && body) {
 			const subject = `New quote request — ${body.serviceType || "general"}`;
