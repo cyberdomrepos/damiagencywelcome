@@ -6,14 +6,10 @@ import dynamic from "next/dynamic";
 // Lazy load heavy components
 const QuoteSection = dynamic(() => import("./components/QuoteSection"));
 const Footer = dynamic(() => import("./components/Footer"));
-const CreativeTrinity = dynamic(() => import("./components/CreativeTrinity"));
-const InteractiveBackground = dynamic(
-  () => import("./components/InteractiveBackground"),
-  {
-    ssr: false,
-  }
-);
+const HeroSection = dynamic(() => import("./components/HeroSection"));
+
 const AboutUs = dynamic(() => import("./components/AboutUs"));
+const PortfolioSection = dynamic(() => import("./components/PortfolioSection"));
 
 export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -41,9 +37,6 @@ export default function Page() {
   }, []);
   return (
     <>
-      {/* Interactive Code & Audio Background */}
-      <InteractiveBackground prefersReducedMotion={prefersReducedMotion} />
-
       <main
         id="home"
         className={`relative min-h-dvh px-2 sm:px-4 md:px-6 pt-16 sm:pt-20 md:pt-28 pb-12 sm:pb-16 md:pb-24 scroll-pt-16 md:scroll-pt-20 transition-opacity duration-1000 ${
@@ -53,7 +46,7 @@ export default function Page() {
       >
         <div className="relative z-10 mx-auto max-w-7xl">
           {/* HERO SECTION */}
-          <CreativeTrinity prefersReducedMotion={prefersReducedMotion} />
+          <HeroSection prefersReducedMotion={prefersReducedMotion} />
 
           {/* 
             CONSISTENT SPACING SYSTEM:
@@ -62,6 +55,11 @@ export default function Page() {
             - Internal spacing: mb-12 sm:mb-16 md:mb-20 lg:mb-24
             - Micro spacing: gap-6 sm:gap-8 md:gap-10 lg:gap-12
           */}
+
+          {/** PORTFOLIO SECTION */}
+          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
+            <PortfolioSection />
+          </div>
 
           {/** ABOUT US SECTION */}
           <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">

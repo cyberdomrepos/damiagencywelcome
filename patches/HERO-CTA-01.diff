@@ -1,0 +1,64 @@
+--- a/app/components/CreativeTrinity.tsx
++++ b/app/components/CreativeTrinity.tsx
+@@
+-                  <h1
+-                    className="text-white font-extrabold leading-tight tracking-tight text-center md:text-left w-full"
+-                    style={{ fontSize: "clamp(2.5rem, 8.5vw, 9rem)" }}
+-                  >
+-                    <span className="block">Build fast.</span>
+-                    <span className="block">
+-                      Look{" "}
+-                      <span
+-                        className="bg-clip-text text-transparent"
+-                        style={{
+-                          backgroundImage:
+-                            "linear-gradient(135deg, rgba(139,92,246,0.98) 0%, rgba(236,72,153,0.98) 100%)",
+-                        }}
+-                      >
+-                        premium
+-                      </span>
+-                      .
+-                    </span>
+-                  </h1>
+                   <h1
+                     className="text-white font-extrabold leading-tight tracking-tight text-center md:text-left w-full text-pretty"
+                     style={{ fontSize: "clamp(2.5rem, 8.5vw, 9rem)" }}
+                   >
+                     <span className="block">Web, Merch, and Soundtracks</span>
+                     <span className="block">
+                       — shipped clean and fast.
+                     </span>
+                   </h1>
+@@
+-                    <a
+-                      href="#quote"
+-                      aria-label="Contact us to start your project"
+-                      className="inline-flex items-center gap-4 px-6 sm:px-8 py-3 sm:py-4 rounded-lg bg-white text-black font-semibold text-lg sm:text-2xl shadow-sm cta-lift w-full sm:w-auto justify-center"
+-                    >
+-                      Contact Us
+-                    </a>
+                     <a
+                       href="#quote"
+                       aria-label="Get a quote in 24 hours"
+                       className="inline-flex items-center gap-4 px-6 sm:px-8 py-3 sm:py-4 rounded-lg bg-white text-black font-semibold text-lg sm:text-2xl shadow-sm cta-lift w-full sm:w-auto justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+                     >
+                       Get a quote in 24h
+                     </a>
+@@
+                   {/* Trust strip */}
+                   <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 text-xs sm:text-sm text-white/80">
+                     <div className="inline-flex items-center gap-2">
+                       <span className="h-1.5 w-1.5 rounded-full bg-teal-300/90" />
+                       <span>Typical 7‑day turnaround on scoped work</span>
+                     </div>
+                     <div className="hidden sm:block h-4 w-px bg-white/15" />
+                     <div className="inline-flex items-center gap-2">
+                       <span className="h-1.5 w-1.5 rounded-full bg-teal-300/90" />
+                       <span>Portfolio: shipped samples across Web • Merch • OST</span>
+                     </div>
+                     <div className="hidden sm:block h-4 w-px bg-white/15" />
+                     <div className="inline-flex items-center gap-2">
+                       <span className="h-1.5 w-1.5 rounded-full bg-teal-300/90" />
+                       <span>Clear scope, revisions noted upfront</span>
+                     </div>
+                   </div>

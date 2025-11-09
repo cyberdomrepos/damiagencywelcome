@@ -17,7 +17,7 @@ export default function QuoteSection() {
       ref={quoteRef as React.RefObject<HTMLElement>}
     >
       <div
-        className={`max-w-6xl mx-auto px-4 sm:px-6 md:px-8 transition-all duration-1000 ${
+        className={`max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 transition-all duration-1000 ${
           quoteVisible
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-16"

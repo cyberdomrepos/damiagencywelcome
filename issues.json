@@ -1,0 +1,87 @@
+[
+  {
+    "id": "HERO-CTA-01",
+    "route": "/",
+    "selector": "#home h1",
+    "type": "copy",
+    "severity": "high",
+    "impact": 5,
+    "effort": 2,
+    "evidence": { "file": "app/components/CreativeTrinity.tsx", "line": 35 },
+    "fix": "Make H1 specific to Web • Merch • Soundtracks and reduce to a single primary CTA with trust strip",
+    "diff": "patches/HERO-CTA-01.diff"
+  },
+  {
+    "id": "NAV-PORTFOLIO-02",
+    "route": "/#portfolio",
+    "selector": "a[href='#portfolio']",
+    "type": "ia",
+    "severity": "high",
+    "impact": 4,
+    "effort": 3,
+    "evidence": { "file": "app/components/NavBar.tsx", "line": 75 },
+    "fix": "Add a minimal portfolio grid section and wire it into home",
+    "diff": "patches/NAV-PORTFOLIO-02.diff"
+  },
+  {
+    "id": "FORM-MOBILE-03",
+    "route": "/#quote",
+    "selector": "#sq-email,#sq-phone,#sq-website",
+    "type": "forms",
+    "severity": "medium",
+    "impact": 3,
+    "effort": 1,
+    "evidence": { "file": "app/components/SimpleQuoteForm.tsx", "line": 74 },
+    "fix": "Add inputMode/autoComplete for email/tel/url to improve mobile keyboards and autofill",
+    "diff": "patches/FORM-MOBILE-03.diff"
+  },
+  {
+    "id": "A11Y-FOCUS-01",
+    "route": "/",
+    "selector": "a[href='#quote']",
+    "type": "accessibility",
+    "severity": "high",
+    "impact": 5,
+    "effort": 1,
+    "evidence": { "file": "app/components/NavBar.tsx", "line": 121 },
+    "fix": "Ensure visible focus ring on primary CTA",
+    "diff": "patches/A11Y-FOCUS-01.diff"
+  },
+  {
+    "id": "PERF-LCP-01",
+    "route": "/",
+    "selector": "img[alt='Showcase']",
+    "type": "performance",
+    "severity": "medium",
+    "impact": 4,
+    "effort": 1,
+    "evidence": { "file": "app/components/CreativeTrinity.tsx", "line": 146 },
+    "fix": "Mark hero image as priority for faster LCP",
+    "diff": "patches/PERF-LCP-01.diff"
+  },
+  {
+    "id": "MOBILE-CTA-01",
+    "route": "/",
+    "selector": "a.fixed[href='#quote']",
+    "type": "mobile",
+    "severity": "high",
+    "impact": 5,
+    "effort": 2,
+    "evidence": { "file": "app/layout.tsx", "line": 74 },
+    "fix": "Add sticky mobile CTA respecting safe areas",
+    "diff": "patches/MOBILE-CTA-01.diff"
+  },
+  {
+    "id": "SEO-META-01",
+    "route": "/",
+    "selector": "head title",
+    "type": "seo",
+    "severity": "low",
+    "impact": 2,
+    "effort": 1,
+    "evidence": { "file": "app/layout.tsx", "line": 33 },
+    "fix": "Use em dash in title template and default title",
+    "diff": "patches/SEO-META-01.diff"
+  }
+]
+
