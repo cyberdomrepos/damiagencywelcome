@@ -41,6 +41,12 @@
   "exclude": [
     "node_modules",
     "archive",
-    "archive/**"
+    "archive/**",
+    "vitest.config.ts",
+    "vitest.config.*",
+    "test",
+    "test/**",
+    "scripts",
+    "scripts/**"
   ]
 }
