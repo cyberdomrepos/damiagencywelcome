@@ -42,64 +42,65 @@ export default function SimpleQuoteForm({
     const outgoingBudget = budget === "custom" ? customBudget : budget;
     const outgoingTimeline = timeline === "custom" ? customTimeline : timeline;
 
-    const payload = {
-      name,
-      email,
-      company,
-      serviceType,
-      phone,
-      website,
-      preferredContact,
-      budget: outgoingBudget,
-      timeline: outgoingTimeline,
-      engagementType,
-      features,
-      platforms,
-      notes,
-      nda,
-      timezone,
-    };
+    // payload no longer used — using mailto: fallback instead of server POST
 
     try {
-      const res = await fetch("/api/quote", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
+      // Build a simple mailto body and open the user's mail client. This is a lightweight
+      // fallback when there's no transactional mail provider available.
+      const subject = `Quote request — ${serviceType || "General"}`;
+
+      const lines = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Company: ${company}`,
+        `Service: ${serviceType}`,
+        `Phone: ${phone}`,
+        `Website: ${website}`,
+        `Preferred contact: ${preferredContact}`,
+        `Budget: ${outgoingBudget}`,
+        `Timeline: ${outgoingTimeline}`,
+        `Engagement: ${engagementType}`,
+        `Features: ${features.join(", ")}`,
+        `Platforms: ${platforms.join(", ")}`,
+        `NDA required: ${nda ? "Yes" : "No"}`,
+        `Timezone: ${timezone}`,
+        "",
+        "Notes:",
+        `${notes}`,
+      ];
+
+      const body = encodeURIComponent(lines.join("\n"));
+      const mailto = `mailto:damiagencyadmin@damiagency.com?subject=${encodeURIComponent(
+        subject
+      )}&body=${body}`;
+
+      // Open the default mail client. The user must press Send in their mail app to complete.
+      window.location.href = mailto;
+
+      setToast({
+        type: "success",
+        message: "Mail client opened — please press Send to complete the request.",
       });
 
-      const json = await res.json().catch(() => null);
-
-      if (res.ok && json && json.ok) {
-        setToast({
-          type: "success",
-          message: "Quote request sent — we’ll get back to you soon.",
-        });
-        // clear form
-        setName("");
-        setEmail("");
-        setCompany("");
-        setServiceType("");
-        setPhone("");
-        setWebsite("");
-        setPreferredContact("email");
-        setBudget("");
-        setTimeline("");
-        setEngagementType("");
-        setFeatures([]);
-        setPlatforms([]);
-        setNotes("");
-        setNda(false);
-        setTimezone("");
-      } else {
-        console.error("Quote API error:", json);
-        setToast({
-          type: "error",
-          message: "Failed to send request — please try again shortly.",
-        });
-      }
+      // clear form
+      setName("");
+      setEmail("");
+      setCompany("");
+      setServiceType("");
+      setPhone("");
+      setWebsite("");
+      setPreferredContact("email");
+      setBudget("");
+      setTimeline("");
+      setEngagementType("");
+      setFeatures([]);
+      setPlatforms([]);
+      setNotes("");
+      setNda(false);
+      setTimezone("");
     } catch (err) {
-      console.error("Submit error:", err);
-      setToast({ type: "error", message: "Network error — please try again." });
+      console.error("Mailto error:", err);
+      setToast({ type: "error", message: "Could not open mail client — please copy and email us." });
     } finally {
       setSending(false);
       setTimeout(() => setToast(null), 6000);
