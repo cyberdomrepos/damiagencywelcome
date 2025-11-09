@@ -8,9 +8,13 @@ const CSP = [
   "form-action 'self'",
   "frame-ancestors 'none'",
   "img-src 'self' data: blob:",
-  "font-src 'self' data:",
+  "font-src 'self' data: https://fonts.gstatic.com",
   "media-src 'self' blob:",
-  "style-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  // explicit element-level style directive so external stylesheets (fonts.googleapis.com) are permitted
+  IS_DEV
+    ? "style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com"
+    : "style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com",
   IS_DEV
     ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:"
     : "script-src 'self' 'unsafe-inline' blob:",

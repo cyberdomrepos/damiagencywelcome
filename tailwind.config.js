@@ -9,9 +9,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        // Use Montserrat first, then fall back to system UI stack
+        // Use Poppins first, then fall back to system UI stack
         sans: [
-          "Montserrat",
+          "Poppins",
           "system-ui",
           "-apple-system",
           "Segoe UI",

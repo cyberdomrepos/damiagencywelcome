@@ -1,68 +1,142 @@
 "use client";
 
-import Image from "next/image";
+import DesignCarousel from "./DesignCarousel";
+import React, { useMemo } from "react";
+
+function CategoryCarouselWrapper() {
+  const designImages = useMemo(
+    () => [
+      {
+        src: "/images/portfolio-design/2 ORIN MEDIA MOCKUP BLACK.jpg",
+        alt: "Design 1",
+      },
+      {
+        src: "/images/portfolio-design/26 crew MAN mockup white.jpg",
+        alt: "Design 2",
+      },
+      { src: "/images/portfolio-design/3.jpg", alt: "Design 3" },
+      { src: "/images/portfolio-design/aerial mockup 3.jpg", alt: "Design 4" },
+    ],
+    []
+  );
+
+  // Render only the large Design carousel for now
+  return (
+    <div className="flex flex-col items-center">
+      {/* Premium box wrapper */}
+      <div className="w-full">
+        <div className="mx-auto max-w-[1400px] rounded-2xl bg-gradient-to-b from-black/60 to-black/30 border border-white/6 backdrop-blur-md p-6 shadow-2xl">
+          <div className="text-center mb-6">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-teal-300 leading-tight">
+              Graphics design
+            </h3>
+            <div className="mt-2">
+              <span className="text-sm text-gray-400">
+                Brand identities • Merch • Visual systems
+              </span>
+            </div>
+          </div>
+
+          <div className="w-full">
+            <DesignCarousel images={designImages} variant="large" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function PortfolioSection() {
-  const items = [
-    { id: 1, kind: "Web", title: "SaaS Dashboard", thumb: null },
-    { id: 2, kind: "Merch", title: "Hoodie Graphic", thumb: null },
-    { id: 3, kind: "OST", title: "Indie Game OST", thumb: null },
-    { id: 4, kind: "Web", title: "Marketing Site", thumb: null },
-    { id: 5, kind: "Merch", title: "T‑shirt Series", thumb: null },
-    { id: 6, kind: "OST", title: "YouTube Theme", thumb: null },
-  ];
+  // Using Design carousel here; a fuller items grid may be added later.
 
   return (
     <section id="portfolio" className="py-12 sm:py-16 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className="flex items-end justify-between gap-4">
-          <h2 className="text-3xl sm:text-5xl md:text-7xl font-extrabold text-white leading-tight">
-            <span className="block">Portfolio.</span>
-            <span className="block text-teal-300 text-base sm:text-xl font-medium mt-2">
-              Web • Merch • Soundtracks
-            </span>
-          </h2>
-          <a
-            href="#quote"
-            className="hidden sm:inline-flex items-center px-4 py-2 rounded-md bg-white text-black font-semibold text-sm shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
-            aria-label="Get a quote in 24 hours"
-          >
-            Get a quote in 24h
-          </a>
-        </div>
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          {/* Left column: heading + description (left-aligned, matches Services sizing) */}
+          <div className="md:col-span-12 lg:col-span-5">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-extrabold text-white leading-tight">
+              <span className="block">Portfolio.</span>
+              <span className="block text-teal-300 text-lg sm:text-xl md:text-2xl font-medium mt-2">
+                Web • Merch • Soundtracks
+              </span>
+            </h2>
 
-        <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-          {items.map((it) => (
-            <a
-              key={it.id}
-              href="#quote"
-              aria-label={`View ${it.kind} sample: ${it.title}`}
-              className="group rounded-xl overflow-hidden ring-1 ring-white/10 bg-white/5 hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
-            >
-              <div className="aspect-[4/3] w-full bg-black/40 flex items-center justify-center">
-                {it.thumb ? (
-                  <Image
-                    src={it.thumb}
-                    alt={it.title}
-                    width={720}
-                    height={540}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="text-white/70 text-sm">{it.title}</div>
-                )}
+            <div className="mt-4 sm:mt-6 pl-0 border-l-0 max-w-xl">
+              <p className="text-sm md:text-base text-gray-300 leading-relaxed">
+                We ship beautiful, usable products with high-performance code,
+                elevated brand systems, and original media that helps teams
+                stand out. Our work focuses on clarity, accessibility, and
+                scalable design so you can iterate confidently.
+              </p>
+              {/* subtle horizontal rule handled by the badges container below (avoid duplicate lines) */}
+            </div>
+
+            <div className="mt-6">
+              {/* Trustworthy portfolio badges and client strip with dividers */}
+              <div className="py-4 border-t border-b border-white/6">
+                <div className="flex flex-col gap-4">
+                  {/* Metrics row: pill badges (no vertical dividers) */}
+                  <div className="flex items-center gap-3">
+                    <div className="px-4 py-2 bg-white/6 rounded-md">
+                      <div className="text-sm font-semibold text-white">
+                        30+
+                      </div>
+                      <div className="text-xs text-gray-300">Projects</div>
+                    </div>
+
+                    <div className="px-4 py-2 bg-white/6 rounded-md">
+                      <div className="text-sm font-semibold text-white">
+                        4.9★
+                      </div>
+                      <div className="text-xs text-gray-300">Avg rating</div>
+                    </div>
+
+                    <div className="px-4 py-2 bg-white/6 rounded-md">
+                      <div className="text-sm font-semibold text-white">12</div>
+                      <div className="text-xs text-gray-300">Countries</div>
+                    </div>
+                  </div>
+
+                  {/* Horizontal featured case study card */}
+                  <div className="mt-2">
+                    {/* Minimal inline credentials (no boxed card) */}
+                    <div className="text-sm text-gray-300">
+                      <span className="font-semibold text-white">
+                        Professional services
+                      </span>
+                      <span className="mx-2 text-gray-500">•</span>
+                      <span>NDAs</span>
+                      <span className="mx-2 text-gray-500">•</span>
+                      <span>Fixed-scope estimates</span>
+                      <span className="mx-2 text-gray-500">•</span>
+                      <span>Dedicated PM</span>
+                      <span className="mx-2 text-gray-500">•</span>
+                      <span>On-time delivery</span>
+                    </div>
+                  </div>
+
+                  <div className="text-sm text-gray-400 max-w-xl">
+                    <p>
+                      Want to see how we solved challenges for teams like yours?
+                      Browse our case studies or reach out and we’ll share
+                      relevant work and timelines.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="p-4 flex items-center justify-between">
-                <div className="text-white font-medium">{it.title}</div>
-                <span className="text-xs px-2 py-1 rounded bg-white/10 text-white/80">
-                  {it.kind}
-                </span>
-              </div>
-            </a>
-          ))}
+            </div>
+          </div>
+
+          {/* (carousel moved below for full-width centered layout) */}
+        </div>
+        {/* Carousel: centered below the portfolio text */}
+        <div className="mt-10 flex justify-center">
+          <div className="w-full max-w-[1400px] px-4">
+            <CategoryCarouselWrapper />
+          </div>
         </div>
       </div>
     </section>
   );
 }
-

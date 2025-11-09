@@ -18,6 +18,7 @@ export default function SimpleQuoteForm({
   const [preferredContact, setPreferredContact] = useState("email");
   const [budget, setBudget] = useState("");
   const [timeline, setTimeline] = useState("");
+
   const [engagementType, setEngagementType] = useState("");
   const [features, setFeatures] = useState<string[]>([]);
   const [platforms, setPlatforms] = useState<string[]>([]);
@@ -25,18 +26,78 @@ export default function SimpleQuoteForm({
   const [nda, setNda] = useState(false);
   const [timezone, setTimezone] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [sending, setSending] = useState(false);
+  const [toast, setToast] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = "Quote Request";
-    const body = `Name: ${name}\nCompany: ${company}\nPhone: ${phone}\nEmail: ${email}\nWebsite: ${website}\nPreferred contact: ${preferredContact}\nEngagement: ${engagementType}\nService: ${serviceType}\nBudget: ${budget}\nTimeline: ${timeline}\nPlatforms: ${platforms.join(
-      ", "
-    )}\nFeatures: ${features.join(", ")}\nTimezone: ${timezone}\nNDA: ${
-      nda ? "Yes" : "No"
-    }\n\nProject details:\n${notes}`;
-    const mailto = `mailto:rhymedominic.costa@damiagency.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+    setSending(true);
+
+    const payload = {
+      name,
+      email,
+      company,
+      serviceType,
+      phone,
+      website,
+      preferredContact,
+      budget,
+      timeline,
+      engagementType,
+      features,
+      platforms,
+      notes,
+      nda,
+      timezone,
+    };
+
+    try {
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const json = await res.json().catch(() => null);
+
+      if (res.ok && json && json.ok) {
+        setToast({
+          type: "success",
+          message: "Quote request sent — we’ll get back to you soon.",
+        });
+        // clear form
+        setName("");
+        setEmail("");
+        setCompany("");
+        setServiceType("");
+        setPhone("");
+        setWebsite("");
+        setPreferredContact("email");
+        setBudget("");
+        setTimeline("");
+        setEngagementType("");
+        setFeatures([]);
+        setPlatforms([]);
+        setNotes("");
+        setNda(false);
+        setTimezone("");
+      } else {
+        console.error("Quote API error:", json);
+        setToast({
+          type: "error",
+          message: "Failed to send request — please try again shortly.",
+        });
+      }
+    } catch (err) {
+      console.error("Submit error:", err);
+      setToast({ type: "error", message: "Network error — please try again." });
+    } finally {
+      setSending(false);
+      setTimeout(() => setToast(null), 6000);
+    }
   };
 
   return (
@@ -377,10 +438,24 @@ export default function SimpleQuoteForm({
           type="submit"
           aria-label="Send quote request"
           className="w-full rounded-lg sm:rounded-xl px-5 sm:px-6 py-4 sm:py-5 bg-white text-black font-semibold text-base sm:text-lg shadow-lg hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
+          disabled={sending}
         >
-          Get a quote
+          {sending ? "Sending…" : "Get a quote"}
         </button>
       </div>
+
+      {/* Simple corner toast */}
+      {toast && (
+        <div
+          aria-live="polite"
+          className={`fixed right-6 bottom-6 z-60 max-w-xs rounded-lg px-4 py-3 shadow-lg text-sm font-medium text-white ${
+            toast.type === "success" ? "bg-emerald-600" : "bg-rose-600"
+          }`}
+          role="status"
+        >
+          {toast.message}
+        </div>
+      )}
     </form>
   );
 }

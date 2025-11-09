@@ -1,20 +1,15 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Poppins } from "next/font/google";
 import NavBar from "./components/NavBar";
-import MinimalScrollSceneLoader from "./components/MinimalScrollSceneLoader";
-import InProgressModal from "./components/InProgressModal";
+import GlobalAnimations from "./components/GlobalAnimations";
 
-// Iosevka Aile is loaded via CSS import in globals.css
-const bodyFont = Inter({
+// Load only Poppins for the entire site. Other fonts (Inter/Sora/Montserrat)
+// were removed to avoid multiple font preloads and mismatched preloads.
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-body",
-  display: "swap",
-});
-const headingFont = Sora({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-heading",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -61,35 +56,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${bodyFont.variable} ${headingFont.variable}`}>
-      <head>
-        {/* Preload local Iosevka fonts when present to reduce FOUT */}
-        {/* Fallback preloads for TTC files placed in /public/fonts for local testing */}
-      </head>
+    <html lang="en" className={poppins.variable} data-scroll-behavior="smooth">
       <body className="text-white">
         {/* Skip to main content link for keyboard navigation */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-4 focus:ring-teal-400/50"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-4 focus:ring-teal-400/50"
         >
           Skip to main content
         </a>
-        <MinimalScrollSceneLoader opacity={0.12} />
         <NavBar />
-        <InProgressModal />
-        {/* Ensure page content is pushed below the fixed header and accounts for safe-area inset */}
-        <main id="main-content" className="pt-[calc(var(--header-h)+var(--safe-top))]">
+        <main
+          id="main-content"
+          className="pt-[calc(var(--header-h)+var(--safe-top))]"
+        >
           {children}
         </main>
+        {/* Global animations: onload and scroll reveal (client) */}
+        <GlobalAnimations />
 
-        {/* Sticky mobile CTA */}
-        <a
-          href="#quote"
-          aria-label="Get a quote in 24 hours"
-          className="md:hidden fixed inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-50 flex items-center justify-center h-12 rounded-xl bg-white text-black font-semibold shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
-        >
-          Get a quote in 24h
-        </a>
+        {/* Sticky mobile CTA removed to avoid overlap with navigation on small screens */}
       </body>
     </html>
   );

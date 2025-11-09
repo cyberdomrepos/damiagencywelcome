@@ -164,7 +164,7 @@ export default function ServicesBig() {
       id="services"
       className="mt-12 sm:mt-16 md:mt-24 py-12 sm:py-16 md:py-20"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 md:gap-12 items-start">
           <div className="md:col-span-7" />
           <div className="md:col-span-5 flex flex-col items-start md:items-end justify-start">
@@ -185,6 +185,92 @@ export default function ServicesBig() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Metric / trust badges (right-aligned) */}
+        <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-end">
+          <div className="flex flex-col sm:flex-row items-end sm:items-center gap-6 sm:gap-8">
+            <div className="flex items-center gap-4">
+              <div className="w-9 h-9 rounded-full bg-teal-500/10 text-teal-300 flex items-center justify-center ring-1 ring-teal-400/10">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  className="w-5 h-5"
+                  aria-hidden
+                >
+                  <path
+                    fill="currentColor"
+                    d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"
+                  />
+                </svg>
+              </div>
+              <div className="text-right">
+                <div className="text-sm font-semibold text-white">
+                  250+ projects
+                </div>
+                <div className="text-xs text-gray-400">
+                  Delivered across web, merch & audio
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="w-9 h-9 rounded-full bg-teal-500/10 text-teal-300 flex items-center justify-center ring-1 ring-teal-400/10">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  className="w-5 h-5"
+                  aria-hidden
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"
+                  />
+                </svg>
+              </div>
+              <div className="text-right">
+                <div className="text-sm font-semibold text-white">
+                  200+ five-star reviews
+                </div>
+                <div className="text-xs text-gray-400">
+                  Verified feedback from clients
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="w-9 h-9 rounded-full bg-teal-500/10 text-teal-300 flex items-center justify-center ring-1 ring-teal-400/10">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  className="w-5 h-5"
+                  aria-hidden
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.5V11h2v5.5a1 1 0 01-1 1h-2v2h-2v-2H9a1 1 0 01-1-1V11h2v5.5h3z"
+                  />
+                </svg>
+              </div>
+              <div className="text-right">
+                <div className="text-sm font-semibold text-white">
+                  Reliable delivery
+                </div>
+                <div className="text-xs text-gray-400">
+                  Clear timelines & transparent revisions
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <a
+              href="/case-studies"
+              className="text-sm text-teal-300 font-medium"
+            >
+              View case studies →
+            </a>
           </div>
         </div>
 
@@ -220,11 +306,11 @@ export default function ServicesBig() {
                 <a
                   href={card.href}
                   aria-label={`Learn more about ${card.title}`}
-                  className={`group block rounded-2xl sm:rounded-3xl ${card.bg} ${card.border} ${card.text} p-6 sm:p-10 md:p-16 lg:p-20 min-h-[300px] sm:min-h-[360px] md:min-h-[420px] lg:min-h-[520px] shadow-2xl transition-transform transform hover:-translate-y-4 hover:shadow-3xl focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/30`}
+                  className={`relative block rounded-xl sm:rounded-2xl ${card.bg} ${card.border} ${card.text} p-6 sm:p-10 md:p-16 lg:p-20 min-h-[300px] sm:min-h-[360px] md:min-h-[420px] lg:min-h-[520px] border border-transparent shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/25 backdrop-blur-sm overflow-hidden`}
                 >
                   <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                     <div
-                      className={`flex-none rounded-lg ${iconBg} p-3 sm:p-4 shadow-inner`}
+                      className={`flex-none rounded-lg ${iconBg} p-3 sm:p-4 shadow-inner ring-1 ring-black/6`}
                     >
                       <span className="inline-block w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
                         {card.icon}
@@ -277,12 +363,12 @@ export default function ServicesBig() {
 
                       <div className="mt-6 sm:mt-8">
                         <span
-                          className={`inline-flex items-center gap-2 sm:gap-3 text-sm sm:text-base px-4 sm:px-5 py-2.5 sm:py-3 rounded-md transition-colors font-semibold ${
+                          className={`inline-flex items-center gap-2 sm:gap-3 text-sm sm:text-base px-4 sm:px-5 py-2.5 sm:py-3 rounded-md transition-all duration-300 ease-out transform will-change-transform font-semibold ${
                             i === 0
-                              ? "bg-zinc-900 text-white hover:bg-black/90"
+                              ? "bg-zinc-900 text-white hover:bg-black/90 hover:-translate-y-1 hover:shadow-lg"
                               : i === 1
-                              ? "bg-white/6 text-white hover:bg-white/10"
-                              : "bg-white text-zinc-900 hover:bg-zinc-100"
+                              ? "bg-white/6 text-white hover:bg-white/10 hover:-translate-y-1 hover:shadow-lg"
+                              : "bg-white text-zinc-900 hover:bg-zinc-100 hover:-translate-y-1 hover:shadow-lg"
                           }`}
                         >
                           Learn more

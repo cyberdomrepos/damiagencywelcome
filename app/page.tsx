@@ -6,13 +6,8 @@ import dynamic from "next/dynamic";
 // Lazy load heavy components
 const QuoteSection = dynamic(() => import("./components/QuoteSection"));
 const Footer = dynamic(() => import("./components/Footer"));
-const CreativeTrinity = dynamic(() => import("./components/CreativeTrinity"));
-const InteractiveBackground = dynamic(
-  () => import("./components/InteractiveBackground"),
-  {
-    ssr: false,
-  }
-);
+const HeroSection = dynamic(() => import("./components/HeroSection"));
+
 const AboutUs = dynamic(() => import("./components/AboutUs"));
 const PortfolioSection = dynamic(() => import("./components/PortfolioSection"));
 
@@ -42,9 +37,6 @@ export default function Page() {
   }, []);
   return (
     <>
-      {/* Interactive Code & Audio Background */}
-      <InteractiveBackground prefersReducedMotion={prefersReducedMotion} />
-
       <main
         id="home"
         className={`relative min-h-dvh px-2 sm:px-4 md:px-6 pt-16 sm:pt-20 md:pt-28 pb-12 sm:pb-16 md:pb-24 scroll-pt-16 md:scroll-pt-20 transition-opacity duration-1000 ${
@@ -54,7 +46,7 @@ export default function Page() {
       >
         <div className="relative z-10 mx-auto max-w-7xl">
           {/* HERO SECTION */}
-          <CreativeTrinity prefersReducedMotion={prefersReducedMotion} />
+          <HeroSection prefersReducedMotion={prefersReducedMotion} />
 
           {/* 
             CONSISTENT SPACING SYSTEM:
