@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 
 const MENU = [
@@ -16,17 +17,35 @@ const linkBase =
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
-  // initialize from current scroll position to avoid calling setState
-  // synchronously inside an effect (prevents cascading render warning)
-  const [scrolled, setScrolled] = useState(() =>
-    typeof window !== "undefined" ? window.scrollY > 30 : false
-  );
-  const menuId = useId();
+  // Start as false on the server to avoid hydration mismatch, then
+  // update on mount using requestAnimationFrame to pick up the
+  // current scroll position without causing synchronous setState.
+  const [scrolled, setScrolled] = useState(false);
+  // useId may include characters (like colons) that are not ideal in
+  // plain HTML id attributes. Create a safe id string for aria-controls.
+  const _menuId = useId();
+  const menuId = `nav-menu-${String(_menuId).replace(/[:]/g, "-")}`;
+  const pathname = usePathname();
   const toggleRef = useRef<HTMLButtonElement | null>(null);
   const firstMenuRef = useRef<HTMLAnchorElement | null>(null);
 
   useEffect(() => {
     let ticking = false;
+    let rafId: number | null = null;
+
+    // Set initial scrolled state on mount without causing a sync setState
+    if (
+      typeof window !== "undefined" &&
+      typeof window.requestAnimationFrame === "function"
+    ) {
+      rafId = window.requestAnimationFrame(() =>
+        setScrolled(window.scrollY > 30)
+      );
+    } else if (typeof window !== "undefined") {
+      // schedule to avoid synchronous setState in environments without RAF
+      setTimeout(() => setScrolled(window.scrollY > 30), 0);
+    }
+
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
@@ -36,8 +55,12 @@ export default function NavBar() {
         ticking = true;
       }
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -61,6 +84,20 @@ export default function NavBar() {
       window.removeEventListener("keydown", onKey); // Clean up event listener
     };
   }, [open]);
+
+  // Close mobile menu when the pathname changes (navigation occurred)
+  useEffect(() => {
+    // schedule closing on the next paint to avoid synchronous setState in effect
+    if (
+      typeof window !== "undefined" &&
+      typeof window.requestAnimationFrame === "function"
+    ) {
+      window.requestAnimationFrame(() => setOpen(false));
+    } else {
+      // fallback
+      setTimeout(() => setOpen(false), 0);
+    }
+  }, [pathname]);
 
   return (
     <>

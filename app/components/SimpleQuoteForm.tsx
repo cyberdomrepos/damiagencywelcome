@@ -79,7 +79,8 @@ export default function SimpleQuoteForm({
 
       setToast({
         type: "success",
-        message: "Mail client opened — please press Send to complete the request.",
+        message:
+          "Mail client opened — please press Send to complete the request.",
       });
 
       // clear form
@@ -100,7 +101,10 @@ export default function SimpleQuoteForm({
       setTimezone("");
     } catch (err) {
       console.error("Mailto error:", err);
-      setToast({ type: "error", message: "Could not open mail client — please copy and email us." });
+      setToast({
+        type: "error",
+        message: "Could not open mail client — please copy and email us.",
+      });
     } finally {
       setSending(false);
       setTimeout(() => setToast(null), 6000);
