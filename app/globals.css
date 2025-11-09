@@ -1327,4 +1327,3 @@ input[type="radio"]:focus-visible {
   display: none !important;
   visibility: visible !important; /* keep DOM but hide visual effect */
 }
-

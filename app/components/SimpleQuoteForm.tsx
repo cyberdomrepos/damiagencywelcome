@@ -19,6 +19,9 @@ export default function SimpleQuoteForm({
   const [budget, setBudget] = useState("");
   const [timeline, setTimeline] = useState("");
 
+  const [customBudget, setCustomBudget] = useState("");
+  const [customTimeline, setCustomTimeline] = useState("");
+
   const [engagementType, setEngagementType] = useState("");
   const [features, setFeatures] = useState<string[]>([]);
   const [platforms, setPlatforms] = useState<string[]>([]);
@@ -36,6 +39,9 @@ export default function SimpleQuoteForm({
     e.preventDefault();
     setSending(true);
 
+    const outgoingBudget = budget === "custom" ? customBudget : budget;
+    const outgoingTimeline = timeline === "custom" ? customTimeline : timeline;
+
     const payload = {
       name,
       email,
@@ -44,8 +50,8 @@ export default function SimpleQuoteForm({
       phone,
       website,
       preferredContact,
-      budget,
-      timeline,
+      budget: outgoingBudget,
+      timeline: outgoingTimeline,
       engagementType,
       features,
       platforms,
@@ -273,7 +279,20 @@ export default function SimpleQuoteForm({
             <option value="15k-30k">$15,000 - $30,000</option>
             <option value="30k-50k">$30,000 - $50,000</option>
             <option value="50k+">$50,000+</option>
+            <option value="custom">Custom amount...</option>
           </select>
+
+          {budget === "custom" && (
+            <input
+              id="sq-budget-custom"
+              name="budgetCustom"
+              value={customBudget}
+              onChange={(e) => setCustomBudget(e.target.value)}
+              placeholder="Enter your budget (e.g. $7,500)"
+              className="mt-3 w-full rounded-md px-3 py-2 text-black bg-white shadow-sm border border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
+              aria-label="Custom budget"
+            />
+          )}
         </div>
 
         <div>
@@ -296,7 +315,20 @@ export default function SimpleQuoteForm({
             <option value="3-4m">2-4 months</option>
             <option value="4-6m">4-6 months</option>
             <option value="flexible">Flexible</option>
+            <option value="custom">Custom timeline...</option>
           </select>
+
+          {timeline === "custom" && (
+            <input
+              id="sq-timeline-custom"
+              name="timelineCustom"
+              value={customTimeline}
+              onChange={(e) => setCustomTimeline(e.target.value)}
+              placeholder="Describe your timeline (e.g. 6-8 weeks)"
+              className="mt-3 w-full rounded-md px-3 py-2 text-black bg-white shadow-sm border border-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
+              aria-label="Custom timeline"
+            />
+          )}
         </div>
 
         <div>
