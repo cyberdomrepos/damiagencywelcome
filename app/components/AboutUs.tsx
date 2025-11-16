@@ -207,8 +207,9 @@ export default function AboutUs() {
           <div className="text-center mb-12">
             <p className="text-base sm:text-lg text-white/80 max-w-4xl mx-auto leading-relaxed">
               Trusted by indie studios and growing teams worldwide. We deliver
-              production-ready assets, from initial concept to final implementation,
-              with a focus on performance, accessibility, and long-term maintainability.
+              production-ready assets, from initial concept to final
+              implementation, with a focus on performance, accessibility, and
+              long-term maintainability.
             </p>
           </div>
 
@@ -259,10 +260,12 @@ export default function AboutUs() {
             <h3 className="text-xl sm:text-2xl font-bold text-white mb-5 text-center">
               What we specialize in
             </h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-purple-400/30 transition-all duration-300">
-                <div className="text-purple-300 font-semibold mb-2 text-base">Visual Identity</div>
+                <div className="text-purple-300 font-semibold mb-2 text-base">
+                  Visual Identity
+                </div>
                 <ul className="space-y-1.5 text-xs text-white/70">
                   <li>• Logo & brand guidelines</li>
                   <li>• UI/UX design systems</li>
@@ -270,9 +273,11 @@ export default function AboutUs() {
                   <li>• Marketing materials</li>
                 </ul>
               </div>
-              
+
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-purple-400/30 transition-all duration-300">
-                <div className="text-purple-300 font-semibold mb-2 text-base">Audio Production</div>
+                <div className="text-purple-300 font-semibold mb-2 text-base">
+                  Audio Production
+                </div>
                 <ul className="space-y-1.5 text-xs text-white/70">
                   <li>• Original soundtracks</li>
                   <li>• Sound effects & ambience</li>
@@ -280,9 +285,11 @@ export default function AboutUs() {
                   <li>• Audio middleware setup</li>
                 </ul>
               </div>
-              
+
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-purple-400/30 transition-all duration-300">
-                <div className="text-purple-300 font-semibold mb-2 text-base">Physical Products</div>
+                <div className="text-purple-300 font-semibold mb-2 text-base">
+                  Physical Products
+                </div>
                 <ul className="space-y-1.5 text-xs text-white/70">
                   <li>• Apparel & merchandise</li>
                   <li>• Collector's editions</li>
@@ -336,46 +343,107 @@ export default function AboutUs() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
               <div className="bg-linear-to-br from-purple-900/40 to-purple-800/20 rounded-xl p-3 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300">
                 <div className="w-10 h-10 mx-auto mb-2 text-purple-300">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M14 2v6h6M16 13H8M16 17H8M10 9H8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </div>
-                <div className="text-xs font-medium text-white">Indie studios</div>
+                <div className="text-xs font-medium text-white">
+                  Indie studios
+                </div>
               </div>
               <div className="bg-linear-to-br from-purple-900/40 to-purple-800/20 rounded-xl p-3 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300">
                 <div className="w-10 h-10 mx-auto mb-2 text-purple-300">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
+                    <path
+                      d="M12 2L2 7l10 5 10-5-10-5z"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M2 17l10 5 10-5M2 12l10 5 10-5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </div>
                 <div className="text-xs font-medium text-white">Startups</div>
               </div>
               <div className="bg-linear-to-br from-purple-900/40 to-purple-800/20 rounded-xl p-3 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300">
                 <div className="w-10 h-10 mx-auto mb-2 text-purple-300">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" strokeLinecap="round" strokeLinejoin="round"/>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
+                    <rect
+                      x="2"
+                      y="7"
+                      width="20"
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </div>
                 <div className="text-xs font-medium text-white">Publishers</div>
               </div>
               <div className="bg-linear-to-br from-purple-900/40 to-purple-800/20 rounded-xl p-3 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300">
                 <div className="w-10 h-10 mx-auto mb-2 text-purple-300">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <circle cx="12" cy="7" r="4" strokeLinecap="round" strokeLinejoin="round"/>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
+                    <path
+                      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle
+                      cx="12"
+                      cy="7"
+                      r="4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </div>
                 <div className="text-xs font-medium text-white">Solo devs</div>
               </div>
             </div>
-            
+
             <p className="text-sm sm:text-base text-white/70 max-w-3xl mx-auto leading-relaxed">
-              From pre-production concept art to launch-ready assets, we adapt to your
-              workflow and timeline. Schedule a free consultation to discuss your project
-              scope, budget, and delivery milestones.
+              From pre-production concept art to launch-ready assets, we adapt
+              to your workflow and timeline. Schedule a free consultation to
+              discuss your project scope, budget, and delivery milestones.
             </p>
           </div>
         </div>

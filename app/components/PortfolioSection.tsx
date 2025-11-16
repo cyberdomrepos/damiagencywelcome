@@ -1,6 +1,6 @@
 import DesignCarousel from "./DesignCarousel";
 import MusicCarousel from "./MusicCarousel";
-import WebsiteCarousel from "./WebsiteCarousel";
+import WebCarousel from "./WebCarousel";
 import { useCinematicScroll } from "../hooks/useScrollAnimation";
 import React from "react";
 
@@ -35,7 +35,7 @@ function CategoryCarouselWrapper() {
     {
       src: "/audio/downtown-loop.mp3",
       title: "Downtown Loop",
-      cover: "/images/media/downtown-loop.jpeg",
+      cover: "/images/media/Downtown-Image.jpg",
     },
     {
       src: "/audio/neon-nights.mp3",
@@ -45,18 +45,18 @@ function CategoryCarouselWrapper() {
     {
       src: "/audio/ambient-drift.mp3",
       title: "Ambient Drift",
-      cover: "/images/media/ambient-drift-.png",
+      cover: "/images/media/ambient.png",
     },
   ];
 
   const webImages = [
     {
-      src: "/images/portfolio-web/site1-full.png",
+      src: "/images/portfolio-web/site-1.png",
       alt: "Portfolio Website 1",
       isLongScreenshot: true,
     },
     {
-      src: "/images/portfolio-web/site2-full.png",
+      src: "/images/portfolio-web/Site 2.png",
       alt: "Portfolio Website 2",
       isLongScreenshot: true,
     },
@@ -208,7 +208,7 @@ function CategoryCarouselWrapper() {
             fast, accessible, and beautiful web experiences with clean code,
             responsive design, and attention to performance budgets.
           </p>
-          <WebsiteCarousel images={webImages} autoplay interval={5000} />
+          <WebCarousel images={webImages} />
         </div>
       </div>
     </section>

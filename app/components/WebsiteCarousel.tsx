@@ -33,21 +33,25 @@ export default function WebsiteCarousel({ images }: WebsiteCarouselProps) {
         <div
           className={`relative w-full ${
             currentImage.isLongScreenshot
-              ? "h-[600px] md:h-[700px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
-              : "h-[400px] md:h-[500px]"
-          } rounded-xl overflow-hidden bg-black/50`}
+              ? "h-[600px] md:h-[700px] overflow-y-scroll scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-white/10 hover:scrollbar-thumb-purple-500/70"
+              : "h-[400px] md:h-[500px] overflow-hidden"
+          } rounded-xl bg-black/50`}
         >
           <Image
             src={currentImage.src}
             alt={currentImage.alt}
-            width={1920}
-            height={currentImage.isLongScreenshot ? 4000 : 1080}
-            className="w-full h-auto object-contain"
+            width={2560}
+            height={currentImage.isLongScreenshot ? 6000 : 1440}
+            className={`w-full ${
+              currentImage.isLongScreenshot ? "h-auto" : "h-full object-contain"
+            }`}
+            quality={100}
             priority={currentIndex === 0}
+            unoptimized={false}
           />
           {currentImage.isLongScreenshot && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm bg-black/50 px-3 py-1 rounded-full">
-              Scroll to explore ↓
+            <div className="sticky bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm bg-black/70 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 pointer-events-none z-10 inline-block">
+              ↓ Scroll to explore ↓
             </div>
           )}
         </div>
