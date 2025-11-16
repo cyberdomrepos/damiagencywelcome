@@ -1,140 +1,120 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
-interface WebsiteCarouselProps {
-  images: { src: string; alt?: string; isLongScreenshot?: boolean }[];
-  autoplay?: boolean;
-  interval?: number;
+interface WebImage {
+  src: string;
+  alt: string;
+  isLongScreenshot?: boolean;
 }
 
-export default function WebsiteCarousel({
-  images,
-  autoplay = true,
-  interval = 5000,
-}: WebsiteCarouselProps) {
-  const [index, setIndex] = useState(0);
-  const timerRef = useRef<number | null>(null);
-  const length = images.length;
-  const currentImage = images[index];
+interface WebsiteCarouselProps {
+  images: WebImage[];
+}
 
-  useEffect(() => {
-    if (!autoplay || length <= 1) return;
-    timerRef.current = window.setInterval(
-      () => setIndex((i) => (i + 1) % length),
-      interval
-    );
-    return () => {
-      if (timerRef.current) window.clearInterval(timerRef.current);
-    };
-  }, [autoplay, interval, length]);
+export default function WebsiteCarousel({ images }: WebsiteCarouselProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const onEnter = () => {
-      if (timerRef.current) {
-        window.clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-    const onLeave = () => {
-      if (!timerRef.current && autoplay && length > 1)
-        timerRef.current = window.setInterval(
-          () => setIndex((i) => (i + 1) % length),
-          interval
-        );
-    };
-    el.addEventListener("pointerenter", onEnter);
-    el.addEventListener("pointerleave", onLeave);
-    return () => {
-      el.removeEventListener("pointerenter", onEnter);
-      el.removeEventListener("pointerleave", onLeave);
-    };
-  }, [autoplay, interval, length]);
+  const handlePrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const currentImage = images[currentIndex];
 
   return (
-    <div ref={containerRef} className="relative w-full">
-      <div className="overflow-hidden rounded-xl bg-zinc-900/50 ring-1 ring-white/10">
+    <div className="relative w-full max-w-5xl mx-auto">
+      <div className="relative bg-linear-to-br from-purple-900/10 to-fuchsia-900/10 rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-white/10">
+        {/* Image Container */}
         <div
-          className="flex transition-transform duration-700 ease-out"
-          style={{ transform: `translateX(-${index * 100}%)` }}
+          className={`relative w-full ${
+            currentImage.isLongScreenshot
+              ? "h-[600px] md:h-[700px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+              : "h-[400px] md:h-[500px]"
+          } rounded-xl overflow-hidden bg-black/50`}
         >
-          {images.map((img, i) => (
-            <div key={i} className="flex-shrink-0 w-full relative">
-              {img.isLongScreenshot ? (
-                // Scrollable container for long screenshots
-                <div className="h-[600px] md:h-[700px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/30">
-                  <div className="relative w-full min-h-full">
-                    <Image
-                      src={img.src}
-                      alt={img.alt ?? `Website screenshot ${i + 1}`}
-                      width={1920}
-                      height={4000}
-                      className="w-full h-auto"
-                      sizes="(max-width: 768px) 100vw, 1200px"
-                    />
-                  </div>
-                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full">
-                    Scroll to explore ↓
-                  </div>
-                </div>
-              ) : (
-                // Regular fixed-height container
-                <div className="h-[500px] md:h-[600px] relative">
-                  <Image
-                    src={img.src}
-                    alt={img.alt ?? `Slide ${i + 1}`}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 768px) 100vw, 1200px"
-                  />
-                </div>
-              )}
+          <Image
+            src={currentImage.src}
+            alt={currentImage.alt}
+            width={1920}
+            height={currentImage.isLongScreenshot ? 4000 : 1080}
+            className="w-full h-auto object-contain"
+            priority={currentIndex === 0}
+          />
+          {currentImage.isLongScreenshot && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm bg-black/50 px-3 py-1 rounded-full">
+              Scroll to explore ↓
             </div>
-          ))}
+          )}
         </div>
-      </div>
 
-      {/* Navigation arrows */}
-      {length > 1 && (
-        <>
-          <button
-            aria-label="Previous website"
-            onClick={() => setIndex((i) => (i - 1 + length) % length)}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-sm text-white w-10 h-10 rounded-full hover:bg-black/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white transition-all"
-          >
-            <span className="text-xl">‹</span>
-          </button>
-          <button
-            aria-label="Next website"
-            onClick={() => setIndex((i) => (i + 1) % length)}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-sm text-white w-10 h-10 rounded-full hover:bg-black/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white transition-all"
-          >
-            <span className="text-xl">›</span>
-          </button>
-        </>
-      )}
-
-      {/* Indicator dots */}
-      {length > 1 && (
-        <div className="mt-4 flex justify-center gap-2">
-          {images.map((_, i) => (
+        {/* Navigation Buttons */}
+        {images.length > 1 && (
+          <>
             <button
-              key={i}
-              aria-label={`Go to website ${i + 1}`}
-              onClick={() => setIndex(i)}
-              className={`transition-all duration-300 rounded-full ${
-                i === index
-                  ? "w-8 h-2.5 bg-purple-400"
-                  : "w-2.5 h-2.5 bg-white/30 hover:bg-white/50"
-              }`}
-            />
-          ))}
-        </div>
-      )}
+              onClick={handlePrevious}
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-black/60 hover:bg-black/80 text-white transition-all duration-200 backdrop-blur-sm"
+              aria-label="Previous image"
+            >
+              <svg
+                className="w-5 h-5 sm:w-6 sm:h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            <button
+              onClick={handleNext}
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-black/60 hover:bg-black/80 text-white transition-all duration-200 backdrop-blur-sm"
+              aria-label="Next image"
+            >
+              <svg
+                className="w-5 h-5 sm:w-6 sm:h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </>
+        )}
+
+        {/* Indicators */}
+        {images.length > 1 && (
+          <div className="flex justify-center gap-2 mt-4">
+            {images.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  idx === currentIndex
+                    ? "bg-purple-500 w-6"
+                    : "bg-white/30 hover:bg-white/50"
+                }`}
+                aria-label={`Go to image ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
