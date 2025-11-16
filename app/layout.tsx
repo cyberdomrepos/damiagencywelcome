@@ -69,7 +69,9 @@ export default function RootLayout({
           id="main-content"
           className="pt-[calc(var(--header-h)+var(--safe-top))]"
         >
-          {children}
+          <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+            {children}
+          </div>
         </main>
         {/* Sticky mobile CTA removed to avoid overlap with navigation on small screens */}
       </body>

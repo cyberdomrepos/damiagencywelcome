@@ -103,7 +103,7 @@ export default function NavBar() {
     <>
       {/* Fixed top header — uses scrolled to toggle transparent → solid bg, respects safe-area inset, and transitions colors smoothly. */}
       <header
-        className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-colors duration-300 backdrop-blur-sm ${
+        className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-colors duration-300 backdrop-blur-sm site-nav-border ${
           scrolled
             ? "bg-black/80"
             : "bg-linear-to-b from-black/60 to-transparent"
@@ -111,39 +111,53 @@ export default function NavBar() {
       >
         <nav
           aria-label="Primary"
-          className="mx-auto max-w-screen-2xl  px-4 sm:px-6 md:px-12 h-16 sm:h-20 grid grid-cols-[auto_1fr_auto] items-center gap-4 text-white"
+          className="w-full px-4 sm:px-6 md:px-12 h-16 sm:h-20 grid grid-cols-[auto_1fr_auto] items-center gap-4 text-white"
         >
           <div className="justify-self-start">
             <Logo />
           </div>
 
           {/* center column intentionally left blank on md+ to allow menu on the right */}
-          <div className="justify-self-center" />
-
-          <div className="justify-self-end flex items-center gap-3 sm:gap-4">
-            {/* desktop menu moved to the right column */}
+          <div className="justify-self-center">
             <ul className="hidden md:flex items-center gap-6 lg:gap-8 text-base md:text-lg font-medium tracking-wide">
               {MENU.map((m) => (
                 <li key={m.href}>
                   <Link
                     href={m.href}
-                    className={`${linkBase} ${
+                    className={`${linkBase} nav-link-underline ${
                       m.href === "#home"
                         ? "text-white underline decoration-white decoration-2 underline-offset-4 font-semibold"
                         : "text-white/90 hover:text-white"
-                    }`}
+                    } ${m.href === "#about" ? "nav-about" : ""}`}
                   >
                     {m.label}
                   </Link>
                 </li>
               ))}
             </ul>
+          </div>
 
+          <div className="justify-self-end flex items-center gap-3 sm:gap-4">
             <Link
               href="#quote"
-              className="hidden md:inline-block rounded-md bg-white/95 text-black font-semibold text-base lg:text-xl shadow-sm cta-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              className="hidden md:inline-flex items-center gap-2 px-4 py-3 rounded-md bg-white text-black font-semibold transition-transform duration-200 ease-[cubic-bezier(0.2,0.9,0.2,1)] transform-gpu hover:-translate-y-1 hover:scale-105 hover:shadow-2xl"
             >
-              Get a quote
+              <span aria-hidden className="inline-flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  <path d="M22 2L11 13" />
+                  <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+                </svg>
+              </span>
+              <span>Get a quote</span>
             </Link>
 
             <button
@@ -151,7 +165,7 @@ export default function NavBar() {
               aria-expanded={open}
               aria-controls={menuId}
               aria-label="Toggle menu"
-              className="md:hidden p-2"
+              className="md:hidden p-2 rounded-md bg-white/5"
               onClick={() => setOpen((v) => !v)}
             >
               <svg
@@ -210,7 +224,7 @@ export default function NavBar() {
                     m.href === "#home"
                       ? "text-white underline decoration-white decoration-2 underline-offset-4 font-semibold"
                       : "text-white/90"
-                  }`}
+                  } ${m.href === "#about" ? "nav-about" : ""}`}
                 >
                   {m.label}
                 </Link>
@@ -221,9 +235,24 @@ export default function NavBar() {
               <Link
                 href="#quote"
                 onClick={() => setOpen(false)}
-                className="block w-full text-center rounded-md bg-white text-black font-medium cta-lift"
+                className="w-full flex text-center items-center justify-center gap-2 px-3 py-2 rounded-md bg-white text-black font-semibold transition-transform duration-200 ease-[cubic-bezier(0.2,0.9,0.2,1)] transform-gpu hover:-translate-y-1 hover:scale-105 hover:shadow-2xl"
               >
-                Get a quote
+                <span aria-hidden className="inline-flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-4 h-4"
+                  >
+                    <path d="M22 2L11 13" />
+                    <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+                  </svg>
+                </span>
+                <span>Get a quote</span>
               </Link>
             </li>
           </ul>

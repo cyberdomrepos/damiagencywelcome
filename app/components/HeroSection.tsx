@@ -38,164 +38,284 @@ export default function HeroSection({
 
   return (
     <>
-      <section className="relative min-h-[70vh] flex items-center justify-center px-4 sm:px-6 md:px-8 py-12 sm:py-20 z-20">
-        <div className="relative max-w-full w-full mx-auto">
+      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 py-8 sm:py-12 z-20">
+        <div className="relative max-w-screen-2xl w-full mx-auto">
           <div
-            className={`mx-auto w-full text-left md:text-left ${visibilityClass} transition-all duration-700 ease-out`}
+            className={`mx-auto w-full text-center ${visibilityClass} transition-all duration-700 ease-out`}
           >
-            {/* Hero section: marquee (top) + left content + right decorative media */}
-            {/* Top marquee removed from inside hero to reduce visual clutter and preserve heading focus. Testimonials will render below the hero. */}
             <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">
               <div className="md:col-span-12">
                 <div className="w-full">
                   <h1
-                    className="text-white font-extrabold leading-tight tracking-tight text-left md:text-left w-full text-pretty relative z-20"
-                    style={{ fontSize: "clamp(2.25rem, 6.8vw, 6.5rem)" }}
+                    className="text-white font-extrabold leading-tight tracking-tight w-full text-pretty relative z-20"
+                    style={{ fontSize: "clamp(3rem, 10vw, 10rem)" }}
                   >
                     <span
-                      className="hero-word block uppercase tracking-tight leading-none w-full"
-                      data-text="DESIGN"
+                      className="hero-main hero-gradient block mb-3 uppercase"
+                      aria-hidden
                     >
-                      DESIGN
+                      PREMIUM
                     </span>
 
                     <span
-                      className="hero-word block uppercase tracking-tight leading-none w-full"
-                      data-text="MUSIC"
+                      className="hero-main block uppercase tracking-tight leading-none w-full"
+                      data-text="EXPERIENCES"
                     >
-                      MUSIC
+                      EXPERIENCES
                     </span>
 
                     <span
-                      className="hero-word block uppercase tracking-tight leading-none w-full"
-                      data-text="CODE"
+                      className="hero-main block uppercase tracking-tight leading-none w-full"
+                      data-text="REDEFINED"
                     >
-                      CODE
-                    </span>
-                    {/* subline placed below the big word with breathing space before CTAs */}
-                    <span className="block text-lg md:text-2xl lg:text-3xl font-semibold tracking-wide mt-6 mb-8 text-gray-400 uppercase">
-                      - Crafted together
+                      REDEFINED
                     </span>
                   </h1>
                   <style>{`
-                    .hero-word {
+
+                    /* Main stacked words */
+                    .hero-main {
                       position: relative;
                       display: block;
                       width: 100%;
                       will-change: opacity, transform;
                       opacity: 0;
-                      transform: translateY(8px);
-                      animation: hero-fade 700ms ease forwards;
+                      transform: translateY(12px);
+                      animation: hero-fade 750ms cubic-bezier(.2,.9,.3,1) forwards;
                       -webkit-font-smoothing: antialiased;
-                      /* allow words to size large but avoid hard clipping and overflow */
-                      white-space: normal;
-                      overflow: visible;
-                      /* responsive large sizing: grows with viewport but caps to avoid extreme clipping */
-                      font-size: clamp(4rem, 20vw, 14rem);
-                      line-height: 0.86;
+                      font-size: clamp(3rem, 14vw, 10rem);
+                      line-height: 0.9;
                       letter-spacing: -0.02em;
-                      z-index: 30; /* keep main text above its reflection and marquee */
-                      /* subtle fade on the trailing edge of very long words to blend with background */
-                      -webkit-mask-image: linear-gradient(to right, black 0%, black 88%, transparent 100%);
-                      mask-image: linear-gradient(to right, black 0%, black 88%, transparent 100%);
+                      z-index: 30;
+                      /* ensure stacked words remain white by default */
+                      color: #fff;
+                      text-shadow: 0 8px 20px rgba(0,0,0,0.44);
                     }
-                    .hero-word:nth-of-type(1) { animation-delay: 0s; }
-                    .hero-word:nth-of-type(2) { animation-delay: 0.08s; }
-                    .hero-word:nth-of-type(3) { animation-delay: 0.16s; }
-                      /* softer separation: subtle text shadow for depth */
-                      .hero-word { text-shadow: 0 10px 30px rgba(0,0,0,0.6); }
-                      /* marquee top fade - mask to blend marquee into hero smoothly */
-                      .marquee-blend-wrapper { position: relative; width: 100%; margin: 0 auto; }
-                      .marquee-blend {
-                        -webkit-mask-image: linear-gradient(to top, transparent 0%, black 28%);
-                        mask-image: linear-gradient(to top, transparent 0%, black 28%);
-                        /* ensure mask doesn't clip scrolling performance */
-                        -webkit-mask-repeat: no-repeat;
-                        mask-repeat: no-repeat;
-                      }
-                      @media (min-width: 768px) {
-                        .marquee-blend { -webkit-mask-image: linear-gradient(to top, transparent 0%, black 36%); mask-image: linear-gradient(to top, transparent 0%, black 36%); }
-                      }
-                      /* reflection removed - ::after pseudo-element intentionally deleted */
+                    .hero-main:nth-of-type(1) { animation-delay: 0s; }
+                    .hero-main:nth-of-type(2) { animation-delay: 0.12s; }
+                    .hero-main:nth-of-type(3) { animation-delay: 0.24s; }
+
+                    /* Gradient applied only to DIGITAL */
+                    .hero-gradient {
+                      /* Logo-inspired variant tuned to favor royal purple tones:
+                         soft gold anchor -> vivid purple mid -> deep royal purple end
+                         This keeps warmth at the left but yields a stronger purple finish.
+                      */
+                      background: linear-gradient(90deg, #ffd27a 0%, #b76cff 50%, #4c1d95 100%);
+                      -webkit-background-clip: text;
+                      background-clip: text;
+                      color: transparent;
+                      -webkit-text-fill-color: transparent;
+                      z-index: 40;
+                      /* remove glow/border for a clean gradient */
+                      text-shadow: none;
+                    }
+
+                    /* Subtle hero media frame shadow (kept from earlier change) */
+                    .hero-media-frame {
+                      box-shadow: 0 18px 50px rgba(2,6,23,0.32), 0 6px 20px rgba(2,6,23,0.08);
+                      transition: box-shadow 450ms cubic-bezier(.2,.9,.3,1), transform 450ms ease;
+                    }
+                    .group:hover .hero-media-frame,
+                    .group:focus-within .hero-media-frame {
+                      box-shadow: 0 28px 80px rgba(2,6,23,0.34), 0 8px 30px rgba(2,6,23,0.10);
+                    }
+
+                    /* marquee top fade - mask to blend marquee into hero smoothly */
+                    .marquee-blend-wrapper { position: relative; width: 100%; margin: 0 auto; }
+                    .marquee-blend {
+                      -webkit-mask-image: linear-gradient(to top, transparent 0%, black 28%);
+                      mask-image: linear-gradient(to top, transparent 0%, black 28%);
+                      -webkit-mask-repeat: no-repeat;
+                      mask-repeat: no-repeat;
+                    }
+                    @media (min-width: 768px) {
+                      .marquee-blend { -webkit-mask-image: linear-gradient(to top, transparent 0%, black 36%); mask-image: linear-gradient(to top, transparent 0%, black 36%); }
+                    }
+
                     @keyframes hero-fade {
                       to { opacity: 1; transform: translateY(0); }
                     }
-                    /* reflection removed */
                   `}</style>
 
-                  <div className="mt-12 flex flex-col sm:flex-row flex-wrap items-center gap-4 justify-start md:justify-start">
+                  <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center">
                     <a
                       href="#quote"
                       aria-label="Request a quote"
-                      className="inline-flex items-center gap-4 px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg bg-white text-black font-semibold text-base sm:text-lg shadow-sm cta-lift cta-bordered w-full sm:w-auto justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+                      className="inline-flex items-center gap-2 rounded-md text-black font-semibold text-base sm:text-lg shadow-sm w-full sm:w-auto justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black cta-hero"
                     >
                       Request a quote
                     </a>
 
                     <a
                       href="#about"
-                      className="inline-flex items-center gap-3 px-5 sm:px-6 py-3 sm:py-4 rounded-lg bg-zinc-800 text-white font-semibold text-base sm:text-lg shadow-sm transition transform hover:-translate-y-1 hover:shadow-lg hover:bg-zinc-700 w-full sm:w-auto justify-center"
+                      className="cta-about inline-flex items-center gap-3 rounded-md text-white font-semibold text-base sm:text-lg w-full sm:w-auto justify-center"
                       aria-label="Learn more about DamiAgency"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 sm:h-6 sm:w-6"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-9-3a1 1 0 112 0v1a1 1 0 11-2 0V7zm2 4a1 1 0 10-2 0v3a1 1 0 002 0v-3z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <span className="about-hero-icon" aria-hidden>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={1.6}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="w-4 h-4 text-white"
+                        >
+                          <path d="M5 12h14" />
+                          <path d="M12 5l7 7-7 7" />
+                        </svg>
+                      </span>
                       <span>About Us</span>
                     </a>
                   </div>
 
-                  <div className="mt-8 sm:mt-10 flex items-stretch gap-3 sm:gap-4">
-                    {/* subtle vertical divider on md+ */}
-                    <span className="hidden md:block w-px rounded bg-white/12" />
-                    <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-xl mx-0 md:mx-0">
+                  <div className="mt-8 sm:mt-10">
+                    <p className="text-gray-400 text-sm md:text-lg leading-relaxed max-w-5xl mx-auto">
                       DamiAgency designs and ships websites, merch, and original
                       soundtracks for indie artists and small teams. We deliver
                       scoped work quickly with clear, fixed-price estimates,
-                      accessible UI, and production-ready assets (SVGs, layered
-                      source files, and stems). Handoffs include documentation
-                      so your team can continue building after launch.
+                      accessible UI, and production-ready assets. Handoffs
+                      include documentation so your team can continue building.
                     </p>
-                  </div>
 
-                  {/* Trust strip */}
-                  <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-start justify-start md:justify-start gap-3 text-xs sm:text-sm text-white/80">
-                    <div className="inline-flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-teal-300/90" />
-                      <span>Typical 7‑day turnaround for scoped projects</span>
-                    </div>
-                    <div className="hidden sm:block h-4 w-px bg-white/15" />
-                    <div className="inline-flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-teal-300/90" />
-                      <span>
-                        Portfolio across Web • Merch • OST — samples on request
-                      </span>
-                    </div>
-                    <div className="hidden sm:block h-4 w-px bg-white/15" />
-                    <div className="inline-flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-teal-300/90" />
-                      <span>
-                        Clear scopes and a transparent revision policy
-                      </span>
-                    </div>
-                    <div className="hidden sm:block h-4 w-px bg-white/15" />
-                    <div className="inline-flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-teal-300/90" />
-                      <span>Fast replies — typically within 24–48 hours</span>
-                    </div>
-                    <div className="hidden sm:block h-4 w-px bg-white/15" />
-                    <div className="inline-flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-teal-300/90" />
-                      <span>Free estimate and initial consultation</span>
+                    <div className="mt-6 flex flex-wrap justify-center gap-6 max-w-4xl mx-auto text-white/90 text-sm sm:text-base">
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="h-5 w-5 flex items-center justify-center"
+                          aria-hidden
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            className="h-4 w-4"
+                            aria-hidden
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="9"
+                              stroke="rgba(255,255,255,0.12)"
+                              strokeWidth="1.6"
+                              fill="none"
+                            />
+                            <path
+                              d="M8.5 12.5l2 2 5-5"
+                              stroke="#c084fc"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              fill="none"
+                            />
+                          </svg>
+                        </span>
+                        <span className="font-medium text-base sm:text-lg">
+                          Fast turnaround
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="h-5 w-5 flex items-center justify-center"
+                          aria-hidden
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            className="h-4 w-4"
+                            aria-hidden
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="9"
+                              stroke="rgba(255,255,255,0.12)"
+                              strokeWidth="1.6"
+                              fill="none"
+                            />
+                            <path
+                              d="M8.5 12.5l2 2 5-5"
+                              stroke="#c084fc"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              fill="none"
+                            />
+                          </svg>
+                        </span>
+                        <span className="font-medium text-base sm:text-lg">
+                          Professional quality
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="h-5 w-5 flex items-center justify-center"
+                          aria-hidden
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            className="h-4 w-4"
+                            aria-hidden
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="9"
+                              stroke="rgba(255,255,255,0.12)"
+                              strokeWidth="1.6"
+                              fill="none"
+                            />
+                            <path
+                              d="M8.5 12.5l2 2 5-5"
+                              stroke="#c084fc"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              fill="none"
+                            />
+                          </svg>
+                        </span>
+                        <span className="font-medium text-base sm:text-lg">
+                          Portfolio samples
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="h-5 w-5 flex items-center justify-center"
+                          aria-hidden
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            className="h-4 w-4"
+                            aria-hidden
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="9"
+                              stroke="rgba(255,255,255,0.12)"
+                              strokeWidth="1.6"
+                              fill="none"
+                            />
+                            <path
+                              d="M8.5 12.5l2 2 5-5"
+                              stroke="#c084fc"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              fill="none"
+                            />
+                          </svg>
+                        </span>
+                        <span className="font-medium text-base sm:text-lg">
+                          Clear estimates
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -208,7 +328,7 @@ export default function HeroSection({
           {/* Hero decorative media below the hero, aligned right on md+ screens */}
           <div
             ref={mediaRef as React.RefObject<HTMLDivElement>}
-            className={`hidden md:flex md:mt-20 items-center justify-end transition-all duration-1000 ${
+            className={`hidden md:flex md:mt-12 items-center justify-center transition-all duration-1000 ${
               mediaVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-12"
@@ -219,11 +339,11 @@ export default function HeroSection({
                 {/* stronger static border */}
                 <div className="absolute inset-0 rounded-lg border-2 border-white/20 pointer-events-none" />
 
-                {/* stronger gradient glow that fades in on hover */}
-                <div className="absolute -inset-3 rounded-lg bg-linear-to-r from-teal-400/20 to-indigo-400/20 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-60 pointer-events-none" />
+                {/* soft gradient glow behind the image (visible by default, intensifies on hover) */}
+                <div className="absolute -inset-6 rounded-lg bg-linear-to-r from-purple-700/20 via-pink-500/18 to-indigo-500/18 opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-90 mix-blend-screen pointer-events-none" />
 
                 {/* image with stronger hover transform + subtle ring */}
-                <div className="relative w-full h-full overflow-hidden rounded-lg shadow-2xl transition-all duration-500 group-hover:shadow-2xl">
+                <div className="relative w-full h-full overflow-hidden rounded-lg hero-media-frame">
                   <Image
                     src="/images/hero-media.jpeg"
                     alt="Showcase"
@@ -232,7 +352,6 @@ export default function HeroSection({
                     priority
                     unoptimized
                     onError={(e) => {
-                      // eslint-disable-next-line no-console
                       console.warn("Hero image failed to load:", e);
                     }}
                     className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 group-hover:-translate-y-4 group-hover:rotate-1"
@@ -246,7 +365,7 @@ export default function HeroSection({
 
       {/* Testimonials moved below the hero for clearer hierarchy */}
       <div className="w-full px-4 sm:px-6">
-        <div className="mx-auto w-full max-w-[1200px] mb-8 sm:mb-10">
+        <div className="w-full mx-auto mb-8 sm:mb-10">
           <TestimonialSliders
             className="marquee-blend transform md:translate-y-1 lg:translate-y-2 relative z-10"
             items={[

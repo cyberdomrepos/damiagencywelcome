@@ -44,7 +44,9 @@ export default function Page() {
         }`}
         data-prefers-reduced-motion={prefersReducedMotion}
       >
-        <div className="relative z-10 mx-auto max-w-7xl">
+        {/* Centered hero glow (visual only) */}
+        <div aria-hidden className="hero-center-glow" />
+        <div className="relative z-10 w-full">
           {/* HERO SECTION */}
           <HeroSection prefersReducedMotion={prefersReducedMotion} />
 

@@ -40,12 +40,12 @@ export default function Footer({ prefersReducedMotion = false }: FooterProps) {
       </h2>
 
       {/* subtle divider */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-6">
         <div className="border-t border-white/6 mb-6" />
       </div>
 
       <div
-        className={`mx-auto max-w-7xl px-4 sm:px-6 transition-all duration-700 ${
+        className={`w-full px-4 sm:px-6 transition-all duration-700 ${
           footerVisible
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-6"

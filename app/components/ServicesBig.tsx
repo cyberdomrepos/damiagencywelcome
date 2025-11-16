@@ -165,18 +165,17 @@ export default function ServicesBig() {
       className="mt-12 sm:mt-16 md:mt-24 py-12 sm:py-16 md:py-20"
     >
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 md:gap-12 items-start">
-          <div className="md:col-span-7" />
-          <div className="md:col-span-5 flex flex-col items-start md:items-end justify-start">
-            <div className="text-left md:text-right md:pl-8 md:pt-4">
-              <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-extrabold text-white leading-tight">
+        <div className="grid grid-cols-1 gap-8 sm:gap-10 md:gap-12 items-start">
+          <div className="w-full flex justify-center">
+            <div className="max-w-3xl text-center px-4">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
                 <span className="block">What we do.</span>
-                <span className="block text-teal-300 text-lg sm:text-xl md:text-2xl font-medium mt-2 sm:mt-3">
+                <span className="block text-purple-300 text-sm sm:text-base md:text-lg font-medium mt-2 sm:mt-3">
                   Three core areas that move products forward
                 </span>
               </h2>
 
-              <div className="mt-4 sm:mt-6 pl-3 sm:pl-4 md:pl-8 border-l border-white/10 max-w-xl">
+              <div className="mt-4 sm:mt-6 border-t border-white/6 pt-4">
                 <p className="text-sm md:text-base text-gray-300 leading-relaxed">
                   We ship beautiful, usable products with high-performance code,
                   elevated brand systems, and original media that helps teams
@@ -188,11 +187,11 @@ export default function ServicesBig() {
           </div>
         </div>
 
-        {/* Metric / trust badges (right-aligned) */}
-        <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-end">
-          <div className="flex flex-col sm:flex-row items-end sm:items-center gap-6 sm:gap-8">
+        {/* Metric / trust badges (centered) */}
+        <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8">
             <div className="flex items-center gap-4">
-              <div className="w-9 h-9 rounded-full bg-teal-500/10 text-teal-300 flex items-center justify-center ring-1 ring-teal-400/10">
+              <div className="w-9 h-9 rounded-full bg-purple-500/10 text-purple-300 flex items-center justify-center ring-1 ring-purple-400/10">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -205,7 +204,7 @@ export default function ServicesBig() {
                   />
                 </svg>
               </div>
-              <div className="text-right">
+              <div className="text-center">
                 <div className="text-sm font-semibold text-white">
                   250+ projects
                 </div>
@@ -216,7 +215,7 @@ export default function ServicesBig() {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="w-9 h-9 rounded-full bg-teal-500/10 text-teal-300 flex items-center justify-center ring-1 ring-teal-400/10">
+              <div className="w-9 h-9 rounded-full bg-purple-500/10 text-purple-300 flex items-center justify-center ring-1 ring-purple-400/10">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -229,7 +228,7 @@ export default function ServicesBig() {
                   />
                 </svg>
               </div>
-              <div className="text-right">
+              <div className="text-center">
                 <div className="text-sm font-semibold text-white">
                   200+ five-star reviews
                 </div>
@@ -240,7 +239,7 @@ export default function ServicesBig() {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="w-9 h-9 rounded-full bg-teal-500/10 text-teal-300 flex items-center justify-center ring-1 ring-teal-400/10">
+              <div className="w-9 h-9 rounded-full bg-purple-500/10 text-purple-300 flex items-center justify-center ring-1 ring-purple-400/10">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -253,7 +252,7 @@ export default function ServicesBig() {
                   />
                 </svg>
               </div>
-              <div className="text-right">
+              <div className="text-center">
                 <div className="text-sm font-semibold text-white">
                   Reliable delivery
                 </div>
@@ -263,15 +262,6 @@ export default function ServicesBig() {
               </div>
             </div>
           </div>
-
-          <div className="mt-4">
-            <a
-              href="/case-studies"
-              className="text-sm text-teal-300 font-medium"
-            >
-              View case studies →
-            </a>
-          </div>
         </div>
 
         <div
@@ -279,25 +269,16 @@ export default function ServicesBig() {
           className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center gap-8 sm:gap-10 md:gap-12"
         >
           {cards.map((card, i) => {
-            const align =
-              i === 0
-                ? "self-center md:self-end"
-                : i === 1
-                ? "self-center"
-                : "self-center md:self-start";
+            const align = "self-center";
+            const widthClass = "w-full md:w-9/12 lg:w-8/12";
 
-            const iconBg =
-              i === 0
-                ? "bg-zinc-100 text-zinc-900"
-                : i === 1
-                ? "bg-rose-500 text-white"
-                : "bg-orange-600 text-white";
+            const iconBg = "bg-zinc-100 text-zinc-900";
 
             return (
               <div
                 key={card.title}
                 id={card.id}
-                className={`${align} w-full md:w-11/12 lg:w-9/12 transition-all duration-700 ${
+                className={`${align} ${widthClass} transition-all duration-700 ${
                   cardVisible[i]
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-12"
@@ -306,17 +287,18 @@ export default function ServicesBig() {
                 <a
                   href={card.href}
                   aria-label={`Learn more about ${card.title}`}
-                  className={`relative block rounded-xl sm:rounded-2xl ${card.bg} ${card.border} ${card.text} p-6 sm:p-10 md:p-16 lg:p-20 min-h-[300px] sm:min-h-[360px] md:min-h-[420px] lg:min-h-[520px] border border-transparent shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/25 backdrop-blur-sm overflow-hidden`}
+                  className={`relative block rounded-xl sm:rounded-2xl ${card.bg} ${card.border} ${card.text} p-6 sm:p-10 md:p-16 lg:p-20 min-h-[300px] sm:min-h-[360px] md:min-h-[420px] lg:min-h-[520px] border border-transparent shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-400/20 backdrop-blur-sm overflow-hidden`}
                 >
                   <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                     <div
-                      className={`flex-none rounded-lg ${iconBg} p-3 sm:p-4 shadow-inner ring-1 ring-black/6`}
+                      className={`flex-none rounded-lg ${iconBg} p-3 sm:p-4 shadow-inner ${
+                        i === 0 ? "ring-1 ring-black/6" : "ring-1 ring-white/6"
+                      }`}
                     >
                       <span className="inline-block w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
                         {card.icon}
                       </span>
                     </div>
-
                     <div
                       className={`pl-0 sm:pl-4 md:pl-6 lg:pl-8 border-l-0 sm:border-l ${
                         i === 0
@@ -334,11 +316,9 @@ export default function ServicesBig() {
 
                       <p
                         className={`mt-3 sm:mt-4 text-sm md:text-base leading-relaxed max-w-lg bg-transparent ${
-                          i === 0
-                            ? "text-zinc-700"
-                            : i === 1
+                          card.text === "text-white"
                             ? "text-white/90"
-                            : "text-zinc-900/85"
+                            : "text-zinc-700"
                         }`}
                       >
                         {card.desc}
@@ -349,11 +329,9 @@ export default function ServicesBig() {
                           <li
                             key={idx}
                             className={`${
-                              i === 1
+                              card.text === "text-white"
                                 ? "text-white/85"
-                                : i === 0
-                                ? "text-zinc-700"
-                                : "text-zinc-900/85"
+                                : "text-zinc-700"
                             }`}
                           >
                             {b}
@@ -362,15 +340,7 @@ export default function ServicesBig() {
                       </ul>
 
                       <div className="mt-6 sm:mt-8">
-                        <span
-                          className={`inline-flex items-center gap-2 sm:gap-3 text-sm sm:text-base px-4 sm:px-5 py-2.5 sm:py-3 rounded-md transition-all duration-300 ease-out transform will-change-transform font-semibold ${
-                            i === 0
-                              ? "bg-zinc-900 text-white hover:bg-black/90 hover:-translate-y-1 hover:shadow-lg"
-                              : i === 1
-                              ? "bg-white/6 text-white hover:bg-white/10 hover:-translate-y-1 hover:shadow-lg"
-                              : "bg-white text-zinc-900 hover:bg-zinc-100 hover:-translate-y-1 hover:shadow-lg"
-                          }`}
-                        >
+                        <span className="inline-flex items-center gap-2 sm:gap-3 text-sm sm:text-base px-4 sm:px-5 py-2.5 sm:py-3 rounded-md transition-all duration-300 ease-out transform will-change-transform font-semibold bg-zinc-900 text-white hover:bg-black/90 hover:-translate-y-1 hover:shadow-lg">
                           Learn more
                         </span>
                       </div>

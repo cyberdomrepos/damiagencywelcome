@@ -20,6 +20,7 @@ export default function TestimonialSliders({
 }: TestimonialSlidersProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const reviews: Review[] = items.map((it) =>
     typeof it === "string" ? { name: it, rating: 5 } : it
@@ -117,6 +118,29 @@ export default function TestimonialSliders({
       raf = requestAnimationFrame(() => {
         const half = elNonNull.scrollWidth / 2 || 1;
         if (elNonNull.scrollLeft >= half) elNonNull.scrollLeft -= half;
+
+        // Determine which visible child is closest to the track center
+        try {
+          const children = Array.from(elNonNull.children) as HTMLElement[];
+          const trackRect = elNonNull.getBoundingClientRect();
+          const trackCenter = trackRect.left + trackRect.width / 2;
+          let bestIndex = 0;
+          let bestDist = Infinity;
+          children.forEach((child, idx) => {
+            const rect = child.getBoundingClientRect();
+            const childCenter = rect.left + rect.width / 2;
+            const dist = Math.abs(childCenter - trackCenter);
+            if (dist < bestDist) {
+              bestDist = dist;
+              bestIndex = idx;
+            }
+          });
+          // Map duplicated index back to original reviews index
+          const originalIdx = bestIndex % defaulted.length;
+          setActiveIndex(originalIdx);
+        } catch {
+          // ignore measurement failures
+        }
       });
     }
 
@@ -157,21 +181,51 @@ export default function TestimonialSliders({
     setIsPaused(false);
   }
 
+  function scrollToIndex(index: number) {
+    const el = trackRef.current;
+    if (!el) return;
+    const { cardFull } = computeCardFull(el as HTMLDivElement);
+    const left = index * cardFull;
+    setIsPaused(true);
+    el.scrollTo({ left, behavior: "smooth" });
+    setTimeout(() => setIsPaused(false), 800);
+  }
+
+  function handleKeyNav(e: React.KeyboardEvent) {
+    if (e.key === "ArrowLeft") {
+      const el = trackRef.current;
+      if (!el) return;
+      const first = el.children[0] as HTMLElement | undefined;
+      const gap = parseFloat(getComputedStyle(el).gap || "24") || 24;
+      const step = (first?.offsetWidth || 320) + gap;
+      setIsPaused(true);
+      el.scrollBy({ left: -step, behavior: "smooth" });
+      setTimeout(() => setIsPaused(false), 800);
+    }
+    if (e.key === "ArrowRight") {
+      const el = trackRef.current;
+      if (!el) return;
+      const first = el.children[0] as HTMLElement | undefined;
+      const gap = parseFloat(getComputedStyle(el).gap || "24") || 24;
+      const step = (first?.offsetWidth || 320) + gap;
+      setIsPaused(true);
+      el.scrollBy({ left: step, behavior: "smooth" });
+      setTimeout(() => setIsPaused(false), 800);
+    }
+  }
+
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`w-full mt-16 md:mt-20 lg:mt-24 ${className}`}>
       <div className="mb-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div className="max-w-2xl">
-            <h2 className="text-white text-2xl md:text-3xl font-extrabold tracking-tight">
-              Client reviews
-            </h2>
-            <p className="mt-2 text-sm md:text-base text-white/60">
-              Trusted by music, merchandise, and web teams — real feedback from
-              recent projects and campaigns.
-            </p>
-            <div className="mt-4">
-              <div className="w-20 h-px bg-white/8 rounded" />
-            </div>
+        <div className="text-center mx-auto max-w-4xl">
+          <h2 className="text-white text-3xl md:text-4xl font-extrabold tracking-tight">
+            Client Reviews
+          </h2>
+          <p className="mt-2 text-sm md:text-base text-white/60">
+            Trusted by indie game developers and creative teams.
+          </p>
+          <div className="mt-4 flex justify-center">
+            <div className="w-24 h-px bg-white/8 rounded" />
           </div>
         </div>
       </div>
@@ -251,6 +305,11 @@ export default function TestimonialSliders({
             willChange: "scroll-left",
             WebkitOverflowScrolling: "touch",
           }}
+          tabIndex={0}
+          onKeyDown={handleKeyNav}
+          role="listbox"
+          aria-roledescription="carousel"
+          aria-label="Client review carousel"
         >
           {duplicated.map((r, i) => {
             const initials = (r.name || "")
@@ -258,17 +317,25 @@ export default function TestimonialSliders({
               .map((n) => n[0])
               .slice(0, 2)
               .join("");
+            const originalIndex = i % defaulted.length;
+            const isActive = originalIndex === activeIndex;
             return (
               <article
                 key={`${r.name}-${i}`}
                 aria-hidden={i >= defaulted.length}
-                className={`marquee-article shrink-0 min-h-64 md:min-h-80 rounded-md p-6 md:p-8 scale-100 opacity-100 flex flex-col snap-center transition-shadow duration-300 ease-out will-change-transform bg-linear-to-b from-zinc-900/88 to-zinc-900/80 border border-white/10 ring-1 ring-black/10 backdrop-blur-sm shadow-lg hover:border-teal-400/30 hover:shadow-2xl focus:border-teal-400/30 outline-none overflow-hidden box-border`}
+                className={`marquee-article shrink-0 min-h-64 md:min-h-80 rounded-md p-6 md:p-8 transition-transform duration-300 ease-out will-change-transform flex flex-col snap-center bg-linear-to-b from-zinc-900/64 to-zinc-900/56 border border-white/6 ring-1 ring-black/6 backdrop-blur-sm ${
+                  isActive ? "scale-105 shadow-xl z-20" : "scale-100 shadow-md"
+                } hover:border-teal-400/20 focus:border-teal-400/20 outline-none overflow-hidden box-border`}
                 role="article"
                 aria-label={`Review by ${r.name}`}
                 tabIndex={0}
                 style={{
-                  boxShadow: "0 18px 48px rgba(2,6,10,0.75)",
-                  WebkitBoxShadow: "0 18px 48px rgba(2,6,10,0.75)",
+                  boxShadow: isActive
+                    ? "0 18px 48px rgba(2,6,10,0.36)"
+                    : "0 12px 36px rgba(2,6,10,0.26)",
+                  WebkitBoxShadow: isActive
+                    ? "0 18px 48px rgba(2,6,10,0.36)"
+                    : "0 12px 36px rgba(2,6,10,0.26)",
                   boxSizing: "border-box",
                 }}
               >
@@ -290,7 +357,7 @@ export default function TestimonialSliders({
                   </div>
 
                   <div
-                    className="ml-4 text-teal-400 flex items-center gap-1"
+                    className="ml-4 text-purple-400 flex items-center gap-1"
                     aria-hidden
                   >
                     <div className="sr-only">
@@ -345,6 +412,20 @@ export default function TestimonialSliders({
           }}
         />
 
+        {/* pagination dots */}
+        <div className="mt-6 flex items-center justify-center gap-2 relative z-30">
+          {defaulted.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => scrollToIndex(idx)}
+              aria-label={`Go to review ${idx + 1}`}
+              className={`h-2.5 w-2.5 rounded-full transition-all transform ${
+                activeIndex === idx ? "bg-purple-400 scale-110" : "bg-white/20"
+              }`}
+            />
+          ))}
+        </div>
+
         <style>{`
           @keyframes marquee-loop { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
           .marquee-duplicate[aria-hidden] { display: contents; }
@@ -353,8 +434,8 @@ export default function TestimonialSliders({
           @media (min-width: 1024px) { .marquee-article { flex: 0 0 calc((100% - 48px) / 3); min-width: 340px; } }
           .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
           .no-scrollbar::-webkit-scrollbar { display: none; }
-          .marquee-article:hover { box-shadow: 0 22px 56px rgba(2,6,10,0.75), 0 0 18px rgba(45,212,191,0.06); border-color: rgba(45,212,191,0.28) !important; }
-          .marquee-article:focus { box-shadow: 0 18px 48px rgba(2,6,10,0.75), 0 0 12px rgba(45,212,191,0.04); border-color: rgba(45,212,191,0.24) !important; }
+          .marquee-article:hover { box-shadow: 0 16px 44px rgba(2,6,10,0.45), 0 0 12px rgba(45,212,191,0.04); border-color: rgba(45,212,191,0.18) !important; }
+          .marquee-article:focus { box-shadow: 0 12px 36px rgba(2,6,10,0.36), 0 0 8px rgba(45,212,191,0.03); border-color: rgba(45,212,191,0.14) !important; }
         `}</style>
       </div>
     </div>

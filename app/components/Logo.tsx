@@ -19,7 +19,7 @@ export default function Logo({ className = "" }: Props) {
             "linear-gradient(135deg, rgba(251,113,133,0.98) 0%, rgba(109,40,217,0.98) 100%)",
         }}
       >
-        DAMI
+        -DAMI
       </span>
       <span className="relative z-10 font-bold text-xl sm:text-2xl tracking-tight text-zinc-900/90 dark:text-white/95 uppercase">
         AGENCY

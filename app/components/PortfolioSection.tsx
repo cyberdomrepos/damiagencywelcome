@@ -51,7 +51,7 @@ export default function PortfolioSection() {
 
   return (
     <section id="portfolio" className="py-12 sm:py-16 md:py-20">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8">
+      <div className="w-full px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           {/* Left column: heading + description (left-aligned, matches Services sizing) */}
           <div className="md:col-span-12 lg:col-span-5">
@@ -132,7 +132,7 @@ export default function PortfolioSection() {
         </div>
         {/* Carousel: centered below the portfolio text */}
         <div className="mt-10 flex justify-center">
-          <div className="w-full max-w-[1400px] px-4">
+          <div className="w-full px-4">
             <CategoryCarouselWrapper />
           </div>
         </div>
