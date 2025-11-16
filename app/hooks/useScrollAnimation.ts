@@ -168,3 +168,95 @@ export function useParallax(speed: number = 0.5) {
 
   return { ref, transform };
 }
+
+/**
+ * Advanced cinematic scroll animation with blur and scale
+ * Award-winning style reveal animation
+ * 
+ * @example
+ * const { elementRef, isVisible } = useCinematicScroll({ delay: 100 });
+ * return <div ref={elementRef} className={isVisible ? 'reveal-cinematic' : 'opacity-0'}>...</div>
+ */
+export function useCinematicScroll({
+  threshold = 0.15,
+  rootMargin = '0px 0px -100px 0px',
+  delay = 0,
+  triggerOnce = true
+}: UseScrollAnimationOptions = {}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef<HTMLElement>(null);
+  const hasTriggered = useRef(false);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && (!triggerOnce || !hasTriggered.current)) {
+          setTimeout(() => {
+            setIsVisible(true);
+            hasTriggered.current = true;
+          }, delay);
+        } else if (!triggerOnce && !entry.isIntersecting) {
+          setIsVisible(false);
+        }
+      },
+      { threshold, rootMargin }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [threshold, rootMargin, delay, triggerOnce]);
+
+  return { elementRef, isVisible };
+}
+
+/**
+ * Magnetic cursor follow effect for interactive elements
+ * Creates premium hover interactions
+ * 
+ * @example
+ * const { elementRef, style } = useMagneticHover({ strength: 0.3 });
+ * return <button ref={elementRef} style={style}>Hover me</button>
+ */
+export function useMagneticHover(strength: number = 0.25) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const elementRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = element.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      const deltaX = (e.clientX - centerX) * strength;
+      const deltaY = (e.clientY - centerY) * strength;
+      
+      setPosition({ x: deltaX, y: deltaY });
+    };
+
+    const handleMouseLeave = () => {
+      setPosition({ x: 0, y: 0 });
+    };
+
+    element.addEventListener('mousemove', handleMouseMove);
+    element.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      element.removeEventListener('mousemove', handleMouseMove);
+      element.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [strength]);
+
+  const style = {
+    transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
+    transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+  };
+
+  return { elementRef, style };
+}

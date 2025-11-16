@@ -59,21 +59,25 @@ export default function Page() {
           */}
 
           {/** PORTFOLIO SECTION */}
-          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
+          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
+            <div className="mb-12 border-t border-white/10" />
             <PortfolioSection />
           </div>
 
           {/** ABOUT US SECTION */}
-          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
+          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
+            <div className="mb-12 border-t border-white/10" />
             <AboutUs />
           </div>
+
           {/** GET A QUOTE SECTION */}
-          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
+          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
+            <div className="mb-12 border-t border-white/10" />
             <QuoteSection />
           </div>
 
           {/** FOOTER SECTION */}
-          <div className="mt-20 sm:mt-32 md:mt-40 lg:mt-56">
+          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
             <Footer prefersReducedMotion={prefersReducedMotion} />
           </div>
         </div>

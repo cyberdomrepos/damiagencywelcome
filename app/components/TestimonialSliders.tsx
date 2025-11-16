@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
+import { useCinematicScroll } from "../hooks/useScrollAnimation";
 
 interface Review {
   name: string;
@@ -21,6 +22,8 @@ export default function TestimonialSliders({
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { elementRef: headerRef, isVisible: headerVisible } =
+    useCinematicScroll({ delay: 0 });
 
   const reviews: Review[] = items.map((it) =>
     typeof it === "string" ? { name: it, rating: 5 } : it
@@ -216,7 +219,10 @@ export default function TestimonialSliders({
 
   return (
     <div className={`w-full mt-16 md:mt-20 lg:mt-24 ${className}`}>
-      <div className="mb-6">
+      <div
+        ref={headerRef as React.RefObject<HTMLDivElement>}
+        className={`mb-6 ${headerVisible ? "reveal-cinematic" : "opacity-0"}`}
+      >
         <div className="text-center mx-auto max-w-4xl">
           <h2 className="text-white text-3xl md:text-4xl font-extrabold tracking-tight">
             Client Reviews
@@ -225,7 +231,7 @@ export default function TestimonialSliders({
             Trusted by indie game developers and creative teams.
           </p>
           <div className="mt-4 flex justify-center">
-            <div className="w-24 h-px bg-white/8 rounded" />
+            <div className="w-72 h-px bg-white/8 rounded" />
           </div>
         </div>
       </div>

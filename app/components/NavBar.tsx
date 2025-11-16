@@ -206,23 +206,23 @@ export default function NavBar() {
         id={menuId}
         className={`md:hidden ${
           open ? "block" : "hidden"
-        } fixed inset-x-0 top-[calc(env(safe-area-inset-top)+4rem)] sm:top-[calc(env(safe-area-inset-top)+5rem)] z-40`}
+        } fixed inset-x-0 top-[calc(env(safe-area-inset-top)+4rem)] sm:top-[calc(env(safe-area-inset-top)+5rem)] z-40 shadow-2xl`}
         aria-hidden={!open}
       >
-        <div className="bg-black/95 px-4 py-4 max-h-[60vh] sm:max-h-[50vh] overflow-y-auto">
-          <ul className="flex flex-col">
+        <div className="bg-black/98 backdrop-blur-md border-b border-white/20 px-4 py-6 max-h-[70vh] overflow-y-auto">
+          <ul className="flex flex-col gap-1">
             {MENU.map((m, i) => (
               <li
                 key={m.href}
-                className="border-b border-white/10 last:border-b-0"
+                className="border-b border-white/5 last:border-b-0"
               >
                 <Link
                   href={m.href}
                   onClick={() => setOpen(false)}
                   ref={i === 0 ? firstMenuRef : undefined}
-                  className={`block py-3 px-3 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white ${
+                  className={`block py-4 px-4 rounded-md text-base focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white hover:bg-white/5 transition-colors ${
                     m.href === "#home"
-                      ? "text-white underline decoration-white decoration-2 underline-offset-4 font-semibold"
+                      ? "text-white font-semibold bg-white/5"
                       : "text-white/90"
                   } ${m.href === "#about" ? "nav-about" : ""}`}
                 >
@@ -231,11 +231,11 @@ export default function NavBar() {
               </li>
             ))}
 
-            <li className="pt-3">
+            <li className="pt-4">
               <Link
                 href="#quote"
                 onClick={() => setOpen(false)}
-                className="w-full flex text-center items-center justify-center gap-2 px-3 py-2 rounded-md bg-white text-black font-semibold transition-transform duration-200 ease-[cubic-bezier(0.2,0.9,0.2,1)] transform-gpu hover:-translate-y-1 hover:scale-105 hover:shadow-2xl"
+                className="w-full flex text-center items-center justify-center gap-2 px-4 py-3 rounded-md bg-white text-black font-semibold transition-all duration-200 hover:bg-white/90 active:scale-95"
               >
                 <span aria-hidden className="inline-flex items-center">
                   <svg

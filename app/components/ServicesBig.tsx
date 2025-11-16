@@ -1,9 +1,19 @@
 "use client";
 
 import React from "react";
-import { useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
+import {
+  useStaggeredScrollAnimation,
+  useCinematicScroll,
+} from "../hooks/useScrollAnimation";
 
 export default function ServicesBig() {
+  // Header animation
+  const { elementRef: headerRef, isVisible: headerVisible } =
+    useCinematicScroll({ delay: 0 });
+  const { elementRef: statsRef, isVisible: statsVisible } = useCinematicScroll({
+    delay: 200,
+  });
+
   // Staggered scroll animation for cards
   const { elementRef: cardsContainerRef, visibleItems: cardVisible } =
     useStaggeredScrollAnimation(
@@ -166,7 +176,12 @@ export default function ServicesBig() {
     >
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8">
         <div className="grid grid-cols-1 gap-8 sm:gap-10 md:gap-12 items-start">
-          <div className="w-full flex justify-center">
+          <div
+            ref={headerRef as React.RefObject<HTMLDivElement>}
+            className={`w-full flex justify-center ${
+              headerVisible ? "reveal-cinematic" : "opacity-0"
+            }`}
+          >
             <div className="max-w-3xl text-center px-4">
               <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
                 <span className="block">What we do.</span>
@@ -175,7 +190,8 @@ export default function ServicesBig() {
                 </span>
               </h2>
 
-              <div className="mt-4 sm:mt-6 border-t border-white/6 pt-4">
+              <div className="mt-4 sm:mt-6 pt-4">
+                <div className="mx-auto w-72 border-t border-white/6 mb-4" />
                 <p className="text-sm md:text-base text-gray-300 leading-relaxed">
                   We ship beautiful, usable products with high-performance code,
                   elevated brand systems, and original media that helps teams
@@ -188,7 +204,12 @@ export default function ServicesBig() {
         </div>
 
         {/* Metric / trust badges (centered) */}
-        <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center">
+        <div
+          ref={statsRef as React.RefObject<HTMLDivElement>}
+          className={`mt-8 sm:mt-10 md:mt-12 flex flex-col items-center ${
+            statsVisible ? "reveal-slide-left delay-200" : "opacity-0"
+          }`}
+        >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8">
             <div className="flex items-center gap-4">
               <div className="w-9 h-9 rounded-full bg-purple-500/10 text-purple-300 flex items-center justify-center ring-1 ring-purple-400/10">

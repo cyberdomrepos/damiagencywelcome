@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import TestimonialSliders from "./TestimonialSliders";
 import ServicesBig from "./ServicesBig";
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import {
+  useScrollAnimation,
+  useCinematicScroll,
+  useMagneticHover,
+} from "../hooks/useScrollAnimation";
 
 interface HeroSectionProps {
   prefersReducedMotion?: boolean;
@@ -51,21 +55,21 @@ export default function HeroSection({
                     style={{ fontSize: "clamp(3rem, 10vw, 10rem)" }}
                   >
                     <span
-                      className="hero-main hero-gradient block mb-3 uppercase"
+                      className="hero-main hero-gradient block mb-3 uppercase hero-word-1"
                       aria-hidden
                     >
                       PREMIUM
                     </span>
 
                     <span
-                      className="hero-main block uppercase tracking-tight leading-none w-full"
+                      className="hero-main block uppercase tracking-tight leading-none w-full hero-word-2"
                       data-text="EXPERIENCES"
                     >
                       EXPERIENCES
                     </span>
 
                     <span
-                      className="hero-main block uppercase tracking-tight leading-none w-full"
+                      className="hero-main block uppercase tracking-tight leading-none w-full hero-word-3"
                       data-text="REDEFINED"
                     >
                       REDEFINED
@@ -73,29 +77,31 @@ export default function HeroSection({
                   </h1>
                   <style>{`
 
-                    /* Main stacked words */
+                    /* Main stacked words with enhanced animation */
                     .hero-main {
                       position: relative;
                       display: block;
                       width: 100%;
-                      will-change: opacity, transform;
+                      will-change: opacity, transform, filter;
                       opacity: 0;
-                      transform: translateY(12px);
-                      animation: hero-fade 750ms cubic-bezier(.2,.9,.3,1) forwards;
+                      transform: translateY(40px) scale(0.95);
+                      filter: blur(8px);
+                      animation: hero-cinematic-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                       -webkit-font-smoothing: antialiased;
                       font-size: clamp(3rem, 14vw, 10rem);
                       line-height: 0.9;
                       letter-spacing: -0.02em;
                       z-index: 30;
-                      /* ensure stacked words remain white by default */
                       color: #fff;
                       text-shadow: 0 8px 20px rgba(0,0,0,0.44);
                     }
-                    .hero-main:nth-of-type(1) { animation-delay: 0s; }
-                    .hero-main:nth-of-type(2) { animation-delay: 0.12s; }
-                    .hero-main:nth-of-type(3) { animation-delay: 0.24s; }
+                    
+                    /* Staggered delays for each word */
+                    .hero-word-1 { animation-delay: 0.1s; }
+                    .hero-word-2 { animation-delay: 0.35s; }
+                    .hero-word-3 { animation-delay: 0.6s; }
 
-                    /* Gradient applied only to DIGITAL */
+                    /* Gradient applied only to PREMIUM */
                     .hero-gradient {
                       /* Logo-inspired variant tuned to favor royal purple tones:
                          soft gold anchor -> vivid purple mid -> deep royal purple end
@@ -109,6 +115,25 @@ export default function HeroSection({
                       z-index: 40;
                       /* remove glow/border for a clean gradient */
                       text-shadow: none;
+                    }
+
+                    /* Cinematic reveal animation with blur and scale */
+                    @keyframes hero-cinematic-reveal {
+                      0% {
+                        opacity: 0;
+                        transform: translateY(40px) scale(0.95);
+                        filter: blur(8px);
+                      }
+                      60% {
+                        opacity: 0.8;
+                        transform: translateY(5px) scale(0.99);
+                        filter: blur(2px);
+                      }
+                      100% {
+                        opacity: 1;
+                        transform: translateY(0) scale(1);
+                        filter: blur(0);
+                      }
                     }
 
                     /* Subtle hero media frame shadow (kept from earlier change) */

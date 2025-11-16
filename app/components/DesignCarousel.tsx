@@ -65,17 +65,22 @@ export default function DesignCarousel({
 
   // Use an aspect-ratio on mobile so slides scale proportionally (wider & lower height)
   // On md+ we fall back to fixed heights for better desktop composition.
-  const mobileAspect = "aspect-[16/9]"; // landscape 16:9 for wider, lower mobile card
+  // Use an aspect-ratio on mobile so slides scale proportionally.
+  // For the default (smaller) variant use a slightly squarer 4:3 ratio so images fit better.
+  // Revert default variant to full-size behavior (match large) so carousels are full-width on md+.
+  const mobileAspect = "aspect-[16/9]";
+
+  // Restore larger md+/lg heights for full-size presentation.
   const heightMdClasses =
     variant === "large"
       ? "md:h-[760px] lg:h-[820px]"
-      : "md:h-[480px] lg:h-[520px]";
+      : "md:h-[760px] lg:h-[820px]";
 
-  // Centered max-width wrapper for mobile so the carousel becomes a compact rectangle on phones
+  // Allow full-width on md+ so the carousel uses the full horizontal space.
   const wrapperWidth =
     variant === "large"
       ? "w-full max-w-[640px] sm:max-w-[840px] md:max-w-none mx-auto"
-      : "w-full max-w-[560px] sm:max-w-[760px] md:max-w-none mx-auto";
+      : "w-full max-w-[640px] sm:max-w-[840px] md:max-w-none mx-auto";
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -97,7 +102,7 @@ export default function DesignCarousel({
                     src={img.src}
                     alt={img.alt ?? `Design ${i + 1}`}
                     fill
-                    className="object-contain md:object-cover w-full h-full"
+                    className="object-contain w-full h-full"
                     sizes="(max-width: 768px) 100vw, 1200px"
                   />
                 </div>

@@ -1,82 +1,102 @@
-"use client";
-
 import DesignCarousel from "./DesignCarousel";
-import React, { useMemo } from "react";
+import MusicCarousel from "./MusicCarousel";
+import WebsiteCarousel from "./WebsiteCarousel";
+import { useCinematicScroll } from "../hooks/useScrollAnimation";
+import React from "react";
 
 function CategoryCarouselWrapper() {
-  const designImages = useMemo(
-    () => [
-      {
-        src: "/images/portfolio-design/2 ORIN MEDIA MOCKUP BLACK.jpg",
-        alt: "Design 1",
-      },
-      {
-        src: "/images/portfolio-design/26 crew MAN mockup white.jpg",
-        alt: "Design 2",
-      },
-      { src: "/images/portfolio-design/3.jpg", alt: "Design 3" },
-      { src: "/images/portfolio-design/aerial mockup 3.jpg", alt: "Design 4" },
-    ],
-    []
-  );
+  const { elementRef: headerRef, isVisible: headerVisible } =
+    useCinematicScroll({ delay: 0 });
+  const { elementRef: statsRef, isVisible: statsVisible } = useCinematicScroll({
+    delay: 200,
+  });
+  const { elementRef: graphicsRef, isVisible: graphicsVisible } =
+    useCinematicScroll({ delay: 0 });
+  const { elementRef: musicRef, isVisible: musicVisible } = useCinematicScroll({
+    delay: 0,
+  });
+  const { elementRef: webRef, isVisible: webVisible } = useCinematicScroll({
+    delay: 0,
+  });
 
-  // Render only the large Design carousel for now
-  return (
-    <div className="flex flex-col items-center">
-      {/* Premium box wrapper */}
-      <div className="w-full">
-        <div className="mx-auto max-w-[1400px] rounded-2xl bg-gradient-to-b from-black/60 to-black/30 border border-white/6 backdrop-blur-md p-6 shadow-2xl">
-          <div className="text-center mb-6">
-            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-teal-300 leading-tight">
-              Graphics design
-            </h3>
-            <div className="mt-2">
-              <span className="text-sm text-gray-400">
-                Brand identities • Merch • Visual systems
-              </span>
-            </div>
-          </div>
+  const graphicsImages = [
+    {
+      src: "/images/portfolio-design/2 ORIN MEDIA MOCKUP BLACK.jpg",
+      alt: "Design 1",
+    },
+    {
+      src: "/images/portfolio-design/26 crew MAN mockup white.jpg",
+      alt: "Design 2",
+    },
+    { src: "/images/portfolio-design/3.jpg", alt: "Design 3" },
+  ];
 
-          <div className="w-full">
-            <DesignCarousel images={designImages} variant="large" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+  const musicTracks = [
+    {
+      src: "/audio/downtown-loop.mp3",
+      title: "Downtown Loop",
+      cover: "/images/media/downtown-loop.jpeg",
+    },
+    {
+      src: "/audio/neon-nights.mp3",
+      title: "Neon Nights",
+      cover: "/images/media/neon-nights.png",
+    },
+    {
+      src: "/audio/ambient-drift.mp3",
+      title: "Ambient Drift",
+      cover: "/images/media/ambient-drift-.png",
+    },
+  ];
 
-export default function PortfolioSection() {
-  // Using Design carousel here; a fuller items grid may be added later.
+  const webImages = [
+    {
+      src: "/images/portfolio-web/site1-full.png",
+      alt: "Portfolio Website 1",
+      isLongScreenshot: true,
+    },
+    {
+      src: "/images/portfolio-web/site2-full.png",
+      alt: "Portfolio Website 2",
+      isLongScreenshot: true,
+    },
+  ];
 
   return (
     <section id="portfolio" className="py-12 sm:py-16 md:py-20">
       <div className="w-full px-4 sm:px-6 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-          {/* Left column: heading + description (left-aligned, matches Services sizing) */}
-          <div className="md:col-span-12 lg:col-span-5">
-            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-extrabold text-white leading-tight">
+        <div className="w-full">
+          <div
+            ref={headerRef as React.RefObject<HTMLDivElement>}
+            className={`max-w-4xl mx-auto text-center ${
+              headerVisible ? "reveal-cinematic" : "opacity-0"
+            }`}
+          >
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
               <span className="block">Portfolio.</span>
-              <span className="block text-teal-300 text-lg sm:text-xl md:text-2xl font-medium mt-2">
+              <span className="block text-purple-300 text-lg sm:text-xl md:text-2xl font-medium mt-2">
                 Web • Merch • Soundtracks
               </span>
             </h2>
 
-            <div className="mt-4 sm:mt-6 pl-0 border-l-0 max-w-xl">
+            <div className="mt-4 sm:mt-6">
+              <div className="mx-auto w-72 border-t border-white/6 mb-4" />
               <p className="text-sm md:text-base text-gray-300 leading-relaxed">
                 We ship beautiful, usable products with high-performance code,
                 elevated brand systems, and original media that helps teams
                 stand out. Our work focuses on clarity, accessibility, and
                 scalable design so you can iterate confidently.
               </p>
-              {/* subtle horizontal rule handled by the badges container below (avoid duplicate lines) */}
             </div>
 
-            <div className="mt-6">
-              {/* Trustworthy portfolio badges and client strip with dividers */}
-              <div className="py-4 border-t border-b border-white/6">
-                <div className="flex flex-col gap-4">
-                  {/* Metrics row: pill badges (no vertical dividers) */}
+            <div
+              ref={statsRef as React.RefObject<HTMLDivElement>}
+              className={`mt-6 ${
+                statsVisible ? "reveal-slide-left delay-200" : "opacity-0"
+              }`}
+            >
+              <div className="py-4">
+                <div className="flex flex-col gap-4 items-center">
                   <div className="flex items-center gap-3">
                     <div className="px-4 py-2 bg-white/6 rounded-md">
                       <div className="text-sm font-semibold text-white">
@@ -98,45 +118,101 @@ export default function PortfolioSection() {
                     </div>
                   </div>
 
-                  {/* Horizontal featured case study card */}
-                  <div className="mt-2">
-                    {/* Minimal inline credentials (no boxed card) */}
-                    <div className="text-sm text-gray-300">
-                      <span className="font-semibold text-white">
-                        Professional services
-                      </span>
-                      <span className="mx-2 text-gray-500">•</span>
-                      <span>NDAs</span>
-                      <span className="mx-2 text-gray-500">•</span>
-                      <span>Fixed-scope estimates</span>
-                      <span className="mx-2 text-gray-500">•</span>
-                      <span>Dedicated PM</span>
-                      <span className="mx-2 text-gray-500">•</span>
-                      <span>On-time delivery</span>
-                    </div>
+                  <div className="mt-2 text-sm text-gray-300">
+                    <span className="font-semibold text-white">
+                      Professional services
+                    </span>
+                    <span className="mx-2 text-gray-500">•</span>
+                    <span>NDAs</span>
+                    <span className="mx-2 text-gray-500">•</span>
+                    <span>Fixed-scope estimates</span>
+                    <span className="mx-2 text-gray-500">•</span>
+                    <span>Dedicated PM</span>
+                    <span className="mx-2 text-gray-500">•</span>
+                    <span>On-time delivery</span>
                   </div>
 
-                  <div className="text-sm text-gray-400 max-w-xl">
+                  <div className="text-sm text-gray-400 max-w-xl mt-3">
                     <p>
                       Want to see how we solved challenges for teams like yours?
-                      Browse our case studies or reach out and we’ll share
-                      relevant work and timelines.
+                      Reach out and we’ll share relevant work and timelines.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* (carousel moved below for full-width centered layout) */}
         </div>
-        {/* Carousel: centered below the portfolio text */}
-        <div className="mt-10 flex justify-center">
-          <div className="w-full px-4">
-            <CategoryCarouselWrapper />
-          </div>
+
+        {/* Graphics design carousel */}
+        <div
+          ref={graphicsRef as React.RefObject<HTMLDivElement>}
+          className={`mt-16 sm:mt-20 ${
+            graphicsVisible ? "reveal-stagger delay-100" : "opacity-0"
+          }`}
+        >
+          <div className="mb-8 border-t border-white/10 pt-12"></div>
+          <h3 className="text-3xl font-extrabold text-white text-center mb-3">
+            Graphics design
+          </h3>
+          <p className="text-sm md:text-base text-white/70 text-center max-w-2xl mx-auto mb-6 leading-relaxed">
+            We craft bold visual identities, merch designs, and brand systems
+            that help indie game studios stand out. From t-shirts to posters,
+            each design is tailored to capture your game&apos;s unique
+            aesthetic.
+          </p>
+          <DesignCarousel
+            images={graphicsImages}
+            variant="default"
+            autoplay
+            interval={3000}
+          />
+        </div>
+
+        {/* Music audio carousel */}
+        <div
+          ref={musicRef as React.RefObject<HTMLDivElement>}
+          className={`mt-16 sm:mt-20 ${
+            musicVisible ? "reveal-stagger delay-200" : "opacity-0"
+          }`}
+        >
+          <div className="mb-8 border-t border-white/10 pt-12"></div>
+          <h3 className="text-3xl font-extrabold text-white text-center mb-3">
+            Music & Audio
+          </h3>
+          <p className="text-sm md:text-base text-white/70 text-center max-w-2xl mx-auto mb-6 leading-relaxed">
+            Original soundtracks and sonic identities designed for games. We
+            compose immersive music across genres—RPG, 8-bit, cyberpunk,
+            orchestral, and horror—bringing your world to life through sound.
+          </p>
+          <MusicCarousel
+            tracks={musicTracks}
+            variant="default"
+            interval={6000}
+          />
+        </div>
+
+        {/* Web design carousel */}
+        <div
+          ref={webRef as React.RefObject<HTMLDivElement>}
+          className={`mt-16 sm:mt-20 ${
+            webVisible ? "reveal-stagger delay-300" : "opacity-0"
+          }`}
+        >
+          <div className="mb-8 border-t border-white/10 pt-12"></div>
+          <h3 className="text-3xl font-extrabold text-white text-center mb-3">
+            Web design
+          </h3>
+          <p className="text-sm md:text-base text-white/70 text-center max-w-2xl mx-auto mb-6 leading-relaxed">
+            High-performance websites built with Next.js and React. We deliver
+            fast, accessible, and beautiful web experiences with clean code,
+            responsive design, and attention to performance budgets.
+          </p>
+          <WebsiteCarousel images={webImages} autoplay interval={5000} />
         </div>
       </div>
     </section>
   );
 }
+
+export default CategoryCarouselWrapper;
