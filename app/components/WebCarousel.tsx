@@ -19,9 +19,10 @@ export default function WebCarousel({
   const [index, setIndex] = useState(0);
   const timerRef = useRef<number | null>(null);
   const length = images.length;
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (!autoplay || length <= 1) return;
+    if (!autoplay || length <= 1 || paused) return;
     timerRef.current = window.setInterval(
       () => setIndex((i) => (i + 1) % length),
       interval
@@ -29,34 +30,52 @@ export default function WebCarousel({
     return () => {
       if (timerRef.current) window.clearInterval(timerRef.current);
     };
-  }, [autoplay, interval, length]);
+  }, [autoplay, interval, length, paused]);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const onEnter = () => {
+      setPaused(true);
       if (timerRef.current) {
         window.clearInterval(timerRef.current);
         timerRef.current = null;
       }
     };
     const onLeave = () => {
-      if (!timerRef.current && autoplay && length > 1)
-        timerRef.current = window.setInterval(
-          () => setIndex((i) => (i + 1) % length),
-          interval
-        );
+      setPaused(false);
     };
+    const onFocusIn = () => {
+      setPaused(true);
+      if (timerRef.current) {
+        window.clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+    const onFocusOut = () => {
+      setPaused(false);
+    };
+
     el.addEventListener("pointerenter", onEnter);
     el.addEventListener("pointerleave", onLeave);
+    el.addEventListener("focusin", onFocusIn);
+    el.addEventListener("focusout", onFocusOut);
     return () => {
       el.removeEventListener("pointerenter", onEnter);
       el.removeEventListener("pointerleave", onLeave);
+      el.removeEventListener("focusin", onFocusIn);
+      el.removeEventListener("focusout", onFocusOut);
     };
-  }, [autoplay, interval, length]);
+  }, [autoplay, interval, length, paused]);
 
   // Match sizing with design/music carousels
+  // If there are no images, render a harmless placeholder (keep hooks order)
+  if (length === 0) {
+    return (
+      <div className="w-full h-48 bg-gray-100 rounded-lg" aria-hidden="true" />
+    );
+  }
   const mobileAspect = "aspect-[16/9]";
   const heightMdClasses =
     variant === "large"
@@ -114,33 +133,41 @@ export default function WebCarousel({
         </div>
       </div>
 
-      <button
-        aria-label="Previous"
-        onClick={() => setIndex((i) => (i - 1 + length) % length)}
-        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-md hover:bg-black/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-      >
-        ‹
-      </button>
-      <button
-        aria-label="Next"
-        onClick={() => setIndex((i) => (i + 1) % length)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-md hover:bg-black/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-      >
-        ›
-      </button>
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {`Slide ${index + 1} of ${length}: ${images[index]?.alt ?? ""}`}
+      </p>
 
-      <div className="mt-3 flex justify-center gap-3">
-        {images.map((_, i) => (
+      {length > 1 && (
+        <>
           <button
-            key={i}
-            aria-label={`Go to slide ${i + 1}`}
-            onClick={() => setIndex(i)}
-            className={`w-2.5 h-2.5 rounded-full ${
-              i === index ? "bg-white" : "bg-white/30"
-            }`}
-          />
-        ))}
-      </div>
+            aria-label="Previous"
+            onClick={() => setIndex((i) => (i - 1 + length) % length)}
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-md hover:bg-black/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          >
+            ‹
+          </button>
+          <button
+            aria-label="Next"
+            onClick={() => setIndex((i) => (i + 1) % length)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-md hover:bg-black/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          >
+            ›
+          </button>
+
+          <div className="mt-3 flex justify-center gap-3">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                aria-label={`Go to slide ${i + 1}`}
+                onClick={() => setIndex(i)}
+                className={`w-2.5 h-2.5 rounded-full ${
+                  i === index ? "bg-white" : "bg-white/30"
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

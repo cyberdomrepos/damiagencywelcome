@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import TestimonialSliders from "./TestimonialSliders";
 import ServicesBig from "./ServicesBig";
-import {
-  useScrollAnimation,
-  useCinematicScroll,
-  useMagneticHover,
-} from "../hooks/useScrollAnimation";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface HeroSectionProps {
   prefersReducedMotion?: boolean;

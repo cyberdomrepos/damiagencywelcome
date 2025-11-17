@@ -1,3 +1,5 @@
+// Archived: original backup moved to `patches/archived/MusicCarousel-original-backup.tsx`
+// This file is retained as a lightweight pointer. Original content archived.
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
@@ -16,7 +18,7 @@ interface MusicCarouselProps {
   variant?: "large" | "default";
 }
 
-export default function MusicCarouselNew({
+export default function MusicCarousel({
   tracks,
   autoplay = false,
   interval = 4500,
@@ -352,21 +354,17 @@ export default function MusicCarouselNew({
   const togglePlay = (i: number) => {
     const audio = audioRefs.current[i];
     if (!audio) return;
-
+    
     // Ensure metadata is loaded
     if (!audio.duration || isNaN(audio.duration)) {
       audio.load();
       // Wait for metadata to load
-      audio.addEventListener(
-        "loadedmetadata",
-        () => {
-          togglePlay(i);
-        },
-        { once: true }
-      );
+      audio.addEventListener('loadedmetadata', () => {
+        togglePlay(i);
+      }, { once: true });
       return;
     }
-
+    
     if (audio.paused) {
       // pause other audios
       audioRefs.current.forEach((a, idx) => {
@@ -519,7 +517,7 @@ export default function MusicCarouselNew({
                   </div>
 
                   {/* Bottom control bar */}
-                  <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 via-black/60 to-transparent pt-12 pb-4 px-6 md:px-8">
+                  <div className="absolute bottom-0 left-0 right-0 z-10 bg-linear-to-t from-black/80 via-black/60 to-transparent pt-12 pb-4 px-6 md:px-8">
                     {/* Track info and timestamp */}
                     <div className="flex items-end justify-between mb-3">
                       <div>
@@ -609,6 +607,10 @@ export default function MusicCarouselNew({
                   <audio
                     ref={(el) => {
                       audioRefs.current[i] = el;
+                      if (el) {
+                        // Load metadata to get duration without downloading entire file
+                        el.load();
+                      }
                     }}
                     src={t.src}
                     preload="metadata"

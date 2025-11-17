@@ -2,7 +2,7 @@ const store: Map<string, { count: number; reset: number }> = new Map();
 
 export function checkRateLimit(ip: string | null) {
   const key = ip || "anon";
-  const max = Number(process.env.RATE_LIMIT_MAX || "10");
+  const max = Number(process.env.RATE_LIMIT_MAX || "3");
   const windowSec = Number(process.env.RATE_LIMIT_WINDOW || "300");
   const now = Date.now();
   const entry = store.get(key);
@@ -26,8 +26,8 @@ export function checkRateLimit(ip: string | null) {
 export function getRateLimitInfo(ip: string | null) {
   const key = ip || "anon";
   const entry = store.get(key);
-  if (!entry) return { remaining: Number(process.env.RATE_LIMIT_MAX || 10), reset: 0 };
-  return { remaining: Math.max(0, Number(process.env.RATE_LIMIT_MAX || 10) - entry.count), reset: entry.reset };
+  if (!entry) return { remaining: Number(process.env.RATE_LIMIT_MAX || 3), reset: 0 };
+  return { remaining: Math.max(0, Number(process.env.RATE_LIMIT_MAX || 3) - entry.count), reset: entry.reset };
 
 }
 

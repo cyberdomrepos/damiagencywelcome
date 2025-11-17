@@ -31,8 +31,14 @@ export default function MusicCarousel({
   const analyserRefs = useRef<Array<AnalyserNode | null>>([]);
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
   const rafRefs = useRef<Array<number | null>>([]);
-  const [, forceUpdate] = useState(0); // trigger re-render for timestamp updates
-  const [audioStates, setAudioStates] = useState<Array<{ currentTime: number; duration: number }>>([]);
+  const [, forceUpdate] = useState(0); // legacy trigger - still used by RAF loops
+  // Per-track time/duration state to avoid reading refs during render
+  const [currentTimes, setCurrentTimes] = useState<number[]>(
+    () => tracks.map(() => 0)
+  );
+  const [durations, setDurations] = useState<number[]>(() =>
+    tracks.map(() => 0)
+  );
 
   // drawWaveform is used by loader and by the RAF progress loop
   const drawWaveform = useCallback(
@@ -125,7 +131,7 @@ export default function MusicCarousel({
         const progress =
           audio && audio.duration ? audio.currentTime / audio.duration : 0;
         drawWaveform(buffer, canvas, progress);
-        forceUpdate(Math.random()); // trigger re-render for timestamp
+        // timestamp updates are driven by audio timeupdate events; avoid forcing re-renders here
         rafRefs.current[i] = window.requestAnimationFrame(loop);
       };
       rafRefs.current[i] = window.requestAnimationFrame(loop);
@@ -138,11 +144,18 @@ export default function MusicCarousel({
     const audio = audioRefs.current[i];
     if (!audio) return null;
     if (!audioCtxRef.current) {
-      // use the standard AudioContext constructor
-      // webkit prefix is only for very old Safari
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      audioCtxRef.current = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
+      // use the standard AudioContext constructor (support old webkit prefix)
+      const win = window as unknown as Window & {
+        webkitAudioContext?: typeof AudioContext;
+        AudioContext?: typeof AudioContext;
+      };
+      const Ctor = win.AudioContext ?? win.webkitAudioContext;
+      if (Ctor) {
+        // `Ctor` is a constructor for AudioContext
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore - runtime constructor for AudioContext
+        audioCtxRef.current = new Ctor();
+      }
     }
     if (analyserRefs.current[i]) return analyserRefs.current[i];
     try {
@@ -235,7 +248,6 @@ export default function MusicCarousel({
             ctx.stroke();
             ctx.restore();
           }
-          forceUpdate(Math.random()); // trigger re-render for timestamp
         } catch {
           // ignore drawing errors
         }
@@ -326,14 +338,18 @@ export default function MusicCarousel({
         setPlayingIndex((cur) => (cur === i ? null : cur));
       };
       const onTimeUpdate = () => {
-        // Update state for this audio element
-        if (a) {
-          setAudioStates(prev => {
-            const newStates = [...prev];
-            newStates[i] = { currentTime: a.currentTime || 0, duration: a.duration || 0 };
-            return newStates;
-          });
-        }
+        // update current time and duration in state (safe to read refs here because this is an event)
+        setCurrentTimes((prev) => {
+          const next = prev.slice();
+          next[i] = a.currentTime || 0;
+          return next;
+        });
+        setDurations((prev) => {
+          const next = prev.slice();
+          // prefer existing duration if audio.duration is not yet available
+          next[i] = a.duration && !isNaN(a.duration) ? a.duration : prev[i] || 0;
+          return next;
+        });
       };
       a.addEventListener("ended", onEnded);
       a.addEventListener("timeupdate", onTimeUpdate);
@@ -350,6 +366,9 @@ export default function MusicCarousel({
     };
   }, [stopProgressLoop]);
 
+  // NOTE: we intentionally avoid synchronously resizing state arrays here to
+  // prevent cascading renders. Rendering will guard with `|| 0` when indexing.
+
   const go = (n: number) =>
     setIndex((i) => {
       const next = (i + n + length) % length;
@@ -359,6 +378,20 @@ export default function MusicCarousel({
   const togglePlay = (i: number) => {
     const audio = audioRefs.current[i];
     if (!audio) return;
+
+    // Ensure metadata is loaded
+    if (!audio.duration || isNaN(audio.duration)) {
+      audio.load();
+      // Wait for metadata to load
+      audio.addEventListener(
+        "loadedmetadata",
+        () => {
+          togglePlay(i);
+        },
+        { once: true }
+      );
+      return;
+    }
 
     if (audio.paused) {
       // pause other audios
@@ -373,8 +406,6 @@ export default function MusicCarousel({
         window.clearInterval(timerRef.current);
         timerRef.current = null;
       }
-      
-      // Start playing
       audio
         .play()
         .then(() => {
@@ -449,11 +480,7 @@ export default function MusicCarousel({
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                     <button
                       type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        togglePlay(i);
-                      }}
+                      onClick={() => togglePlay(i)}
                       className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-purple-500 hover:bg-purple-600 flex items-center justify-center text-white shadow-xl transition-all transform hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-300"
                       aria-label={
                         playingIndex === i
@@ -518,7 +545,7 @@ export default function MusicCarousel({
                   </div>
 
                   {/* Bottom control bar */}
-                  <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 via-black/60 to-transparent pt-12 pb-4 px-6 md:px-8">
+                  <div className="absolute bottom-0 left-0 right-0 z-10 bg-linear-to-t from-black/80 via-black/60 to-transparent pt-12 pb-4 px-6 md:px-8">
                     {/* Track info and timestamp */}
                     <div className="flex items-end justify-between mb-3">
                       <div>
@@ -531,18 +558,15 @@ export default function MusicCarousel({
                       </div>
                       <div className="text-base md:text-lg font-mono text-white drop-shadow-lg bg-black/50 px-4 py-2 rounded-lg">
                         {(() => {
-                          const state = audioStates[i];
-                          if (!state || !state.duration) return "0:00 / 0:00";
-                          const current = Math.floor(state.currentTime || 0);
-                          const total = Math.floor(state.duration || 0);
+                          const current = Math.floor(currentTimes[i] || 0);
+                          const total = Math.floor(durations[i] || 0);
                           const formatTime = (sec: number) => {
                             const m = Math.floor(sec / 60);
                             const s = sec % 60;
                             return `${m}:${s.toString().padStart(2, "0")}`;
                           };
-                          return `${formatTime(current)} / ${formatTime(
-                            total
-                          )}`;
+                          if (!total) return "0:00 / 0:00";
+                          return `${formatTime(current)} / ${formatTime(total)}`;
                         })()}
                       </div>
                     </div>
@@ -585,15 +609,10 @@ export default function MusicCarousel({
                         className="absolute left-0 top-0 h-full bg-purple-500 rounded-full transition-none"
                         style={{
                           width: (() => {
-                            const state = audioStates[i];
-                            if (
-                              !state ||
-                              !state.duration ||
-                              isNaN(state.duration)
-                            )
-                              return "0%";
-                            const pct =
-                              (state.currentTime / state.duration) * 100;
+                            const dur = durations[i] || 0;
+                            const cur = currentTimes[i] || 0;
+                            if (!dur) return "0%";
+                            const pct = (cur / dur) * 100;
                             return `${Math.max(0, Math.min(100, pct))}%`;
                           })(),
                         }}
