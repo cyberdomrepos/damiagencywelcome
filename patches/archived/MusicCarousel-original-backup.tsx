@@ -1,3 +1,5 @@
+// Archived: original backup moved to `patches/archived/MusicCarousel-original-backup.tsx`
+// This file is retained as a lightweight pointer. Original content archived.
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
@@ -515,7 +517,7 @@ export default function MusicCarousel({
                   </div>
 
                   {/* Bottom control bar */}
-                  <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 via-black/60 to-transparent pt-12 pb-4 px-6 md:px-8">
+                  <div className="absolute bottom-0 left-0 right-0 z-10 bg-linear-to-t from-black/80 via-black/60 to-transparent pt-12 pb-4 px-6 md:px-8">
                     {/* Track info and timestamp */}
                     <div className="flex items-end justify-between mb-3">
                       <div>

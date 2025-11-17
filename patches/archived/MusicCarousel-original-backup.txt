@@ -1,3 +1,5 @@
+// Archived: original backup moved to `patches/archived/MusicCarousel-original-backup.tsx`
+// This file is retained as a lightweight pointer. Original content archived.
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
@@ -16,7 +18,7 @@ interface MusicCarouselProps {
   variant?: "large" | "default";
 }
 
-export default function MusicCarouselNew({
+export default function MusicCarousel({
   tracks,
   autoplay = false,
   interval = 4500,
@@ -31,10 +33,7 @@ export default function MusicCarouselNew({
   const analyserRefs = useRef<Array<AnalyserNode | null>>([]);
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
   const rafRefs = useRef<Array<number | null>>([]);
-  // per-track time state to avoid reading refs during render
-  const [times, setTimes] = useState<{ current: number; total: number }[]>(
-    () => tracks.map(() => ({ current: 0, total: 0 }))
-  );
+  const [, forceUpdate] = useState(0); // trigger re-render for timestamp updates
 
   // drawWaveform is used by loader and by the RAF progress loop
   const drawWaveform = useCallback(
@@ -127,15 +126,7 @@ export default function MusicCarouselNew({
         const progress =
           audio && audio.duration ? audio.currentTime / audio.duration : 0;
         drawWaveform(buffer, canvas, progress);
-        // update time state for UI (avoids reading refs during render)
-        setTimes((prev) => {
-          const next = prev.slice();
-          next[i] = {
-            current: audio?.currentTime || 0,
-            total: audio?.duration || next[i]?.total || 0,
-          };
-          return next;
-        });
+        forceUpdate(Math.random()); // trigger re-render for timestamp
         rafRefs.current[i] = window.requestAnimationFrame(loop);
       };
       rafRefs.current[i] = window.requestAnimationFrame(loop);
@@ -148,18 +139,11 @@ export default function MusicCarouselNew({
     const audio = audioRefs.current[i];
     if (!audio) return null;
     if (!audioCtxRef.current) {
-      // use the standard AudioContext constructor (support old webkit prefix)
-      const win = window as unknown as Window & {
-        webkitAudioContext?: typeof AudioContext;
-        AudioContext?: typeof AudioContext;
-      };
-      const Ctor = win.AudioContext ?? win.webkitAudioContext;
-      if (Ctor) {
-        // `Ctor` is a constructor for AudioContext
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore - runtime constructor for AudioContext
-        audioCtxRef.current = new Ctor();
-      }
+      // use the standard AudioContext constructor
+      // webkit prefix is only for very old Safari
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      audioCtxRef.current = new (window.AudioContext ||
+        (window as any).webkitAudioContext)();
     }
     if (analyserRefs.current[i]) return analyserRefs.current[i];
     try {
@@ -252,16 +236,7 @@ export default function MusicCarouselNew({
             ctx.stroke();
             ctx.restore();
           }
-          // update time state for UI
-          const audioForTimes = audioRefs.current[i];
-          setTimes((prev) => {
-            const next = prev.slice();
-            next[i] = {
-              current: audioForTimes?.currentTime || 0,
-              total: audioForTimes?.duration || next[i]?.total || 0,
-            };
-            return next;
-          });
+          forceUpdate(Math.random()); // trigger re-render for timestamp
         } catch {
           // ignore drawing errors
         }
@@ -352,33 +327,14 @@ export default function MusicCarouselNew({
         setPlayingIndex((cur) => (cur === i ? null : cur));
       };
       const onTimeUpdate = () => {
-        // update per-track time state
-        setTimes((prev) => {
-          const next = prev.slice();
-          next[i] = {
-            current: a.currentTime || 0,
-            total: a.duration || next[i]?.total || 0,
-          };
-          return next;
-        });
-      };
-      const onLoadedMeta = () => {
-        setTimes((prev) => {
-          const next = prev.slice();
-          next[i] = {
-            current: a.currentTime || 0,
-            total: a.duration || next[i]?.total || 0,
-          };
-          return next;
-        });
+        // force re-render to update progress bar and timestamp
+        forceUpdate(Math.random());
       };
       a.addEventListener("ended", onEnded);
       a.addEventListener("timeupdate", onTimeUpdate);
-      a.addEventListener("loadedmetadata", onLoadedMeta);
       handlers.push(() => {
         a.removeEventListener("ended", onEnded);
         a.removeEventListener("timeupdate", onTimeUpdate);
-        a.removeEventListener("loadedmetadata", onLoadedMeta);
       });
     });
     const rafSnapshot = rafRefs.current.slice();
@@ -389,33 +345,6 @@ export default function MusicCarouselNew({
     };
   }, [stopProgressLoop]);
 
-  // `times` is initialized from `tracks` on first render; dynamic resizing
-  // of `tracks` is uncommon for this component. If needed, we can add
-  // a controlled prop to reset times from outside.
-
-  // Start waveform/progress loops when a track begins playing.
-  // Move side-effects out of render/ref callbacks and into this effect.
-  useEffect(() => {
-    if (playingIndex == null) return;
-    const i = playingIndex;
-    const canvas = canvasRefs.current[i];
-    const buffer = decodedMap.current.get(tracks[i]?.src);
-
-    if (canvas) {
-      if (buffer) {
-        startProgressLoop(i, buffer, canvas);
-      } else {
-        const analyser = analyserRefs.current[i] || ensureAnalyserFor(i);
-        if (analyser) startAnalyserLoop(i);
-      }
-    }
-
-    return () => {
-      stopProgressLoop(i);
-    };
-    // `tracks` included to react to source changes; startProgressLoop/startAnalyserLoop are stable via useCallback
-  }, [playingIndex, startProgressLoop, startAnalyserLoop, stopProgressLoop, tracks]);
-
   const go = (n: number) =>
     setIndex((i) => {
       const next = (i + n + length) % length;
@@ -425,21 +354,17 @@ export default function MusicCarouselNew({
   const togglePlay = (i: number) => {
     const audio = audioRefs.current[i];
     if (!audio) return;
-
+    
     // Ensure metadata is loaded
     if (!audio.duration || isNaN(audio.duration)) {
       audio.load();
       // Wait for metadata to load
-      audio.addEventListener(
-        "loadedmetadata",
-        () => {
-          togglePlay(i);
-        },
-        { once: true }
-      );
+      audio.addEventListener('loadedmetadata', () => {
+        togglePlay(i);
+      }, { once: true });
       return;
     }
-
+    
     if (audio.paused) {
       // pause other audios
       audioRefs.current.forEach((a, idx) => {
@@ -457,15 +382,6 @@ export default function MusicCarouselNew({
         .play()
         .then(() => {
           setPlayingIndex(i);
-          // update times immediately
-          setTimes((prev) => {
-            const next = prev.slice();
-            next[i] = {
-              current: audio.currentTime || 0,
-              total: audio.duration || next[i]?.total || 0,
-            };
-            return next;
-          });
           // start RAF loop to update waveform progress
           const buffer = decodedMap.current.get(tracks[i].src);
           if (buffer && canvasRefs.current[i]) {
@@ -588,8 +504,13 @@ export default function MusicCarouselNew({
                   <div className="absolute inset-x-6 md:inset-x-12 bottom-24 md:bottom-28 z-10 bg-black/40 rounded-lg p-2">
                     <canvas
                       ref={(el) => {
-                        // only assign ref here — avoid running side-effects inside render
                         canvasRefs.current[i] = el;
+                        // Initialize canvas when mounted
+                        if (el && playingIndex === i) {
+                          const analyser =
+                            analyserRefs.current[i] || ensureAnalyserFor(i);
+                          if (analyser) startAnalyserLoop(i);
+                        }
                       }}
                       className="w-full h-16 md:h-20"
                     />
@@ -609,15 +530,18 @@ export default function MusicCarouselNew({
                       </div>
                       <div className="text-base md:text-lg font-mono text-white drop-shadow-lg bg-black/50 px-4 py-2 rounded-lg">
                         {(() => {
-                          const current = Math.floor(times[i]?.current || 0);
-                          const total = Math.floor(times[i]?.total || 0);
+                          const audio = audioRefs.current[i];
+                          if (!audio || !audio.duration) return "0:00 / 0:00";
+                          const current = Math.floor(audio.currentTime || 0);
+                          const total = Math.floor(audio.duration || 0);
                           const formatTime = (sec: number) => {
                             const m = Math.floor(sec / 60);
                             const s = sec % 60;
                             return `${m}:${s.toString().padStart(2, "0")}`;
                           };
-                          if (!total) return "0:00 / 0:00";
-                          return `${formatTime(current)} / ${formatTime(total)}`;
+                          return `${formatTime(current)} / ${formatTime(
+                            total
+                          )}`;
                         })()}
                       </div>
                     </div>
@@ -647,15 +571,8 @@ export default function MusicCarouselNew({
                         // Set the new time
                         audio.currentTime = newTime;
 
-                        // Update time state immediately after seeking
-                        setTimes((prev) => {
-                          const next = prev.slice();
-                          next[i] = {
-                            current: audio.currentTime || 0,
-                            total: audio.duration || next[i]?.total || 0,
-                          };
-                          return next;
-                        });
+                        // Force immediate update
+                        forceUpdate(Math.random());
 
                         // Start playing if paused and this is the current slide
                         if (audio.paused && i === index) {
@@ -665,15 +582,20 @@ export default function MusicCarouselNew({
                     >
                       <div
                         className="absolute left-0 top-0 h-full bg-purple-500 rounded-full transition-none"
-                          style={{
-                            width: (() => {
-                              const dur = times[i]?.total || 0;
-                              const cur = times[i]?.current || 0;
-                              if (!dur) return "0%";
-                              const pct = (cur / dur) * 100;
-                              return `${Math.max(0, Math.min(100, pct))}%`;
-                            })(),
-                          }}
+                        style={{
+                          width: (() => {
+                            const audio = audioRefs.current[i];
+                            if (
+                              !audio ||
+                              !audio.duration ||
+                              isNaN(audio.duration)
+                            )
+                              return "0%";
+                            const pct =
+                              (audio.currentTime / audio.duration) * 100;
+                            return `${Math.max(0, Math.min(100, pct))}%`;
+                          })(),
+                        }}
                       >
                         {/* Progress indicator dot */}
                         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg" />
@@ -685,6 +607,10 @@ export default function MusicCarouselNew({
                   <audio
                     ref={(el) => {
                       audioRefs.current[i] = el;
+                      if (el) {
+                        // Load metadata to get duration without downloading entire file
+                        el.load();
+                      }
                     }}
                     src={t.src}
                     preload="metadata"

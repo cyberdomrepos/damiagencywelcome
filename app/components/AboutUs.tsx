@@ -1,10 +1,7 @@
 "use client";
 
 import React from "react";
-import {
-  useScrollAnimation,
-  useCinematicScroll,
-} from "../hooks/useScrollAnimation";
+import { useCinematicScroll } from "../hooks/useScrollAnimation";
 
 export default function AboutUs() {
   const { elementRef: titleRef, isVisible: titleVisible } = useCinematicScroll({
@@ -292,7 +289,7 @@ export default function AboutUs() {
                 </div>
                 <ul className="space-y-1.5 text-xs text-white/70">
                   <li>• Apparel & merchandise</li>
-                  <li>• Collector's editions</li>
+                  <li>• Collector&apos;s editions</li>
                   <li>• Packaging design</li>
                   <li>• Print production</li>
                 </ul>

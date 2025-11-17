@@ -1,0 +1,3 @@
+# Ignore archived backups and generated artifacts
+patches/archived/
+patches/archived/**
