@@ -366,7 +366,7 @@ export default function HeroSection({
                 {/* image with stronger hover transform + subtle ring */}
                 <div className="relative w-full h-full overflow-hidden rounded-lg hero-media-frame">
                   <Image
-                    src="/images/hero-media.jpeg"
+                    src="/images/hero-media.avif"
                     alt="Showcase"
                     width={880}
                     height={550}
