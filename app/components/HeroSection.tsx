@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+// Using a native <picture> for the hero to prefer committed AVIF/WebP optimized assets
 import TestimonialSliders from "./TestimonialSliders";
 import ServicesBig from "./ServicesBig";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
@@ -365,18 +365,36 @@ export default function HeroSection({
 
                 {/* image with stronger hover transform + subtle ring */}
                 <div className="relative w-full h-full overflow-hidden rounded-lg hero-media-frame">
-                  <Image
-                    src="/images/hero-media.avif"
-                    alt="Showcase"
-                    width={880}
-                    height={550}
-                    priority
-                    unoptimized
-                    onError={(e) => {
-                      console.warn("Hero image failed to load:", e);
-                    }}
-                    className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 group-hover:-translate-y-4 group-hover:rotate-1"
-                  />
+                  <picture>
+                    <source
+                      type="image/avif"
+                      srcSet={
+                        "/images/opt/hero-media-1200.avif 1200w, /images/opt/hero-media-800.avif 800w, /images/opt/hero-media-400.avif 400w"
+                      }
+                      sizes="(min-width:1280px) 880px, (min-width:1024px) 720px, 360px"
+                    />
+                    <source
+                      type="image/webp"
+                      srcSet={
+                        "/images/opt/hero-media-1200.webp 1200w, /images/opt/hero-media-800.webp 800w, /images/opt/hero-media-400.webp 400w"
+                      }
+                      sizes="(min-width:1280px) 880px, (min-width:1024px) 720px, 360px"
+                    />
+                    <img
+                      src="/images/hero-media.avif"
+                      alt="Showcase"
+                      width={880}
+                      height={550}
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="sync"
+                      className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 group-hover:-translate-y-4 group-hover:rotate-1"
+                      onError={(e) => {
+                        // keep a lightweight console warning if the image fails
+                        console.warn("Hero image failed to load:", e);
+                      }}
+                    />
+                  </picture>
                 </div>
               </div>
             </div>
