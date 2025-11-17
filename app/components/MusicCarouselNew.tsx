@@ -32,8 +32,8 @@ export default function MusicCarouselNew({
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
   const rafRefs = useRef<Array<number | null>>([]);
   // per-track time state to avoid reading refs during render
-  const [times, setTimes] = useState<{ current: number; total: number }[]>(
-    () => tracks.map(() => ({ current: 0, total: 0 }))
+  const [times, setTimes] = useState<{ current: number; total: number }[]>(() =>
+    tracks.map(() => ({ current: 0, total: 0 }))
   );
 
   // drawWaveform is used by loader and by the RAF progress loop
@@ -414,7 +414,13 @@ export default function MusicCarouselNew({
       stopProgressLoop(i);
     };
     // `tracks` included to react to source changes; startProgressLoop/startAnalyserLoop are stable via useCallback
-  }, [playingIndex, startProgressLoop, startAnalyserLoop, stopProgressLoop, tracks]);
+  }, [
+    playingIndex,
+    startProgressLoop,
+    startAnalyserLoop,
+    stopProgressLoop,
+    tracks,
+  ]);
 
   const go = (n: number) =>
     setIndex((i) => {
@@ -617,7 +623,9 @@ export default function MusicCarouselNew({
                             return `${m}:${s.toString().padStart(2, "0")}`;
                           };
                           if (!total) return "0:00 / 0:00";
-                          return `${formatTime(current)} / ${formatTime(total)}`;
+                          return `${formatTime(current)} / ${formatTime(
+                            total
+                          )}`;
                         })()}
                       </div>
                     </div>
@@ -665,15 +673,15 @@ export default function MusicCarouselNew({
                     >
                       <div
                         className="absolute left-0 top-0 h-full bg-purple-500 rounded-full transition-none"
-                          style={{
-                            width: (() => {
-                              const dur = times[i]?.total || 0;
-                              const cur = times[i]?.current || 0;
-                              if (!dur) return "0%";
-                              const pct = (cur / dur) * 100;
-                              return `${Math.max(0, Math.min(100, pct))}%`;
-                            })(),
-                          }}
+                        style={{
+                          width: (() => {
+                            const dur = times[i]?.total || 0;
+                            const cur = times[i]?.current || 0;
+                            if (!dur) return "0%";
+                            const pct = (cur / dur) * 100;
+                            return `${Math.max(0, Math.min(100, pct))}%`;
+                          })(),
+                        }}
                       >
                         {/* Progress indicator dot */}
                         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg" />

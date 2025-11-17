@@ -33,8 +33,8 @@ export default function MusicCarousel({
   const rafRefs = useRef<Array<number | null>>([]);
   const [, forceUpdate] = useState(0); // legacy trigger - still used by RAF loops
   // Per-track time/duration state to avoid reading refs during render
-  const [currentTimes, setCurrentTimes] = useState<number[]>(
-    () => tracks.map(() => 0)
+  const [currentTimes, setCurrentTimes] = useState<number[]>(() =>
+    tracks.map(() => 0)
   );
   const [durations, setDurations] = useState<number[]>(() =>
     tracks.map(() => 0)
@@ -347,7 +347,8 @@ export default function MusicCarousel({
         setDurations((prev) => {
           const next = prev.slice();
           // prefer existing duration if audio.duration is not yet available
-          next[i] = a.duration && !isNaN(a.duration) ? a.duration : prev[i] || 0;
+          next[i] =
+            a.duration && !isNaN(a.duration) ? a.duration : prev[i] || 0;
           return next;
         });
       };
@@ -566,7 +567,9 @@ export default function MusicCarousel({
                             return `${m}:${s.toString().padStart(2, "0")}`;
                           };
                           if (!total) return "0:00 / 0:00";
-                          return `${formatTime(current)} / ${formatTime(total)}`;
+                          return `${formatTime(current)} / ${formatTime(
+                            total
+                          )}`;
                         })()}
                       </div>
                     </div>

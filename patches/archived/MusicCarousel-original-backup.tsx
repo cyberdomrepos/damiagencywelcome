@@ -354,17 +354,21 @@ export default function MusicCarousel({
   const togglePlay = (i: number) => {
     const audio = audioRefs.current[i];
     if (!audio) return;
-    
+
     // Ensure metadata is loaded
     if (!audio.duration || isNaN(audio.duration)) {
       audio.load();
       // Wait for metadata to load
-      audio.addEventListener('loadedmetadata', () => {
-        togglePlay(i);
-      }, { once: true });
+      audio.addEventListener(
+        "loadedmetadata",
+        () => {
+          togglePlay(i);
+        },
+        { once: true }
+      );
       return;
     }
-    
+
     if (audio.paused) {
       // pause other audios
       audioRefs.current.forEach((a, idx) => {
